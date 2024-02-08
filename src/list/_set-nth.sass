@@ -1,0 +1,22 @@
+@use 'sass:list'
+
+/// 
+/// Returns a copy of $list with the element at index $n replaced with $value.
+/// 
+/// @param {*} $list
+/// @param {Number} $n - If $n is negative, it counts from the end of $list. Throws an error if there is no element at index $n.
+/// @param {*} $value
+/// @return {List}
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.set-nth(10px 20px 30px, 1, 2em)  //=> 2em 20px 30px
+///     @debug list.set-nth(10px 20px 30px, -1, 8em)  //=> 10px, 20px, 8em
+///     @debug list.set-nth((Helvetica, Arial, sans-serif), 3, Roboto)  //=> Helvetica, Arial, Roboto
+///      
+/// @access public
+/// 
+@function set-nth($list, $n, $value)
+    
+    @return list.set-nth($list, $n, $value)

@@ -1,0 +1,19 @@
+@use 'sass:list'
+
+/// 
+/// Combines every list in $lists into a single list of sub-lists.
+/// 
+/// @param {*} $lists
+/// @return {List}
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.zip(10px 50px 100px, short mid long)  //=> 10px short, 50px mid, 100px long
+///     @debug list.zip(10px 50px 100px, short mid)  //=> 10px short, 50px mid
+///      
+/// @access public
+/// 
+@function zip($lists...)
+    
+    @return list.zip($lists...)

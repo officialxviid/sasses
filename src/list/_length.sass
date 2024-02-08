@@ -1,0 +1,20 @@
+@use 'sass:list'
+
+/// 
+/// Returns the length of $list.
+///  
+/// @param {*} $list
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.length(10px)  //=> 1
+///     @debug list.length(10px 20px 30px)  //=> 3
+///     @debug list.length((width: 10px, height: 20px))  //=> 2
+///      
+/// @access public
+/// 
+@function length($list)
+    
+    @return list.length($list)

@@ -1,0 +1,21 @@
+@use 'sass:list'
+
+/// 
+/// Returns the index of $value in $list.
+/// 
+/// @param {List} $list
+/// @param {String | Number | Color} $value
+/// @return {Number | null} - If $value doesn’t appear in $list, this returns null. If $value appears multiple times in $list, this returns the index of its first appearance.
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.index(1px solid red, 1px)  //=> 1
+///     @debug list.index(1px solid red, solid)  //=> 2
+///     @debug list.index(1px solid red, dashed)  //=> null
+///      
+/// @access public
+/// 
+@function index($list, $value)
+    
+    @return list.index($list, $value)

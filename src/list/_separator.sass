@@ -1,0 +1,21 @@
+@use 'sass:list'
+
+/// 
+/// Returns the length of $list.
+/// 
+/// @param {*} $list
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.separator(1px 2px 3px)  //=> space
+///     @debug list.separator((1px, 2px, 3px))  //=> comma
+///     @debug list.separator('Helvetica')  //=> space
+///     @debug list.separator(())  //=> space
+///      
+/// @access public
+/// 
+@function separator($list)
+    
+    @return list.separator($list)

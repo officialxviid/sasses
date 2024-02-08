@@ -1,0 +1,27 @@
+@use 'sass:list'
+
+/// 
+/// Returns a new list containing the elements of $list1 followed by the elements of $list2.
+/// 
+/// @param {*} $list1
+/// @param {*} $list2
+/// @param {String} $separator - comma, space, or slash. If it’s auto (the default), the returned list will use the same separator as $list1 if it has a separator, or else $list2 if it has a separator, or else space.
+/// @param {Bool | String} $bracketed - auto, true or false.
+/// @return {List}
+/// 
+/// @example
+///     @use "sasses/list"
+///     
+///     @debug list.join(10px 20px, 30px 40px)  //=> 10px 20px 30px 40px
+///     @debug list.join((blue, red), (#abc, #def))  //=> blue, red, #abc, #def
+///     @debug list.join(10px, 20px)  //=> 10px 20px
+///     @debug list.join(10px, 20px, $separator: comma)  //=> 10px, 20px
+///     @debug list.join((blue, red), (#abc, #def), $separator: space)  //=> blue red #abc #def
+///     @debug list.join([10px], 20px)  //=> [10px 20px]
+///     @debug list.join(10px, 20px, $bracketed: true)  //=> [10px 20px]
+///      
+/// @access public
+/// 
+@function join($list1, $list2, $separator: auto, $bracketed: auto)
+    
+    @return list.join($list1, $list2, $separator, $bracketed)
