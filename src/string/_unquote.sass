@@ -1,0 +1,19 @@
+@use 'sass:string'
+
+/// 
+/// Returns $string as an unquoted string. This can produce strings that aren’t valid CSS, so use with caution.
+/// 
+/// @param {String} $string
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.unquote("Helvetica")  //=> Helvetica
+///     @debug string.unquote(".widget:hover")  //=> .widget:hover
+///      
+/// @access public
+/// 
+@function unquote($string)
+    
+    @return string.unquote($string)

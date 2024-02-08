@@ -1,0 +1,18 @@
+@use 'sass:string'
+
+/// 
+/// Returns a randomly-generated unquoted string that’s guaranteed to be a valid CSS identifier and to be unique within the current Sass compilation.
+/// 
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.unique-id()  //=> uabtrnzug
+///     @debug string.unique-id()  //=> u6w1b1def
+///      
+/// @access public
+/// 
+@function unique-id()
+    
+    @return string.unique-id()

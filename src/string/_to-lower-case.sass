@@ -1,0 +1,19 @@
+@use 'sass:string'
+
+/// 
+/// Returns a copy of $string with the ASCII letters converted to lower case.
+/// 
+/// @param {String} $string
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.to-lower-case("Bold")  //=> "bold"
+///     @debug string.to-lower-case(SANS-SERIF)  //=> sans-serif
+///      
+/// @access public
+/// 
+@function to-lower-case($string)
+    
+    @return string.to-lower-case($string)

@@ -1,0 +1,20 @@
+@use 'sass:string'
+
+/// 
+/// Returns the number of characters in $string.
+/// 
+/// @param {String} $string
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.length("Helvetica Neue")  //=> 14
+///     @debug string.length(bold)  //=> 4
+///     @debug string.length("")  //=> 0
+///      
+/// @access public
+/// 
+@function length($string)
+    
+    @return string.length($string)

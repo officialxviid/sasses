@@ -1,0 +1,19 @@
+@use 'sass:string'
+
+/// 
+/// Returns $string as a quoted string.
+/// 
+/// @param {String} $string
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.quote(Helvetica)  //=> "Helvetica"
+///     @debug string.quote("Helvetica")  //=> "Helvetica"
+///      
+/// @access public
+/// 
+@function quote($string)
+    
+    @return string.quote($string)

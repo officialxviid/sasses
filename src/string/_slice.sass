@@ -1,0 +1,22 @@
+@use 'sass:string'
+
+/// 
+/// Returns the slice of $string starting at index $start-at and ending at index $end-at (both inclusive).
+/// 
+/// @param {String} $string
+/// @param {Number} $start-at
+/// @param {Number} $end-at
+/// @return {String}
+/// 
+/// @example
+///     @use "sasses/string"
+///     
+///     @debug string.slice("Helvetica Neue", 11)  //=> "Neue"
+///     @debug string.slice("Helvetica Neue", 1, 3)  //=> "Hel"
+///     @debug string.slice("Helvetica Neue", 1, -6)  //=> "Helvetica"
+///      
+/// @access public
+/// 
+@function slice($string, $start-at, $end-at: -1)
+    
+    @return string.slice($string, $start-at, $end-at)
