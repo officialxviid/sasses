@@ -1,0 +1,26 @@
+@use 'sass:selector'
+
+/// 
+/// Returns whether the selector $super matches all the elements that the selector $sub matches.
+/// 
+/// @param {String} $super  - Element
+/// @param {String} $sub    - Sub element
+/// @return {Bool} - Still returns true even if $super matches more elements than $sub.
+/// 
+/// @see @link https://sass-lang.com/documentation/style-rules/placeholder-selectors/ - Placeholder Selectors
+/// @se @link https://sass-lang.com/documentation/style-rules/parent-selector/ - Parent Selector
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.is-superselector("a", "a.disabled") //=> true
+///     @debug selector.is-superselector("a.disabled", "a") //=> false
+///     @debug selector.is-superselector("a", "sidebar a") //=> true
+///     @debug selector.is-superselector("sidebar a", "a") //=> false
+///     @debug selector.is-superselector("a", "a") //=> true
+///      
+/// @access public
+/// 
+@function is-superselector($super, $sub)
+    
+    @return selector.is-superselector($super, $sub)

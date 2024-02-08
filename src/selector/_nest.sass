@@ -1,0 +1,24 @@
+@use 'sass:selector'
+
+/// 
+/// Combines $selectors without descendant combinators—that is, without whitespace between them.
+/// 
+/// @param {Selector} $selectors - May contain placeholder selectors. Unlike other selector functions, all of them except the first may also contain parent selectors.
+/// @return {Selector}
+/// 
+/// @see @link https://sass-lang.com/documentation/style-rules/placeholder-selectors/ - Placeholder Selectors
+/// @se @link https://sass-lang.com/documentation/style-rules/parent-selector/ - Parent Selector
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.nest("ul", "li")  //=> ul li
+///     @debug selector.nest(".alert, .warning", "p")  //=> .alert p, .warning p
+///     @debug selector.nest(".alert", "&:hover")  //=> .alert:hover
+///     @debug selector.nest(".accordion", "&__copy")  //=> .accordion__copy
+///     
+/// @access public
+/// 
+@function nest($selectors...)
+    
+    @return selector.nest($selectors)

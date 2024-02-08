@@ -1,0 +1,19 @@
+@use 'sass:selector'
+
+/// 
+/// Returns a list of simple selectors in $selector.
+/// 
+/// @param {String} $selector - Selector value
+/// @return {Selector}
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.simple-selectors("a.disabled")  //=> a, .disabled
+///     @debug selector.simple-selectors("main.blog:after")  //=> main, .blog, :after
+/// 
+/// @access public
+/// 
+@function simple-selectors($selector)
+    
+    @return selector.simple-selectors($selector)

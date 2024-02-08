@@ -1,0 +1,23 @@
+@use 'sass:selector'
+
+/// 
+/// Combines $selectors without descendant combinators—that is, without whitespace between them.
+/// 
+/// @param {Selector} $selectors - May contain placeholder selectors, but not parent selectors.
+/// @return {Selector} - If any selector in $selectors is a selector list, each complex selector is combined separately.
+/// 
+/// @see @link https://sass-lang.com/documentation/style-rules/placeholder-selectors/ - Placeholder Selectors
+/// @se @link https://sass-lang.com/documentation/style-rules/parent-selector/ - Parent Selector
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.append("a", ".disabled") //=> a.disabled
+///     @debug selector.append(".accordion", "__copy") //=> .accordion__copy
+///     @debug selector.append(".accordion", "__copy, __image")  //=> .accordion__copy, .accordion__image
+///      
+/// @access public
+/// 
+@function append($selectors...)
+    
+    @return selector.append($selectors)

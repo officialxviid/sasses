@@ -1,0 +1,22 @@
+@use 'sass:selector'
+
+/// 
+/// Returns a selector that matches only elements matched by both $selector1 and $selector2.
+/// 
+/// @param {String} $selector1 - Selector value 1
+/// @param {String} $selector2 - Selector value 2
+/// @return {Selector | null} - Returns null if $selector1 and $selector2 don’t match any of the same elements, or if there’s no selector that can express their overlap.
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.unify("a", ".disabled")  //=> a.disabled
+///     @debug selector.unify("a.disabled", "a.outgoing")  //=> a.disabled.outgoing
+///     @debug selector.unify("a", "h1")  //=> null
+///     @debug selector.unify(".warning a", "main a")  //=> .warning main a, main .warning a
+///     
+/// @access public
+/// 
+@function unify($selector1, $selector2)
+    
+    @return selector.unify($selector1, $selector2)

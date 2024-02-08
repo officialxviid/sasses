@@ -1,0 +1,22 @@
+@use 'sass:selector'
+
+/// 
+/// Extends $selector as with the @extend rule.
+/// 
+/// @param {String} $selector - Base selector
+/// @param {String} $extendee - Selector extendee
+/// @param {String} $extender - Selector extender
+/// @return {Selector} - If $selector doesn’t contain $extendee, returns it as-is.
+/// 
+/// @example
+///     @use "sasses/selector"
+///     
+///     @debug selector.extend("a.disabled", "a", ".link")  //=> a.disabled, .link.disabled
+///     @debug selector.extend("a.disabled", "h1", "h2")  //=> a.disabled
+///     @debug selector.extend(".guide .info", ".info", ".content nav.sidebar")  //=> .guide .info, .guide .content nav.sidebar, .content .guide nav.sidebar
+///      
+/// @access public
+/// 
+@function extend($selector, $extendee, $extender)
+    
+    @return selector.extend($selector, $extendee, $extender)
