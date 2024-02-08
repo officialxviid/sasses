@@ -1,0 +1,24 @@
+@use 'sass:map'
+
+/// 
+/// Returns a copy of $map where the targeted map does not have a value associated with the last key in $keys.
+/// 
+/// @param {Map}                $map    - Map
+/// @param {String | Number}    $key    - Map key
+/// @param {Arglist}            $keys   - If $keys is empty, returns a copy of $map without a value associated with $key. If $keys is not empty, follows the set of keys including $key and excluding the last key in $keys, from left to right, to find the nested map targeted for updating.
+/// @return {Map}
+/// 
+/// @example
+///     @use "sasses/map"
+///     
+///     $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+///     @debug map.deep-remove($font-weights, "regular")  //=> ("medium": 500, "bold": 700)
+///     
+///     $fonts: ("Helvetica": ("weights": ("regular": 400, "medium": 500, "bold": 700)))
+///     @debug map.deep-remove($fonts, "Helvetica", "weights", "regular")  //=> ( "Helvetica": ( "weights: ( "medium": 500, "bold": 700 ) ) )
+///     
+/// @access public
+/// 
+@function deep-remove($map, $key, $keys...)
+    
+    @return map.deep-remove($map, $key, $keys)

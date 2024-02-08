@@ -1,0 +1,26 @@
+@use 'sass:map'
+
+/// 
+/// Returns a copy of $map1 where the targeted map is replaced by a new map that contains all the keys and values from both the targeted map and $map2.
+/// 
+/// @param {Map}        $map1   - If both $map1 and $map2 have the same key, $map2’s value takes precedence.
+/// @param {Arglist}    $keys   - If no $keys are passed, returns a new map with all the keys and values from both $map1 and $map2. If $keys is not empty, follows the $keys to find the nested map targeted for merging. If any key in $keys is missing from a map or references a value that is not a map, sets the value at that key to an empty map.
+/// @param {Map}        $map2   - If both $map1 and $map2 have the same key, $map2’s value takes precedence.
+/// @return {Map}
+/// 
+/// @example
+///     @use "sasses/map"
+///     
+///     $light-weights: ("lightest": 100, "light": 300)
+///     $heavy-weights: ("medium": 500, "bold": 700)
+///     @debug map.merge($light-weights, $heavy-weights)  // ("lightest": 100, "light": 300, "medium": 500, "bold": 700)
+///     
+///     $fonts: ("Helvetica": ("weights": ("lightest": 100, "light": 300)))
+///     $heavy-weights: ("medium": 500, "bold": 700)
+///     @debug map.merge($fonts, "Helvetica", "weights", $heavy-weights)  //=> ( "Helvetica": ( "weights": ( "lightest": 100, "light": 300, "medium": 500, "bold": 700 ) ) )
+///     
+/// @access public
+/// 
+@function keys($map1, $keys..., $map2)
+    
+    @return map.merge($map1, $keys, $map2)

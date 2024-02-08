@@ -1,0 +1,20 @@
+@use 'sass:map'
+
+/// 
+/// Returns a comma-separated list of all the values in $map.
+/// 
+/// @param {Map} $map - Map value
+/// @return {List}
+/// 
+/// @example
+///     @use "sasses/map"
+///     
+///     $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+///     
+///     @debug map.values($font-weights)  //=> 400, 500, 700
+///     
+/// @access public
+/// 
+@function values($map)
+    
+    @return map.values($map)

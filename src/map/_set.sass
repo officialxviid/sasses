@@ -1,0 +1,25 @@
+@use 'sass:map'
+
+/// 
+/// Returns a copy of $map with the targeted map’s value at $key set to $value.
+/// 
+/// @param {Map}                $map    - Map value
+/// @param {Arglist}            $keys   - If $keys are not passed, returns a copy of $map with the value at $key set to $value. If $keys are passed, follows the $keys to find the nested map targeted for updating. If any key in $keys is missing from a map or references a value that is not a map, sets the value at that key to an empty map.
+/// @param {String | Number}    $key    - Map key
+/// @param {String | Number}    $value  - The value you want to change
+/// @return {Map}
+/// 
+/// @example
+///     @use "sasses/map"
+///     
+///     $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+///     @debug map.set($font-weights, "regular", 300)  //=> ("regular": 300, "medium": 500, "bold": 700)
+///     
+///     $fonts: ("Helvetica": ("weights": ("regular": 400, "medium": 500, "bold": 700)))
+///     @debug map.set($fonts, "Helvetica", "weights", "regular", 300)  //=> ( "Helvetica": ( "weights": ( "regular": 300, "medium": 500, "bold": 700 ) ) )
+///     
+/// @access public
+/// 
+@function set($map, $keys..., $key, $value)
+    
+    @return map.set($map, $keys, $key, $value)

@@ -1,0 +1,26 @@
+@use 'sass:map'
+
+/// 
+/// Returns the value in the targeted map associated with the last key in $keys.
+/// 
+/// @param {Map}                $map    - If $map doesn’t have a value associated with $key, returns null.
+/// @param {String | Number}    $key    - Map key
+/// @param {Arglist}            $keys   - If $keys is empty, returns the value in $map associated with $key. If $keys is not empty, follows the set of keys including $key and excluding the last key in $keys, from left to right, to find the nested map targeted for searching.
+/// @return {Map | null} - Returns null if the map does not have a value associated with the key, or if any key in $keys is missing from a map or references a value that is not a map.
+/// 
+/// @example
+///     @use "sasses/map"
+///     
+///     $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+///     @debug map.get($font-weights, "medium")  //=> 500
+///     @debug map.get($font-weights, "extra-bold")  //=> null
+///     
+///     $fonts: ("Helvetica": ("weights": ("regular": 400, "medium": 500, "bold": 700)))
+///     @debug map.get($fonts, "Helvetica", "weights", "regular")  //=> 400
+///     @debug map.get($fonts, "Helvetica", "colors")  //=> null
+///     
+/// @access public
+/// 
+@function get($map, $key, $keys...)
+    
+    @return map.get($map, $key, $keys)
