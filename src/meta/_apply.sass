@@ -1,0 +1,13 @@
+@use 'sass:meta'
+
+/// 
+/// Includes $mixin with $args. If this is passed a @content block, it’s forwarded to $mixin.
+/// 
+/// @param {Mixin} $mixin
+/// @param {*} $args
+/// @output 
+/// 
+/// @access public
+/// 
+@mixin apply($mixin, $args...)
+    @include meta.apply($mixin, $args)

@@ -1,0 +1,20 @@
+@use 'sass:meta'
+
+/// 
+/// Returns whether the current mixin was passed a @content block.
+/// 
+/// @return {Bool} - Returns of function return
+/// 
+/// @example
+///     @mixin debug-content-exists
+///         @debug meta.content-exists()
+///         @content
+///
+///     @include debug-content-exists  //=> false
+///     @include debug-content-exists   //=> true
+/// 
+/// @access public
+/// 
+@function content-exists()
+    
+    @return meta.content-exists()

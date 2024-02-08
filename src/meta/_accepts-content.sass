@@ -1,0 +1,24 @@
+@use 'sass:meta'
+
+/// 
+/// Returns whether the given mixin value can accept a @content block.
+/// 
+/// @param {Mixin} $mixin - Mixin name 
+/// @return {Bool} - This returns true if it’s possible for the mixin to accept a @content block, even if it doesn’t always do so.
+/// 
+/// @example
+///     @mixin yes
+///         @content
+///     @mixin no
+///         .font-size-18px
+///             font-size: 18px
+///     $check1: meta.get-mixin(yes)
+///     $check2: meta.get-mixin(no)
+///     @debug meta.accepts-content($check1)  //=> true
+///     @debug meta.accepts-content($check2)  //=> false
+/// 
+/// @access public
+/// 
+@function accepts-content($mixin)
+    
+    @return meta.accepts-content($mixin)

@@ -1,0 +1,28 @@
+@use 'sass:meta'
+
+/// 
+/// Returns whether a global variable named $name (without the $) exists.
+/// 
+/// @param {String} $name   - Variable name
+/// @param {String} $module - If $module is null, this returns whether a mixin named $name without a namespace exists. Otherwise, $module must be a string matching the namespace of a @use rule in the current file, in which case this returns whether that module has a mixin named $name. 
+/// @return {Bool}
+/// 
+/// @example
+///     @use "sasses/meta"
+///     @use "sass:list"
+///     @use "sass:string"
+///     
+///     @debug meta.global-variable-exists("var1")  //=> false
+///     
+///     $var1: value
+///     @debug meta.global-variable-exists("var1")  //=> true
+///     
+///     h1
+///         $var2: value
+///         @debug meta.global-variable-exists("var2")  // false (because $var2 is local)
+///     
+/// @access public
+/// 
+@function global-variable-exists($name, $module: null)
+    
+    @return meta.global-variable-exists($name, $module)

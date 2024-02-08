@@ -1,0 +1,20 @@
+@use 'sass:meta'
+
+/// 
+/// Returns the type of $value.
+/// 
+/// @param {*} $module - If $module is null, this returns whether a mixin named $name without a namespace exists. Otherwise, $module must be a string matching the namespace of a @use rule in the current file, in which case this returns whether that module has a mixin named $name. 
+/// @return {*} - This can return the following values: number, string, color, list, map, calculation, bool, null, function, arglist
+/// 
+/// @example
+///     @use "sasses/meta"
+///     
+///     @debug meta.type-of(10px)  //=> number
+///     @debug meta.type-of(10px 20px 30px)  //=> list
+///     @debug meta.type-of(())  //=> list
+///     
+/// @access public
+/// 
+@function type-of($value)
+    
+    @return meta.type-of($value)

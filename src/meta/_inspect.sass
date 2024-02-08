@@ -1,0 +1,19 @@
+@use 'sass:meta'
+
+/// 
+/// Returns a string representation of $value.
+/// 
+/// @param {*} $value - Inspect value 
+/// @return {*} - Returns a representation of any Sass value, not just those that can be represented in CSS. As such, its return value is not guaranteed to be valid CSS.
+/// 
+/// @example
+///     @debug meta.inspect(10px 20px 30px)  //=> unquote("10px 20px 30px")
+///     @debug meta.inspect(("width": 200px))  //=> unquote('("width": 200px)')
+///     @debug meta.inspect(null)  //=> unquote("null")
+///     @debug meta.inspect("Helvetica")  //=> unquote('"Helvetica"')
+///     
+/// @access public
+/// 
+@function inspect($value)
+    
+    @return meta.inspect($value)

@@ -1,0 +1,16 @@
+@use 'sass:meta'
+
+/// 
+/// Returns the name of the given calculation.
+/// 
+/// @param {Calc} $calc - Calculations are how Sass represents the calc() function, as well as similar functions like clamp(), min(), and max().
+/// @return {String} - quoted string
+/// 
+/// @example
+///     @debug meta.calc-name(clamp(50px, var(--width), 1000px))  //=> "clamp"
+/// 
+/// @access public
+/// 
+@function calc-name($calc)
+    
+    @return meta.calc-name($calc)

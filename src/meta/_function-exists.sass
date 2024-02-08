@@ -1,0 +1,20 @@
+@use 'sass:meta'
+
+/// 
+/// Returns whether a function named $name is defined, either as a built-in function or a user-defined function.
+/// 
+/// @param {Function}   $name   - Function name
+/// @param {String}     $module - If $module is null, this returns whether a mixin named $name without a namespace exists. Otherwise, $module must be a string matching the namespace of a @use rule in the current file, in which case this returns whether that module has a mixin named $name.
+/// @return {Bool}
+/// 
+/// @example
+///     @use "sass:math"
+///     
+///     @debug meta.function-exists("no-function")  //=> false
+///     @debug meta.function-exists("div", "math")  //=> true
+/// 
+/// @access public
+/// 
+@function function-exists($name, $module: null)
+    
+    @return meta.function-exists($name, $module)

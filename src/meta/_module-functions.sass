@@ -1,0 +1,27 @@
+@use 'sass:meta'
+
+/// 
+/// Returns all the functions defined in a module, as a map from function names to function values.
+/// 
+/// @param {String}     $module - If $module is null, this returns whether a mixin named $name without a namespace exists. Otherwise, $module must be a string matching the namespace of a @use rule in the current file, in which case this returns whether that module has a mixin named $name. 
+/// @return {Map}
+/// 
+/// @example
+///     // _functions.sass
+///     @function pow($base, $exponent)
+///         $result: 1
+///         @for $_ from 1 through $exponent
+///             $result: $result * $base
+///         @return $result
+///     
+///     // Other file (example.sass)
+///     @use "sasses/meta"
+///     @use "functions"
+/// 
+///     @debug meta.module-functions("functions")  //=> ("pow": get-function("pow"))
+/// 
+/// @access public
+/// 
+@function module-functions($module)
+    
+    @return meta.module-functions($module)

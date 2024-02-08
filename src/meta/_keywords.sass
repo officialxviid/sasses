@@ -1,0 +1,22 @@
+@use 'sass:meta'
+
+/// 
+/// Returns the keywords passed to a mixin or function that takes arbitrary arguments.
+/// 
+/// @param {Arglist} $args - Argumentlist
+/// @return {Map} - The keywords are returned as a map from argument names as unquoted strings (not including $) to the values of those arguments.
+/// 
+/// @example
+///     @mixin syntax-colors($args...)
+///         @debug meta.keywords($args) //=> (string: #080, comment: #800, variable: #60b)
+///         @each $name, $color in meta.keywords($args)
+///             pre span.stx-#{$name}
+///                 color: $color
+///     
+///     @include syntax-colors($string: #080, $comment: #800, $variable: #60b)
+///     
+/// @access public
+/// 
+@function keywords($args)
+    
+    @return meta.keywords($args)

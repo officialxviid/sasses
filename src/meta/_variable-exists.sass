@@ -1,0 +1,21 @@
+@use 'sass:meta'
+
+/// 
+/// Returns whether a variable named $name (without the $) exists in the current scope.
+/// 
+/// @param {String} $name - Variable name
+/// @return {Bool} - This can return the following values: number, string, color, list, map, calculation, bool, null, function, arglist
+/// 
+/// @example
+///     @use "sasses/meta"
+///     
+///     @debug meta.variable-exists("var1")  //=> false
+///     
+///     $var1: value
+///     @debug meta.variable-exists("var1")  //=> true
+///     
+/// @access public
+/// 
+@function variable-exists($name)
+    
+    @return meta.variable-exists($name)
