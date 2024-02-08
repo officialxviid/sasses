@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the HSL lightness of $color as a number between 0% and 100%.
+/// 
+/// @param {Color} $color
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.lightness(#e1d7d2)  //=> 85.2941176471%
+///     @debug color.lightness(#f2ece4)  //=> 92.1568627451%
+///     @debug color.lightness(#dadbdf)  //=> 86.4705882353%
+///      
+/// @access public
+/// 
+@function lightness($color)
+    
+    @return color.lightness($color)

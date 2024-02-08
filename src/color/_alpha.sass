@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the alpha channel of $color as a number between 0 and 1.
+/// 
+/// @param {Color} $color - As a special case, this supports the Internet Explorer syntax alpha(opacity=20), for which it returns an unquoted string.
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.alpha(#e1d7d2)  //=> 1
+///     @debug color.opacity(rgb(210, 225, 221, 0.4))  //=> 0.4
+///     @debug alpha(opacity=20)  //=> alpha(opacity=20)
+///      
+/// @access public
+/// 
+@function alpha($color)
+    
+    @return color.alpha($color)

@@ -1,0 +1,21 @@
+@use 'sass:color'
+
+/// 
+/// Makes $color more saturated.
+/// 
+/// @param {Color}  $color  
+/// @param {Number} $amount - The $amount must be a number between 0% and 100% (inclusive).
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug saturate(#c69, 20%)  //=> #e05299
+///     @debug desaturate(#f2ece4, 50%)  //=> #ebebeb
+///     @debug saturate(#0e4982, 30%)  //=> #004990
+///      
+/// @access public
+/// 
+@function saturate($color, $amount)
+    
+    @return color.saturate($color, $amount)

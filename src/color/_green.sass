@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the green channel of $color as a number between 0 and 255.
+/// 
+/// @param {Color} $color
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.green(#e1d7d2)  //=> 215
+///     @debug color.green(white)  //=> 255
+///     @debug color.green(black)  //=> 0
+///      
+/// @access public
+/// 
+@function green($color)
+    
+    @return color.green($color)

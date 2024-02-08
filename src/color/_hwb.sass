@@ -1,0 +1,23 @@
+@use 'sass:color'
+
+/// 
+/// Returns a color with the given hue, whiteness, and blackness and the given alpha channel.
+/// 
+/// @param {Number} $hue        - A number between 0deg and 360deg (inclusive).
+/// @param {Number} $whiteness  - Numbers between 0% and 100% (inclusive).
+/// @param {Number} $blackness  - Numbers between 0% and 100% (inclusive).
+/// @param {Number} $alpha      - The alpha channel can be specified as either a unitless number between 0 and 1 (inclusive), or a percentage between 0% and 100% (inclusive).
+/// @return {Color}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.hwb(210, 0%, 60%)  //=> #036
+///     @debug color.hwb(34, 89%, 5%)  //=> #f2ece4
+///     @debug color.hwb(210 0% 60% / 0.5)  //=> rgba(0, 51, 102, 0.5)
+///     
+/// @access public
+/// 
+@function hwb($hue, $whiteness, $blackness, $alpha: 1)
+    
+    @return color.hwb($hue, $whiteness, $blackness, $alpha)

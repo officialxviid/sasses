@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the HWB whiteness of $color as a number between 0% and 100%.
+/// 
+/// @param {Color} $color
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.blue(#e1d7d2)  //=> 210
+///     @debug color.blue(white)  //=> 255
+///     @debug color.blue(black)  //=> 0
+///      
+/// @access public
+/// 
+@function whiteness($color)
+    
+    @return color.whiteness($color)

@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the HSL saturation of $color as a number between 0% and 100%.
+/// 
+/// @param {Color} $color
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.saturation(#e1d7d2)  //=> 20%
+///     @debug color.saturation(#f2ece4)  //=> 30%
+///     @debug color.saturation(#dadbdf)  //=> 7.2463768116%
+///      
+/// @access public
+/// 
+@function saturation($color)
+    
+    @return color.saturation($color)

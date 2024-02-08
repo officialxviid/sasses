@@ -1,0 +1,29 @@
+@use 'sass:color'
+
+/// 
+/// Fluidly scales one or more properties of $color.
+/// 
+/// @param {Color} $color
+/// @param {Number | null} $red         - Arguments must be unitless and between -255 and 255 (inclusive).
+/// @param {Number | null} $green       - Arguments must be unitless and between -255 and 255 (inclusive).
+/// @param {Number | null} $blue        - Arguments must be unitless and between -255 and 255 (inclusive).
+/// @param {Number | null} $hue         - Argument must have either the unit deg or no unit.
+/// @param {Number | null} $saturation  - Arguments must be between -100% and 100% (inclusive), and may not be unitless.
+/// @param {Number | null} $lightness   - Arguments must be between -100% and 100% (inclusive), and may not be unitless.
+/// @param {Number | null} $whiteness   - Arguments must be between -100% and 100% (inclusive), and may not be unitless.
+/// @param {Number | null} $blackness   - Arguments must be between -100% and 100% (inclusive), and may not be unitless.
+/// @param {Number | null} $alpha       - Argument must be unitless and between -1 and 1 (inclusive).
+/// @return {Color}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.scale(#6b717f, $red: 15%)  //=> #81717f
+///     @debug color.scale(#d2e1dd, $lightness: -10%, $saturation: 10%)  //=> #b3d4cb
+///     @debug color.scale(#998099, $alpha: -40%)  //=> rgba(153, 128, 153, 0.6)
+///      
+/// @access public
+/// 
+@function scale($color, $red: null, $green: null, $blue: null, $hue: null, $saturation: null, $lightness: null, $whiteness: null, $blackness: null, $alpha: null)
+    
+    @return color.scale($color, $red, $green, $blue, $hue, $saturation, $lightness, $whiteness, $blackness, $alpha)

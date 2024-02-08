@@ -1,0 +1,20 @@
+@use 'sass:color'
+
+/// 
+/// Returns the HWB blackness of $color as a number between 0% and 100%.
+/// 
+/// @param {Color} $color
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/color"
+///     
+///     @debug color.blackness(#e1d7d2)  //=> 11.7647058824%
+///     @debug color.blackness(white)  //=> 0%
+///     @debug color.blackness(black)  //=> 100%
+///      
+/// @access public
+/// 
+@function blackness($color)
+    
+    @return color.blackness($color)
