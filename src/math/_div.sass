@@ -1,0 +1,22 @@
+@use 'sass:math'
+
+/// 
+/// Returns the result of dividing $number1 by $number2.
+/// 
+/// @param {Number} $number1    - Aren’t in $number2 will end up in the return value’s numerator.
+/// @param {Number} $number2    - Aren’t in $number1 will end up in its denominator.
+/// @return {Bool}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.div(1, 2)  //=> 0.5
+///     @debug math.div(100px, 5px)  //=> 20
+///     @debug math.div(100px, 5)  //=> 20px
+///     @debug math.div(100px, 5s)  //=> 20px/s
+///      
+/// @access public
+/// 
+@function div($number1, $number2)
+    
+    @return math.div($number1, $number2)

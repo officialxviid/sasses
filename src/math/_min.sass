@@ -1,0 +1,21 @@
+@use 'sass:math'
+
+/// 
+/// Returns the lowest of one or more numbers.
+/// 
+/// @param {Arglist} $number
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.min(1px, 4px)  //=> 1px
+///     
+///     $widths: 50px, 30px, 100px
+///     @debug math.min($widths)  //=> 30px
+///      
+/// @access public
+/// 
+@function min($number...)
+    
+    @return math.min($number)

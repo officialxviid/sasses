@@ -1,0 +1,19 @@
+@use 'sass:math'
+
+/// 
+/// Returns whether $number has no units.
+/// 
+/// @param {Number} $number
+/// @return {Bool}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.is-unitless(100)  //=> true
+///     @debug math.is-unitless(100px)  //=> false
+///      
+/// @access public
+/// 
+@function is-unitless($number)
+    
+    @return math.is-unitless($number)

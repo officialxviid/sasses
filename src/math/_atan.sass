@@ -1,0 +1,18 @@
+@use 'sass:math'
+
+/// 
+/// Returns the arctangent of $number in deg.
+/// 
+/// @param {Number} $number - Must be unitless.
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.atan(10) // 84.2894068625deg
+///      
+/// @access public
+/// 
+@function atan($number)
+    
+    @return math.atan($number)

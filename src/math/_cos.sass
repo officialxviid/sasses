@@ -1,0 +1,20 @@
+@use 'sass:math'
+
+/// 
+/// Returns the cosine of $number.
+/// 
+/// @param {Number} $number - Must be an angle (its units must be compatible with deg) or unitless.
+/// @return {Number} - If $number has no units, it is assumed to be in rad.
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.cos(100deg)  //=> -0.1736481777
+///     @debug math.cos(1rad)  //=> 0.5403023059
+///     @debug math.cos(1)  //=> 0.5403023059
+///      
+/// @access public
+/// 
+@function cos($number)
+    
+    @return math.cos($number)

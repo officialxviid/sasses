@@ -1,0 +1,21 @@
+@use 'sass:math'
+
+/// 
+/// Returns the arctangent of $number in deg.
+/// 
+/// @param {Number} $number1
+/// @param {Number} $number2
+/// @return {Bool}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.compatible(2px, 1px)  //=> true
+///     @debug math.compatible(100px, 3em)  //=> false
+///     @debug math.compatible(10cm, 3mm)  //=> true
+///      
+/// @access public
+/// 
+@function compatible($number1, $number2)
+    
+    @return math.compatible($number1, $number2)

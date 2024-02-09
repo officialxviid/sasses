@@ -1,0 +1,19 @@
+@use 'sass:math'
+
+/// 
+/// Returns the arccosine of $number in deg.
+/// 
+/// @param {Number} $number - Must be unitless.
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.acos(0.5)  //=> 60deg
+///     @debug math.acos(2)  //=> NaNdeg
+///      
+/// @access public
+/// 
+@function acos($number)
+    
+    @return math.acos($number)

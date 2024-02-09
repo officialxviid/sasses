@@ -1,0 +1,21 @@
+@use 'sass:math'
+
+/// 
+/// Returns the highest of one or more numbers.
+/// 
+/// @param {Arglist} $number
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.max(1px, 4px)  //=> 4px
+///     
+///     $widths: 50px, 30px, 100px
+///     @debug math.max($widths)  //=> 100px
+///      
+/// @access public
+/// 
+@function max($number...)
+    
+    @return math.max($number)

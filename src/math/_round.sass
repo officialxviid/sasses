@@ -1,0 +1,20 @@
+@use 'sass:math'
+
+/// 
+/// Rounds $number to the nearest whole number.
+/// 
+/// @param {Number} $number
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.round(4)  //=> 4
+///     @debug math.round(4.2)  //=> 4
+///     @debug math.round(4.9)  //=> 5
+///      
+/// @access public
+/// 
+@function round($number)
+    
+    @return math.round($number)

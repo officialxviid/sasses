@@ -1,0 +1,19 @@
+@use 'sass:math'
+
+/// 
+/// Returns the arcsine of $number in deg.
+/// 
+/// @param {Number} $number - Must be unitless.
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.asin(0.5)  //=> 30deg
+///     @debug math.asin(2)  //=> NaNdeg
+///      
+/// @access public
+/// 
+@function asin($number)
+    
+    @return math.asin($number)

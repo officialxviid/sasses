@@ -1,0 +1,21 @@
+@use 'sass:math'
+
+/// 
+/// Returns the highest of one or more numbers.
+/// 
+/// @param {Arglist} $number
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.hypot(3, 4)  //=> 5
+///     
+///     $lengths: 1in, 10cm, 50px
+///     @debug math.hypot($lengths)  //=> 4.0952775683in
+///      
+/// @access public
+/// 
+@function hypot($number...)
+    
+    @return math.hypot($number)

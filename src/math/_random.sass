@@ -1,0 +1,21 @@
+@use 'sass:math'
+
+/// 
+/// Random number
+/// 
+/// @param {Number | null}  $limit  - If $limit is null, returns a random decimal number between 0 and 1. If $limit is a number greater than or equal to 1, returns a random whole number between 1 and $limit.
+/// @return {Number}
+/// 
+/// @example
+///     @use "sasses/math"
+///     
+///     @debug math.random()  //=> 0.2821251858
+///     @debug math.random()  //=> 0.6221325814
+///     @debug math.random(10)  //=> 4
+///     @debug math.random(10000)  //=> 5373
+///      
+/// @access public
+/// 
+@function random($limit: null)
+    
+    @return math.random($limit)
