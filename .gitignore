@@ -1,3 +1,11 @@
+##################################
+#  @package     sasses           #
+#  @group       api              #
+#  @author      XVIID            #
+#  @copyright   XVIID            #
+#  @license     MIT              #
+##################################
+
 .sass-cache/
 *.css.map
 *.sass.map
