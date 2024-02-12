@@ -1,0 +1,24 @@
+{
+  "name": "sasses",
+  "version": "1.0.0",
+  "description": "Sass modules provide more advanced functions.",
+  "main": "_index.sass",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/officialxviid/sasses.git"
+  },
+  "keywords": [
+    "sasses",
+    "sass",
+    "sass-module"
+  ],
+  "author": "XVIID <support@xviid.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/officialxviid/sasses/issues"
+  },
+  "homepage": "https://github.com/officialxviid/sasses"
+}
