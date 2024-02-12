@@ -1,0 +1,82 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+
+
+/// 
+/// The closest 64-bit floating point approximation of the mathematical constant π.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$pi: math.$pi
+
+/// 
+/// The closest 64-bit floating point approximation of the mathematical constant e.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$e: math.$e
+
+/// 
+/// The difference between 1 and the smallest 64-bit floating point number greater than 1 according to floating-point comparisons.
+/// Because of Sass numbers’ 10 digits of precision, in many cases this will appear to be 0.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$epsilon: math.$epsilon
+
+/// 
+/// The smallest positive number that can be represented as a 64-bit floating point number.
+/// Because of Sass numbers’ 10 digits of precision, in many cases this will appear to be 0.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$min-number: math.$min-number
+
+/// 
+/// The maximum finite number that can be represented as a 64-bit floating point number.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$max-number: math.$max-number
+
+/// 
+/// The minimum integer n such that both n and n - 1 can be precisely represented as a 64-bit floating-point number.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$min-safe-integer: math.$min-safe-integer
+
+/// 
+/// The maximum integer n such that both n and n + 1 can be precisely represented as a 64-bit floating-point number.
+/// 
+/// @type Number
+///      
+/// @access public
+/// 
+
+$max-safe-integer: math.$max-safe-integer
