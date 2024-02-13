@@ -17,44 +17,44 @@
 <p>
     <ul>
         <li>
-            <a href="">Variables</a>
+            <a href="#variables">Variables</a>
             <ul>
-                <li><a href=""><i>e</i></a></li>
-                <li><a href="">Epsilon</a></li>
-                <li><a href="">Max Number</a></li>
-                <li><a href="">Max Safe Integer</a></li>
-                <li><a href="">Min Number</a></li>
-                <li><a href="">Min Safe Integer</a></li>
-                <li><a href="">Pi</a></li>
+                <li><a href="#e"><i>e</i></a></li>
+                <li><a href="#epsilon">Epsilon</a></li>
+                <li><a href="#max-number">Max Number</a></li>
+                <li><a href="#max-safe-integer">Max Safe Integer</a></li>
+                <li><a href="#min-number">Min Number</a></li>
+                <li><a href="#min-safe-integer">Min Safe Integer</a></li>
+                <li><a href="#pi">Pi</a></li>
             </ul>
         </li>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Ceil</a></li>
-                <li><a href="">Clamp</a></li>
-                <li><a href="">Floor</a></li>
-                <li><a href="">Max</a></li>
-                <li><a href="">Min</a></li>
-                <li><a href="">Round</a></li>
-                <li><a href="">Absolute</a></li>
-                <li><a href="">Hypot</a></li>
-                <li><a href="">Logarithm</a></li>
-                <li><a href="">Power</a></li>
-                <li><a href="">Square Root</a></li>
-                <li><a href="">Cosine</a></li>
-                <li><a href="">Sine</a></li>
-                <li><a href="">Tangent</a></li>
-                <li><a href="">Arccosine</a></li>
-                <li><a href="">Arcsine</a></li>
-                <li><a href="">Arctangent</a></li>
-                <li><a href="">2-Argument Arctangent</a></li>
-                <li><a href="">Compatible</a></li>
-                <li><a href="">Is Unitless</a></li>
-                <li><a href="">Unit</a></li>
-                <li><a href="">Dividing</a></li>
-                <li><a href="">Percentage</a></li>
-                <li><a href="">Random</a></li>
+                <li><a href="#ceil">Ceil</a></li>
+                <li><a href="#clamp">Clamp</a></li>
+                <li><a href="#floor">Floor</a></li>
+                <li><a href="#max">Max</a></li>
+                <li><a href="#min">Min</a></li>
+                <li><a href="#round">Round</a></li>
+                <li><a href="#absolute">Absolute</a></li>
+                <li><a href="#hypot">Hypot</a></li>
+                <li><a href="#logarithm">Logarithm</a></li>
+                <li><a href="#power">Power</a></li>
+                <li><a href="#square-root">Square Root</a></li>
+                <li><a href="#cosine">Cosine</a></li>
+                <li><a href="#sine">Sine</a></li>
+                <li><a href="#tangent">Tangent</a></li>
+                <li><a href="#arccosine">Arccosine</a></li>
+                <li><a href="#arcsine">Arcsine</a></li>
+                <li><a href="#arctangent">Arctangent</a></li>
+                <li><a href="#2-argument-arctangent">2-Argument Arctangent</a></li>
+                <li><a href="#compatible">Compatible</a></li>
+                <li><a href="#is-unitless">Is Unitless</a></li>
+                <li><a href="#unit">Unit</a></li>
+                <li><a href="#dividing">Dividing</a></li>
+                <li><a href="#percentage">Percentage</a></li>
+                <li><a href="#random">Random</a></li>
             </ul>
         </li>
     </ul>

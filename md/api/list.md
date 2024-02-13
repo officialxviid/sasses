@@ -17,18 +17,18 @@
 <p>
     <ul>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Append</a></li>
-                <li><a href="">Index</a></li>
-                <li><a href="">Is Bracketed</a></li>
-                <li><a href="">Join</a></li>
-                <li><a href="">Length</a></li>
-                <li><a href="">Separator</a></li>
-                <li><a href="">Nth</a></li>
-                <li><a href="">Set Nth</a></li>
-                <li><a href="">Slash</a></li>
-                <li><a href="">Zip</a></li>
+                <li><a href="#append">Append</a></li>
+                <li><a href="#index">Index</a></li>
+                <li><a href="#is-bracketed">Is Bracketed</a></li>
+                <li><a href="#join">Join</a></li>
+                <li><a href="#length">Length</a></li>
+                <li><a href="#separator">Separator</a></li>
+                <li><a href="#nth">Nth</a></li>
+                <li><a href="#set-nth">Set Nth</a></li>
+                <li><a href="#slash">Slash</a></li>
+                <li><a href="#zip">Zip</a></li>
             </ul>
         </li>
     </ul>

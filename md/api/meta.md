@@ -17,33 +17,33 @@
 <p>
     <ul>
         <li>
-            <a href="">Mixins</a>
+            <a href="#mixins">Mixins</a>
             <ul>
-                <li><a href="">Apply</a></li>
-                <li><a href="">Load CSS</a></li>
+                <li><a href="#apply">Apply</a></li>
+                <li><a href="#load-css">Load CSS</a></li>
             </ul>
         </li>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Accepts Content</a></li>
-                <li><a href="">Calc Arguments</a></li>
-                <li><a href="">Calc name</a></li>
-                <li><a href="">Call</a></li>
-                <li><a href="">Content Exists</a></li>
-                <li><a href="">Feature Exists</a></li>
-                <li><a href="">Function Exists</a></li>
-                <li><a href="">Get function</a></li>
-                <li><a href="">Get mixin</a></li>
-                <li><a href="">Global Variable Exists</a></li>
-                <li><a href="">Inspect</a></li>
-                <li><a href="">Keywords</a></li>
-                <li><a href="">Mixin Exists</a></li>
-                <li><a href="">Module Functions</a></li>
-                <li><a href="">Module Mixins</a></li>
-                <li><a href="">Module Variables</a></li>
-                <li><a href="">Type of</a></li>
-                <li><a href="">Variable Exists</a></li>
+                <li><a href="#accepts-content">Accepts Content</a></li>
+                <li><a href="#calc-arguments">Calc Arguments</a></li>
+                <li><a href="#calc-name">Calc name</a></li>
+                <li><a href="#call">Call</a></li>
+                <li><a href="#content-exists">Content Exists</a></li>
+                <li><a href="#feature-exists">Feature Exists</a></li>
+                <li><a href="#function-exists">Function Exists</a></li>
+                <li><a href="#get-function">Get function</a></li>
+                <li><a href="#get-mixin">Get mixin</a></li>
+                <li><a href="#global-variable-exists">Global Variable Exists</a></li>
+                <li><a href="#inspect">Inspect</a></li>
+                <li><a href="#keywords">Keywords</a></li>
+                <li><a href="#mixin-exists">Mixin Exists</a></li>
+                <li><a href="#module-functions">Module Functions</a></li>
+                <li><a href="#module-mixins">Module Mixins</a></li>
+                <li><a href="#module-variables">Module Variables</a></li>
+                <li><a href="#type-of">Type of</a></li>
+                <li><a href="#variable-exists">Variable Exists</a></li>
             </ul>
         </li>
     </ul>
@@ -152,6 +152,8 @@ meta.load-css($url, $with: null)
 >   border-color: #dadbdf;
 > }
 > ```
+
+<h2>Functions</h2>
 
 <h3>Accepts Content</h3>
 

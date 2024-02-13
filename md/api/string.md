@@ -17,18 +17,18 @@
 <p>
     <ul>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Quote</a></li>
-                <li><a href="">Index</a></li>
-                <li><a href="">Insert</a></li>
-                <li><a href="">Length</a></li>
-                <li><a href="">Slice</a></li>
-                <li><a href="">Split</a></li>
-                <li><a href="">To Upper Case</a></li>
-                <li><a href="">To Lower Case</a></li>
-                <li><a href="">Unique ID</a></li>
-                <li><a href="">Unquote</a></li>
+                <li><a href="#quote">Quote</a></li>
+                <li><a href="#index">Index</a></li>
+                <li><a href="#insert">Insert</a></li>
+                <li><a href="#length">Length</a></li>
+                <li><a href="#slice">Slice</a></li>
+                <li><a href="#split">Split</a></li>
+                <li><a href="#to-upper-case">To Upper Case</a></li>
+                <li><a href="#to-lower-case">To Lower Case</a></li>
+                <li><a href="#unique-id">Unique ID</a></li>
+                <li><a href="#unquote">Unquote</a></li>
             </ul>
         </li>
     </ul>

@@ -17,16 +17,16 @@
 <p>
     <ul>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Is Superselector</a></li>
-                <li><a href="">Append</a></li>
-                <li><a href="">Extend</a></li>
-                <li><a href="">Nest</a></li>
-                <li><a href="">Parse</a></li>
-                <li><a href="">Replace</a></li>
-                <li><a href="">Unify</a></li>
-                <li><a href="">Simple Selectors</a></li>
+                <li><a href="#is-superselector">Is Superselector</a></li>
+                <li><a href="#append">Append</a></li>
+                <li><a href="#extend">Extend</a></li>
+                <li><a href="#nest">Nest</a></li>
+                <li><a href="#parse">Parse</a></li>
+                <li><a href="#replace">Replace</a></li>
+                <li><a href="#unify">Unify</a></li>
+                <li><a href="#simple-selectors">Simple Selectors</a></li>
             </ul>
         </li>
     </ul>
