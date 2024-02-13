@@ -17,36 +17,36 @@
 <p>
     <ul>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Adjust</a></li>
-                <li><a href="">Adjust Hue</a></li>
-                <li><a href="">Alpha</a></li>
-                <li><a href="">Opacity</a></li>
-                <li><a href="">Blackness</a></li>
-                <li><a href="">Blue</a></li>
-                <li><a href="">Change</a></li>
-                <li><a href="">Complement</a></li>
-                <li><a href="">Darken</a></li>
-                <li><a href="">Desaturate</a></li>
-                <li><a href="">Grayscale</a></li>
-                <li><a href="">Green</a></li>
-                <li><a href="">Hue</a></li>
-                <li><a href="">Hue Whiteness Blackness (HWB)</a></li>
-                <li><a href="">IE HEX Str</a></li>
-                <li><a href="">Invert</a></li>
-                <li><a href="">Lighten</a></li>
-                <li><a href="">Lightness</a></li>
-                <li><a href="">Mix</a></li>
-                <li><a href="">Opacify</a></li>
-                <li><a href="">Fade In</a></li>
-                <li><a href="">Red</a></li>
-                <li><a href="">Saturate</a></li>
-                <li><a href="">Saturation</a></li>
-                <li><a href="">Scale</a></li>
-                <li><a href="">Transparentize</a></li>
-                <li><a href="">Fade Out</a></li>
-                <li><a href="">Whiteness</a></li>
+                <li><a href="#adjust">Adjust</a></li>
+                <li><a href="#adjust-hue">Adjust Hue</a></li>
+                <li><a href="#alpha">Alpha</a></li>
+                <li><a href="#opacity">Opacity</a></li>
+                <li><a href="#blackness">Blackness</a></li>
+                <li><a href="#blue">Blue</a></li>
+                <li><a href="#change">Change</a></li>
+                <li><a href="#complement">Complement</a></li>
+                <li><a href="#darken">Darken</a></li>
+                <li><a href="#desaturate">Desaturate</a></li>
+                <li><a href="#grayscale">Grayscale</a></li>
+                <li><a href="#green">Green</a></li>
+                <li><a href="#hue">Hue</a></li>
+                <li><a href="#hue-whiteness-blackness-hwb">Hue Whiteness Blackness (HWB)</a></li>
+                <li><a href="#ie-hex-str">IE HEX Str</a></li>
+                <li><a href="#invert">Invert</a></li>
+                <li><a href="#lighten">Lighten</a></li>
+                <li><a href="#lightness">Lightness</a></li>
+                <li><a href="#mix">Mix</a></li>
+                <li><a href="#opacify">Opacify</a></li>
+                <li><a href="#fade-in">Fade In</a></li>
+                <li><a href="#red">Red</a></li>
+                <li><a href="#saturate">Saturate</a></li>
+                <li><a href="#saturation">Saturation</a></li>
+                <li><a href="#scale">Scale</a></li>
+                <li><a href="#transparentize">Transparentize</a></li>
+                <li><a href="#fade-out">Fade Out</a></li>
+                <li><a href="#whiteness">Whiteness</a></li>
             </ul>
         </li>
     </ul>
