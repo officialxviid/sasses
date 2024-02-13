@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/officialxviid/sasses/issues"
   },
-  "homepage": "https://github.com/officialxviid/sasses"
+  "homepage": "https://github.com/officialxviid/sasses",
+  "files": [
+    "/src/**/*.s{a,c}ss",
+    "/*.s{a,c}ss",
+    "/LICENSE",
+    "/README.md"
+  ]
 }
