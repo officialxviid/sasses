@@ -1,0 +1,148 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use 'sass:meta'
+@use 'sass:map'
+@use 'internal/join'
+@use 'internal/parameter'
+@use 'internal/invalid-type'
+
+
+///
+/// Returns an error message stating an issue with one or more variables.
+///
+/// @param {String} $message - The message which describes the issue.
+/// @param {ArgList} $names - The names of the variables for which there is an issue.
+/// @return {String}
+///
+/// @access public
+/// @require join.join
+///
+@function variable($message, $names...)
+	$names: join.join($names, ', $')
+	@return string.unquote('$#{$names}: #{$message}.')
+
+
+///
+/// Returns an error message stating a variable received the wrong type.
+///
+/// @param {String} $name - The name of the variable which has received the wrong type.
+/// @param {*} $value - The value which was received.
+/// @param {String} $types - The types which are expected.
+/// @param {String} $message [null] - The additional message which describes the issue. Must be passed by name.
+/// @return {String}
+///
+/// @access public
+/// @require invalid-type.invalid-type
+/// @require variable
+///
+@function variable-type($name, $value, $types...)
+	$keywords: meta.keywords($types)
+	$message: if(map.has-key($keywords, 'message'), map.get($keywords, 'message'), null)
+	@return variable(invalid-type.invalid-type($types, $value, $message), $name)
+
+
+///
+/// Returns an error message stating an issue with one or more parameters.
+///
+/// @param {String} $message - The message which describes the issue.
+/// @param {String} $context - The name of the function or mixin issuing the error.
+/// @param {ArgList} $names - The names of the parameters for which there is an issue.
+/// @return {String}
+///
+/// @access public
+/// @require variable
+///
+@function parameter($message, $context, $names...)
+	@return variable('#{$message} for `#{$context}()`', $names...)
+
+
+///
+/// Returns an error message stating a parameter received the wrong type.
+///
+/// @param {String} $context - The name of the function or mixin issuing the error.
+/// @param {String} $name - The name of the parameter which has received the wrong type.
+/// @param {*} $value - The value which was received.
+/// @param {ArgList} $types - The types which are expected.
+/// @return {String}
+///
+/// @access public
+/// @require invalid-type.invalid-type
+/// @require parameter.parameter
+///
+@function parameter-type($context, $name, $value, $types...)
+	@return parameter.parameter(invalid-type.invalid-type($types, $value), $context, $name)
+
+
+///
+/// Returns an error message stating a separator variable received the wrong value.
+///
+	@overload separator()
+///
+/// Returns an error message stating a separator parameter received the wrong value.
+///
+/// @param {String} $context - The name of the function or mixin issuing the error.
+///
+	@overload separator($context)
+///
+/// @return {String}
+///
+/// @access public
+/// @require parameter
+/// @require variable
+///
+@function separator($context: null)
+	$message: 'Must be "space", "comma", "slash", or "auto"'
+	$name: 'separator'
+	@return if($context == null, variable($message, $name), parameter($message, $context, $name))
+
+
+///
+/// Returns a valid index for a list of a given length; otherwise, an error message stating the reason the index is invalid.
+///
+///	@param {List} $list - The list value for which the index is validated against.
+/// @return {Number | String} A string when the index is not a number, is zero, or is invalid for the amount of elements in the list; otherwise, a number.
+///
+	@overload validate-index($context, $name, $value, $list)
+///
+/// Returns a valid index for a string of a given length; otherwise, an error message stating the reason the index is invalid.
+///
+///	@param {String} $string - The string value for which the index is validated against.
+/// @return {Number | String} A string when the index is not a number; otherwise, a number.
+///
+	@overload validate-index($context, $name, $value, $string)
+///
+/// @param {String} $context - The name of the function or mixin issuing the error.
+/// @param {String} $name - The name of the index parameter which is being validated.
+///	@param {Number} $value - The value of the index parameter which is being validated. A valid negative value will be transformed to the respective positive index value.
+///
+/// @access public
+/// @require parameter
+/// @require parameter-type
+///
+@function validate-index($context, $name, $value, $iterable)
+
+	@if meta.type-of($value) != 'number'
+		@return parameter-type($context, $name, $value, 'number')
+
+	$is-list: meta.type-of($iterable) != 'string'
+
+	@if $is-list and $value == 0
+		@return parameter('List index may not be 0', $context, $name)
+
+	$length: if($is-list, list.length($iterable), string.length($iterable))
+	$negative-transform: $value + $length + 1
+
+	@if $value < 1 and ($negative-transform >= 1 and $negative-transform <= $length)
+		$value: $negative-transform
+
+	@if $is-list and ($value < 0 or $value > $length)
+		@return parameter('Invalid index #{$value} for a list with #{$length} elements', $context, $name)
+
+	@return $value

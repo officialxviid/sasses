@@ -1,0 +1,52 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      internal
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'from'
+@use 'delimiter'
+
+    
+///
+/// Concatenates all of the items in a list to a string, separated by the list's separator or a specified glue string. If the list has only one item, then that item will be returned without using the glue.
+///
+/// @param {List} $list - The list to join.
+/// @param {String} $glue [if(list.separator($list) == space, ' ', if(list.separator($list) == comma, ',', '/'))] - The string to separate each pair of adjacent items of the list. The value is converted to a string if necessary.
+/// @return {String}
+///
+/// @access public
+/// @require _flat
+/// @require delimiter.delimiter
+/// @require from.join
+///
+@function join($list, $glue: delimiter.delimiter($list))
+	@return from.join(_flat($list), $glue, 'list')
+
+
+///
+/// Recursively flattens a list.
+///
+/// @param {List} $list - The list to be flattened.
+/// @return {List}
+///
+/// @access private
+///
+@function _flat($list)
+	$result: list.join((), (), list.separator($list))
+
+	@each $item in $list
+
+		@if list.length($item) > 1
+			$sub-list: _flat($item)
+
+			@each $sub-item in $sub-list
+				$result: list.append($result, $sub-item)
+
+		@else
+			$result: list.append($result, $item)
+
+	@return $result

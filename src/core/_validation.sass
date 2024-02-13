@@ -1,0 +1,624 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use 'sass:list'
+@use 'sass:math'
+@use 'sass:selector'
+
+
+/// 
+/// Check if its a color value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-color(null)  //=> false
+///		@debug is-color(000)  //=> false
+///		@debug is-color(fff)  //=> false
+///		@debug is-color(#000)  //=> true
+///		@debug is-color(#fff)  //=> true
+///		@debug is-color(000000)  //=> false
+///		@debug is-color(ffffff)  //=> false
+///		@debug is-color(#000000)  //=> true
+///		@debug is-color(#ffffff)  //=> true
+///		@debug is-color(rgb(0,0,0))  //=> true
+///
+/// @access public
+///
+@function is-color($value) 
+	@return meta.type-of($value) == 'color'
+
+
+/// 
+/// Check if its a list value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-list(1px 1% fff #fff 000 -000)  //=> true
+///		@debug is-list([1px 1% fff #fff 000 -000])  //=> true
+///		@debug is-list(("number":1px 1% 000 -000))  //=> false
+///		@debug is-list(("number":000 -000, "percent": 1%))  //=> false
+///
+/// @access public
+///
+@function is-list($value) 
+	@return meta.type-of($value) == 'list'
+
+
+/// 
+/// Check if its a map value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-map(1px 1% fff #fff 000 -000)  //=> false
+///		@debug is-map([1px 1% fff #fff 000 -000])  //=> false
+///		@debug is-map(("number":1px 1% 000 -000))  //=> true
+///		@debug is-map(("number":000 -000, "percent": 1%))  //=> true
+///
+/// @access public
+///
+@function is-map($value) 
+	@return meta.type-of($value) == 'map'
+
+
+/// 
+/// Check if its a calculation value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-calculation(calc(100% / 3 - 2 * 1em - 2 * 1px))  //=> true
+///		@debug is-calculation(min(50vw, 200px))  //=> true
+///		@debug is-calculation(max(20vw, 400px))  //=> true
+///		@debug is-calculation(clamp(1rem, 2.5vw, 2rem))  //=> true
+///		@debug is-calculation(abs(20% - 100px))  //=> true
+///		@debug is-calculation(sign(20vh - 100px))  //=> true
+///		@debug is-calculation(calc(10px * pow(5, 2)))  //=> false
+///		@debug is-calculation(calc(100px * sin(63.673)))  //=> false
+///		@debug is-calculation(linear-gradient(silver 0%, white 20px, white calc(100% - 20px), silver 100%))  //=> false
+///		@debug is-calculation(round(to-zero, -105px, 10px))  //=> false
+///
+/// @access public
+///
+@function is-calculation($value) 
+	@return meta.type-of($value) == 'calculation'
+
+
+/// 
+/// Check if its a bool value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-bool(0)  //=> false
+///		@debug is-bool(false)  //=> true
+///		@debug is-bool("false")  //=> false
+///		@debug is-bool(false false)  //=> false
+///
+/// @access public
+///
+@function is-bool($value) 
+	@return meta.type-of($value) == 'bool'
+
+
+/// 
+/// Check if its a null value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-null(null)  //=> true
+///		@debug is-null('')  //=> false
+///		@debug is-null(())  //=> false
+///		@debug is-null(0)  //=> false
+///
+/// @access public
+///
+@function is-null($value) 
+	@return meta.type-of($value) == 'null'
+
+
+/// 
+/// Check if its a function value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@mixin this-is-function()
+///		@debug is-function(this-is-function)  //=> false
+///		@debug is-function("this-is-function")  //=> false
+///
+///		@function this-is-function()
+///		@debug is-function(this-is-function)  //=> false
+///		@debug is-function("this-is-function")  //=> false
+///		@debug is-function(meta.get-function(this-is-function))  //=> true
+///		@debug is-function(meta.get-function("this-is-function"))  //=> true
+///
+/// @access public
+///
+@function is-function($value) 
+	@return meta.type-of($value) == 'function'
+
+
+/// 
+/// Check if its a string value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-string(0)  //=> false
+///		@debug is-string("0")  //=> true
+///		@debug is-string(xviid)  //=> true
+///		@debug is-string("xviid")  //=> true
+///		@debug is-string(i love xviid)  //=> false
+///		@debug is-string("i love xviid")  //=> true
+///
+/// @access public
+///
+@function is-string($value) 
+	@return meta.type-of($value) == 'string'
+
+
+/// 
+/// Check if its a arglist value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@mixin syntax-colors($args...)
+///			@if is-arglist($args)
+///				@debug meta.keywords($args)  //=> (string: #080, comment: #800, variable: #60b)
+///		
+///		@include syntax-colors($string: #080, $comment: #800, $variable: #60b)
+///
+/// @access public
+///
+@function is-arglist($value) 
+	@return meta.type-of($value) == 'arglist'
+
+
+/// 
+/// Check if its a number value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-number("000")  //=> false
+///		@debug is-number(px)  //=> false
+///		@debug is-number(deg)  //=> false
+///		@debug is-number(000 111)  //=> false
+///		@debug is-number(-000)  //=> true
+///		@debug is-number(000)  //=> true
+///		@debug is-number(0.5)  //=> true
+///		@debug is-number(0deg)  //=> true
+///		@debug is-number(0px)  //=> true
+///		@debug is-number(0%)  //=> true
+///
+/// @access public
+///
+@function is-number($value)
+	@return meta.type-of($value) == 'number'
+
+
+/// 
+/// Check if its a time value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-time(1)  //=> false
+///		@debug is-time(-1)  //=> false
+///		@debug is-time(0.1)  //=> false
+///		@debug is-time(1px)  //=> false
+///		@debug is-time(-1px)  //=> false
+///		@debug is-time(0.1px)  //=> false
+///		@debug is-time(1%)  //=> false
+///		@debug is-time(-1%)  //=> false
+///		@debug is-time(0.1%)  //=> false
+///		@debug is-time(1ms)  //=> true
+///		@debug is-time(-1ms)  //=> true
+///		@debug is-time(0.1ms)  //=> true
+///		@debug is-time(1s)  //=> true
+///
+/// @access public
+///
+@function is-time($value) 
+	@return is-number($value) and list.index('ms' 's', math.unit($value)) != null
+
+
+/// 
+/// Check if its a duration value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-duration(1)  //=> false
+///		@debug is-duration(-1)  //=> false
+///		@debug is-duration(0.1)  //=> false
+///		@debug is-duration(1px)  //=> false
+///		@debug is-duration(-1px)  //=> false
+///		@debug is-duration(0.1px)  //=> false
+///		@debug is-duration(1%)  //=> false
+///		@debug is-duration(-1%)  //=> false
+///		@debug is-duration(0.1%)  //=> false
+///		@debug is-duration(1ms)  //=> true
+///		@debug is-duration(-1ms)  //=> true
+///		@debug is-duration(0.1ms)  //=> true
+///		@debug is-duration(1s)  //=> true
+///
+/// @access public
+///
+@function is-duration($value) 
+	@return is-time($value)
+
+
+/// 
+/// Check if its a angle value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-angle(1)  //=> false
+///		@debug is-angle(-1)  //=> false
+///		@debug is-angle(0.1)  //=> false
+///		@debug is-angle(1px)  //=> false
+///		@debug is-angle(-1px)  //=> false
+///		@debug is-angle(0.1px)  //=> false
+///		@debug is-angle(1%)  //=> false
+///		@debug is-angle(-1%)  //=> false
+///		@debug is-angle(0.1%)  //=> false
+///		@debug is-angle(1deg)  //=> true
+///		@debug is-angle(-1deg)  //=> true
+///		@debug is-angle(0.1deg)  //=> true
+///		@debug is-angle(1rad)  //=> true
+///		@debug is-angle(1grad)  //=> true
+///		@debug is-angle(1turn)  //=> true
+///
+/// @access public
+///
+@function is-angle($value) 
+	@return is-number($value) and list.index('deg' 'rad' 'grad' 'turn', math.unit($value)) != null
+
+
+/// 
+/// Check if its a frequency value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-frequency(1)  //=> false
+///		@debug is-frequency(-1)  //=> false
+///		@debug is-frequency(0.1)  //=> false
+///		@debug is-frequency(1px)  //=> false
+///		@debug is-frequency(-1px)  //=> false
+///		@debug is-frequency(0.1px)  //=> false
+///		@debug is-frequency(1%)  //=> false
+///		@debug is-frequency(-1%)  //=> false
+///		@debug is-frequency(0.1%)  //=> false
+///		@debug is-frequency(1Hz)  //=> true
+///		@debug is-frequency(-1Hz)  //=> true
+///		@debug is-frequency(0.1Hz)  //=> true
+///		@debug is-frequency(1kHz)  //=> true
+///
+/// @access public
+///
+@function is-frequency($value) 
+	@return is-number($value) and list.index('Hz' 'kHz', math.unit($value)) != null
+
+
+/// 
+/// Check if its a integer value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-integer(1)  //=> true
+///		@debug is-integer(-1)  //=> true
+///		@debug is-integer(1px)  //=> true
+///		@debug is-integer(1%)  //=> true
+///		@debug is-integer(0.1)  //=> false
+///		@debug is-integer(-0.1)  //=> false
+///		@debug is-integer(0.1px)  //=> false
+///		@debug is-integer(0.1%)  //=> false
+///
+/// @access public
+///
+@function is-integer($value)
+	@return is-number($value) and math.round($value) == $value
+
+
+/// 
+/// Check if its a relative-length value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-relative-length(1)  //=> false
+///		@debug is-relative-length(-1)  //=> false
+///		@debug is-relative-length(0.1)  //=> false
+///		@debug is-relative-length(1px)  //=> false
+///		@debug is-relative-length(-1px)  //=> false
+///		@debug is-relative-length(0.1px)  //=> false
+///		@debug is-relative-length(1%)  //=> false
+///		@debug is-relative-length(-1%)  //=> false
+///		@debug is-relative-length(0.1%)  //=> false
+///		@debug is-relative-length(1em)  //=> true
+///		@debug is-relative-length(-1em)  //=> true
+///		@debug is-relative-length(0.1em)  //=> true
+///		@debug is-relative-length(1ex)  //=> true
+///		@debug is-relative-length(1ch)  //=> true
+///		@debug is-relative-length(1rem)  //=> true
+///		@debug is-relative-length(1vw)  //=> true
+///		@debug is-relative-length(1vh)  //=> true
+///		@debug is-relative-length(1vmin)  //=> true
+///		@debug is-relative-length(1vmax)  //=> true
+///
+/// @access public
+///
+@function is-relative-length($value) 
+	@return is-number($value) and list.index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax', math.unit($value)) != null
+
+
+/// 
+/// Check if its a absolute-length value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-absolute-length(1)  //=> false
+///		@debug is-absolute-length(0.1)  //=> false 
+///		@debug is-absolute-length(1%)  //=> false
+///		@debug is-absolute-length(0.1%)  //=> false
+///		@debug is-absolute-length(1em)  //=> false
+///		@debug is-absolute-length(0.1em)  //=> false
+///		@debug is-absolute-length(1cm)  //=> true
+///		@debug is-absolute-length(0.1cm)  //=> true
+///		@debug is-absolute-length(1mm)  //=> true
+///		@debug is-absolute-length(1in)  //=> true
+///		@debug is-absolute-length(1px)  //=> true
+///		@debug is-absolute-length(1pt)  //=> true
+///		@debug is-absolute-length(1pc)  //=> true
+///
+/// @access public
+///
+@function is-absolute-length($value) 
+	@return is-number($value) and list.index('cm' 'mm' 'in' 'px' 'pt' 'pc', math.unit($value)) != null
+
+
+/// 
+/// Check if its a percentage value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug
+///		@debug is-percentage(1%)  //=> true
+///		@debug is-percentage(0.1%)  //=> true
+///		@debug is-percentage(1)  //=> false
+///		@debug is-percentage(0.1)  //=> false 
+///		@debug is-percentage(1px)  //=> false
+///		@debug is-percentage(0.1px)  //=> false
+///		@debug is-percentage(1em)  //=> false
+///		@debug is-percentage(0.1em)  //=> false
+///		@debug is-percentage(1ex)  //=> false
+///		@debug is-percentage(1ch)  //=> false
+///		@debug is-percentage(1rem)  //=> false
+///		@debug is-percentage(1vw)  //=> false
+///		@debug is-percentage(1vh)  //=> false
+///		@debug is-percentage(1vmin)  //=> false
+///		@debug is-percentage(1vmax)  //=> false
+///		@debug is-percentage(1cm)  //=> false
+///		@debug is-percentage(0.1cm)  //=> false
+///
+/// @access public
+///
+@function is-percentage($value) 
+	@return is-number($value) and math.unit($value) == '%'
+
+
+/// 
+/// Check if its a length value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-length(1)  //=> false
+///		@debug is-length(0.1)  //=> false 
+///		@debug is-length(1px)  //=> false
+///		@debug is-length(0.1px)  //=> false
+///		@debug is-length(1%)  //=> false
+///		@debug is-length(0.1%)  //=> false
+///		@debug is-length(1em)  //=> true
+///		@debug is-length(0.1em)  //=> true
+///		@debug is-length(1ex)  //=> true
+///		@debug is-length(1ch)  //=> true
+///		@debug is-length(1rem)  //=> true
+///		@debug is-length(1vw)  //=> true
+///		@debug is-length(1vh)  //=> true
+///		@debug is-length(1vmin)  //=> true
+///		@debug is-length(1vmax)  //=> true
+///		@debug is-length(1cm)  //=> true
+///		@debug is-length(0.1cm)  //=> true
+///		@debug is-length(1mm)  //=> true
+///		@debug is-length(1in)  //=> true
+///		@debug is-length(1px)  //=> true
+///		@debug is-length(1pt)  //=> true
+///		@debug is-length(1pc)  //=> true
+///
+/// @access public
+///
+@function is-length($value) 
+	@return is-relative-length($value) or is-absolute-length($value)
+
+
+/// 
+/// Check if its a resolution value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-resolution(1)  //=> false
+///		@debug is-resolution(-1)  //=> false
+///		@debug is-resolution(0.1)  //=> false
+///		@debug is-resolution(1px)  //=> false
+///		@debug is-resolution(-1px)  //=> false
+///		@debug is-resolution(0.1px)  //=> false
+///		@debug is-resolution(1%)  //=> false
+///		@debug is-resolution(-1%)  //=> false
+///		@debug is-resolution(0.1%)  //=> false
+///		@debug is-resolution(1dpi)  //=> true
+///		@debug is-resolution(-1dpi)  //=> true
+///		@debug is-resolution(0.1dpi)  //=> true
+///		@debug is-resolution(1dpcm)  //=> true
+///		@debug is-resolution(1dppx)  //=> true
+///
+/// @access public
+///
+@function is-resolution($value) 
+	@return is-number($value) and list.index('dpi' 'dpcm' 'dppx', math.unit($value)) != null
+
+
+/// 
+/// Check if its a position value
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-position(top)  //=> true
+///		@debug is-position("top")  //=> true
+///		@debug is-position(right)  //=> true
+///		@debug is-position("right")  //=> true
+///		@debug is-position(bottom)  //=> true
+///		@debug is-position("bottom")  //=> true
+///		@debug is-position(left)  //=> true
+///		@debug is-position("left")  //=> true
+///		@debug is-position(center)  //=> true
+///		@debug is-position("center")  //=> true
+///		@debug is-position(1)  //=> false
+///		@debug is-position(0.1)  //=> false
+///		@debug is-position(-1)  //=> false
+///		@debug is-position(-0.1)  //=> false
+///		@debug is-position(1%)  //=> true
+///		@debug is-position(0.1%)  //=> true
+///		@debug is-position(-1%)  //=> true
+///		@debug is-position(-0.1%)  //=> true
+///		@debug is-position(1em)  //=> true
+///		@debug is-position(0.1em)  //=> true
+///		@debug is-position(-1em)  //=> true
+///		@debug is-position(-0.1em)  //=> true
+///		@debug is-position(1cm)  //=> true
+///		@debug is-position(0.1cm)  //=> true
+///		@debug is-position(-1cm)  //=> true
+///		@debug is-position(-0.1cm)  //=> true
+///		@debug is-position(top "center" 1% 2em 3cm)  //=> false
+///
+/// @access public
+///
+@function is-position($value)
+	@return is-length($value) or is-percentage($value) or list.index('top' 'right' 'bottom' 'left' 'center', $value) != null
+
+
+/// 
+/// Check if list has square brackets.
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug list.is-bracketed(1px 2px 3px)  //=> false
+///		@debug list.is-bracketed([1px, 2px, 3px])  //=> true
+///
+/// @access public
+///
+@function is-bracketed($value)
+	@return list.is-bracketed($value)
+
+
+/// 
+/// Check if number has no units.
+/// 
+/// @param {Void} $value - Value to check
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-unitless(100)  //=> true
+///		@debug is-unitless(-100)  //=> true
+///		@debug is-unitless(0.5)  //=> true
+///		@debug is-unitless(-0.5)  //=> true
+///		@debug is-unitless(100px)  //=> false
+///		@debug is-unitless(px)  //=> false
+///
+/// @access public
+///
+@function is-unitless($value)
+	@return is-number($value) and math.is-unitless($value)
+
+
+/// 
+/// Returns whether the selector $super matches all the elements that the selector $sub matches.
+/// 
+/// @param {String} $super - May contain placeholder selectors, but not parent selectors.
+/// @param {String} $sub - May contain placeholder selectors, but not parent selectors.
+/// @return {Bool}
+/// 
+/// @example
+///		@debug is-superselector("a", "a.disabled")  //=> true
+///		@debug is-superselector("a.disabled", "a")  //=> false
+///		@debug is-superselector("a", "sidebar a")  //=> true
+///		@debug is-superselector("sidebar a", "a")  //=> false
+///		@debug is-superselector("a", "a")  //=> true
+/// 
+/// @access public
+///
+@function is-superselector($super, $sub)
+	@return selector.is-superselector($super, $sub)
+    
+
+///
+/// Indicates whether a specified value is invalid for a separator parameter.
+///
+///	@param {*} $value - The value which is being validated.
+/// @return {Boolean}
+/// 
+/// @example
+///		$separator-space: 1 1% 1em "string"
+///		$separator-comma: 1, 1%, 1em, "string"
+///
+///		@debug is-separator(1 1% 1em "string")
+///		@debug is-separator($separator-comma)
+///		@debug is-separator(list.slash(1, 1%, 1em, "string"))
+///		@debug is-separator("1 1% 1em")
+///
+/// @access public
+///
+@function is-separator($value)
+	@return is-list($value) and list.index(space comma slash, list.separator($value)) != null
