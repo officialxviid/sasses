@@ -19,34 +19,34 @@
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">adjust</a></li>
-                <li><a href="">adjust HUE</a></li>
-                <li><a href="">alpha</a></li>
-                <li><a href="">opacity</a></li>
-                <li><a href="">blackness</a></li>
-                <li><a href="">blue</a></li>
-                <li><a href="">change</a></li>
-                <li><a href="">complement</a></li>
-                <li><a href="">darken</a></li>
-                <li><a href="">desaturate</a></li>
-                <li><a href="">grayscale</a></li>
-                <li><a href="">green</a></li>
-                <li><a href="">hue</a></li>
-                <li><a href="">hwb</a></li>
-                <li><a href="">ie hex str</a></li>
-                <li><a href="">invert</a></li>
-                <li><a href="">lighten</a></li>
-                <li><a href="">lightness</a></li>
-                <li><a href="">mix</a></li>
-                <li><a href="">opacify</a></li>
-                <li><a href="">fade in</a></li>
-                <li><a href="">red</a></li>
-                <li><a href="">saturate</a></li>
-                <li><a href="">saturation</a></li>
-                <li><a href="">scale</a></li>
-                <li><a href="">transparentize</a></li>
-                <li><a href="">fade out</a></li>
-                <li><a href="">whiteness</a></li>
+                <li><a href="">Adjust</a></li>
+                <li><a href="">Adjust Hue</a></li>
+                <li><a href="">Alpha</a></li>
+                <li><a href="">Opacity</a></li>
+                <li><a href="">Blackness</a></li>
+                <li><a href="">Blue</a></li>
+                <li><a href="">Change</a></li>
+                <li><a href="">Complement</a></li>
+                <li><a href="">Darken</a></li>
+                <li><a href="">Desaturate</a></li>
+                <li><a href="">Grayscale</a></li>
+                <li><a href="">Green</a></li>
+                <li><a href="">Hue</a></li>
+                <li><a href="">Hue Whiteness Blackness (HWB)</a></li>
+                <li><a href="">IE HEX Str</a></li>
+                <li><a href="">Invert</a></li>
+                <li><a href="">Lighten</a></li>
+                <li><a href="">Lightness</a></li>
+                <li><a href="">Mix</a></li>
+                <li><a href="">Opacify</a></li>
+                <li><a href="">Fade In</a></li>
+                <li><a href="">Red</a></li>
+                <li><a href="">Saturate</a></li>
+                <li><a href="">Saturation</a></li>
+                <li><a href="">Scale</a></li>
+                <li><a href="">Transparentize</a></li>
+                <li><a href="">Fade Out</a></li>
+                <li><a href="">Whiteness</a></li>
             </ul>
         </li>
     </ul>
@@ -54,7 +54,7 @@
 
 <h2>Functions</h2>
 
-<h3>adjust</h3>
+<h3>Adjust</h3>
 
 ```sass
 color.adjust($color,
@@ -83,7 +83,7 @@ adjust-color(...)  //=> color
 > @debug color.adjust(#998099, $lightness: -30%, $alpha: -0.4)  //=> rgba(71, 57, 71, 0.6)
 > ```
 
-<h3>adjust-hue</h3>
+<h3>Adjust Hue</h3>
 
 ```sass
 adjust-hue($color, $degrees)  //=> color
@@ -107,7 +107,7 @@ adjust-hue($color, $degrees)  //=> color
 > @debug adjust-hue(#036, 45)  //=> #1a0066
 > ```
 
-<h3>alpha</h3>
+<h3>Alpha</h3>
 
 ```sass
 color.alpha($color)  //=> number
@@ -126,7 +126,7 @@ alpha($color)  //=> number
 > @debug color.opacity(rgb(210, 225, 221, 0.4))  //=> 0.4
 > ```
 
-<h3>opacity</h3>
+<h3>Opacity</h3>
 
 ```sass
 opacity($color)  //=> number
@@ -143,7 +143,7 @@ opacity($color)  //=> number
 > @debug opacity(#fefefe)  //=> 1
 > ```
 
-<h3>blackness</h3>
+<h3>Blackness</h3>
 
 ```sass
 color.blackness($color)  //=> number
@@ -161,7 +161,7 @@ color.blackness($color)  //=> number
 > @debug color.blackness(black)  //=> 100%
 > ```
 
-<h3>blue</h3>
+<h3>Blue</h3>
 
 ```sass
 color.blue($color)  //=> number
@@ -183,7 +183,7 @@ blue($color)  //=> number
 > @debug color.blue(black)  //=> 0
 > ```
 
-<h3>change</h3>
+<h3>Change</h3>
 
 ```sass
 color.change($color,
@@ -212,7 +212,7 @@ change-color(...)  //=> color
 > @debug color.change(#998099, $lightness: 30%, $alpha: 0.5)  //=> rgba(85, 68, 85, 0.5)
 > ```
 
-<h3>complement</h3>
+<h3>Complement</h3>
 
 ```sass
 color.complement($color)  //=> color
@@ -241,7 +241,7 @@ complement($color)  //=> color
 > @debug color.complement(#036)  //=> #663300
 > ```
 
-<h3>darken</h3>
+<h3>Darken</h3>
 
 ```sass
 darken($color, $amount)  //=> color
@@ -266,7 +266,7 @@ darken($color, $amount)  //=> color
 > @debug darken(#036, 30%)  //=> black
 > ```
 
-<h3>desaturate</h3>
+<h3>Desaturate</h3>
 
 ```sass
 desaturate($color, $amount)  //=> color
@@ -290,7 +290,7 @@ desaturate($color, $amount)  //=> color
 > @debug desaturate(#d2e1dd, 30%)  //=> #dadada
 > ```
 
-<h3>grayscale</h3>
+<h3>Grayscale</h3>
 
 ```sass
 color.grayscale($color)  //=> color
@@ -313,7 +313,7 @@ grayscale($color)  //=> color
 > @debug color.grayscale(#036)  //=> #333333
 > ```
 
-<h3>green</h3>
+<h3>Green</h3>
 
 ```sass
 color.green($color)  //=> number
@@ -335,7 +335,7 @@ green($color)  //=> number
 > @debug color.green(black)  //=> 0
 > ```
 
-<h3>hue</h3>
+<h3>Hue</h3>
 
 ```sass
 color.hue($color)  //=> number
@@ -357,7 +357,7 @@ hue($color)  //=> number
 > @debug color.hue(#dadbdf)  //=> 228deg
 > ```
 
-<h3>hwb</h3>
+<h3>Hue Whiteness Blackness (HWB)</h3>
 
 ```sass
 color.hwb($hue $whiteness $blackness)  //=> color
@@ -385,7 +385,7 @@ color.hwb($hue, $whiteness, $blackness, $alpha: 1)  //=> color
 > @debug color.hwb(210 0% 60% / 0.5)  //=> rgba(0, 51, 102, 0.5)
 > ```
 
-<h3>ie-hex-str</h3>
+<h3>IE HEX Str</h3>
 
 ```sass
 color.ie-hex-str($color)  //=> unquoted string
@@ -407,7 +407,7 @@ ie-hex-str($color)  //=> unquoted string
 > @debug color.ie-hex-str(rgba(242, 236, 228, 0.6))  //=> #99F2ECE4
 > ```
 
-<h3>invert</h3>
+<h3>Invert</h3>
 
 ```sass
 color.invert($color, $weight: 100%)  //=> color
@@ -430,7 +430,7 @@ invert($color, $weight: 100%)  //=> color
 > @debug color.invert(#550e0c, 20%)  //=> #663b3a
 > ```
 
-<h3>lighten</h3>
+<h3>Lighten</h3>
 
 ```sass
 lighten($color, $amount)  //=> color
@@ -455,7 +455,7 @@ lighten($color, $amount)  //=> color
 > @debug lighten(#e1d7d2, 30%)  //=> white
 > ```
 
-<h3>lightness</h3>
+<h3>Lightness</h3>
 
 ```sass
 color.lightness($color)  //=> number
@@ -477,7 +477,7 @@ lightness($color)  //=> number
 > @debug color.lightness(#dadbdf)  //=> 86.4705882353%
 > ```
 
-<h3>mix</h3>
+<h3>Mix</h3>
 
 ```sass
 color.mix($color1, $color2, $weight: 50%)  //=> color
@@ -501,7 +501,7 @@ mix($color1, $color2, $weight: 50%)  //=> color
 > @debug color.mix(rgba(242, 236, 228, 0.5), #6b717f)  //=> rgba(141, 144, 152, 0.75)
 > ```
 
-<h3>opacify</h3>
+<h3>Opacify</h3>
 
 ```sass
 opacify($color, $amount)  //=> color
@@ -520,7 +520,7 @@ opacify($color, $amount)  //=> color
 > @debug opacify(rgba(#036, 0.7), 0.3)  //=> #036
 > ```
 
-<h3>fade-in</h3>
+<h3>Fade In</h3>
 
 ```sass
 fade-in($color, $amount)  //=> color
@@ -538,7 +538,7 @@ fade-in($color, $amount)  //=> color
 > @debug fade-in(rgba(#e1d7d2, 0.5), 0.4)  //=> rgba(225, 215, 210, 0.9)
 > ```
 
-<h3>red</h3>
+<h3>Red</h3>
 
 ```sass
 color.red($color)  //=> number
@@ -560,7 +560,7 @@ red($color)  //=> number
 > @debug color.red(black)  //=> 0
 > ```
 
-<h3>saturate</h3>
+<h3>Saturate</h3>
 
 ```sass
 color.saturate($color, $amount)  //=> color
@@ -588,7 +588,7 @@ saturate($color, $amount)  //=> color
 > @debug saturate(#0e4982, 30%)  //=> #004990
 > ```
 
-<h3>saturation</h3>
+<h3>Saturation</h3>
 
 ```sass
 color.saturation($color)  //=> number
@@ -610,7 +610,7 @@ saturation($color)  //=> number
 > @debug color.saturation(#dadbdf)  //=> 7.2463768116%
 > ```
 
-<h3>scale</h3>
+<h3>Scale</h3>
 
 ```sass
 color.scale($color,
@@ -639,7 +639,7 @@ scale-color(...)  //=> color
 > @debug color.scale(#998099, $alpha: -40%)  //=> rgba(153, 128, 153, 0.6)
 > ```
 
-<h3>transparentize</h3>
+<h3>Transparentize</h3>
 
 ```sass
 transparentize($color, $amount)  //=> color
@@ -658,7 +658,7 @@ transparentize($color, $amount)  //=> color
 > @debug transparentize(rgba(#036, 0.3), 0.3)  //=> rgba(0, 51, 102, 0)
 > ```
 
-<h3>fade-out</h3>
+<h3>Fade Out</h3>
 
 ```sass
 fade-out($color, $amount)  //=> color
@@ -678,7 +678,7 @@ fade-out($color, $amount)  //=> color
 > @debug transparentize(rgba(#036, 0.3), 0.3)  //=> rgba(0, 51, 102, 0)
 > ```
 
-<h3>whiteness</h3>
+<h3>Whiteness</h3>
 
 ```sass
 color.whiteness($color)  //=> number

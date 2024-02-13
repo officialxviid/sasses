@@ -19,16 +19,16 @@
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">quote</a></li>
-                <li><a href="">index</a></li>
-                <li><a href="">insert</a></li>
-                <li><a href="">length</a></li>
-                <li><a href="">slice</a></li>
-                <li><a href="">split</a></li>
-                <li><a href="">to upper case</a></li>
-                <li><a href="">to lower case</a></li>
-                <li><a href="">unique id</a></li>
-                <li><a href="">unquote</a></li>
+                <li><a href="">Quote</a></li>
+                <li><a href="">Index</a></li>
+                <li><a href="">Insert</a></li>
+                <li><a href="">Length</a></li>
+                <li><a href="">Slice</a></li>
+                <li><a href="">Split</a></li>
+                <li><a href="">To Upper Case</a></li>
+                <li><a href="">To Lower Case</a></li>
+                <li><a href="">Unique ID</a></li>
+                <li><a href="">Unquote</a></li>
             </ul>
         </li>
     </ul>
@@ -36,7 +36,7 @@
 
 <h2>Functions</h2>
 
-<h3>quote</h3>
+<h3>Quote</h3>
 
 ```sass
 string.quote($string)  //=> string
@@ -57,7 +57,7 @@ quote($string)  //=> string
 > @debug string.quote("Helvetica")  //=> "Helvetica"
 > ```
 
-<h3>index</h3>
+<h3>Index</h3>
 
 ```sass
 string.index($string, $substring)  //=> number
@@ -76,7 +76,7 @@ str-index($string, $substring)  //=> number
 > @debug string.index("I love you", "o")  //=> 4
 > ```
 
-<h3>insert</h3>
+<h3>Insert</h3>
 
 ```sass
 string.insert($string, $insert, $index)  //=> string
@@ -108,7 +108,7 @@ str-insert($string, $insert, $index)  //=> string
 > @debug string.insert("Bold", "Roboto ", -100)  //=> "Roboto Bold"
 > ```
 
-<h3>length</h3>
+<h3>Length</h3>
 
 ```sass
 string.length($string)  //=> number
@@ -130,7 +130,7 @@ str-length($string)  //=> number
 > @debug string.length("")  //=> 0
 > ```
 
-<h3>slice</h3>
+<h3>Slice</h3>
 
 ```sass
 string.slice($string, $start-at, $end-at: -1)  //=> string
@@ -152,7 +152,7 @@ str-slice($string, $start-at, $end-at: -1)  //=> string
 > @debug string.slice("Helvetica Neue", 1, -6)  //=> "Helvetica"
 > ```
 
-<h3>split</h3>
+<h3>Split</h3>
 
 ```sass
 string.split($string, $separator, $limit: null)  //=> list
@@ -170,7 +170,7 @@ string.split($string, $separator, $limit: null)  //=> list
 > @debug string.split("Segoe UI Emoji", " ", $limit: 1)  // ["Segoe", "UI Emoji"]
 > ```
 
-<h3>to-upper-case</h3>
+<h3>To Upper Case</h3>
 
 ```sass
 string.to-upper-case($string)  //=> string
@@ -191,7 +191,7 @@ to-upper-case($string)  //=> string
 > @debug string.to-upper-case(sans-serif)  //=> SANS-SERIF
 > ```
 
-<h3>to-lower-case</h3>
+<h3>To Lower Case</h3>
 
 ```sass
 string.to-lower-case($string)  //=> string
@@ -212,7 +212,7 @@ to-lower-case($string)  //=> string
 > @debug string.to-lower-case(SANS-SERIF)  //=> sans-serif
 > ```
 
-<h3>unique-id</h3>
+<h3>Unique ID</h3>
 
 ```sass
 string.unique-id()  //=> string
@@ -233,7 +233,7 @@ unique-id()  //=> string
 > @debug string.unique-id()  //=> u6w1b1def
 > ```
 
-<h3>unquote</h3>
+<h3>Unquote</h3>
 
 ```sass
 string.unquote($string)  //=> string

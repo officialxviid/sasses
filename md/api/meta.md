@@ -19,31 +19,31 @@
         <li>
             <a href="">Mixins</a>
             <ul>
-                <li><a href="">apply</a></li>
-                <li><a href="">load css</a></li>
+                <li><a href="">Apply</a></li>
+                <li><a href="">Load CSS</a></li>
             </ul>
         </li>
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">accepts content</a></li>
-                <li><a href="">calc args</a></li>
-                <li><a href="">calc name</a></li>
-                <li><a href="">call</a></li>
-                <li><a href="">content exists</a></li>
-                <li><a href="">feature exists</a></li>
-                <li><a href="">function exists</a></li>
-                <li><a href="">get function</a></li>
-                <li><a href="">get mixin</a></li>
-                <li><a href="">global variable exists</a></li>
-                <li><a href="">inspect</a></li>
-                <li><a href="">keywords</a></li>
-                <li><a href="">mixin exists</a></li>
-                <li><a href="">module functions</a></li>
-                <li><a href="">module mixins</a></li>
-                <li><a href="">module variables</a></li>
-                <li><a href="">type of</a></li>
-                <li><a href="">variable exists</a></li>
+                <li><a href="">Accepts Content</a></li>
+                <li><a href="">Calc Arguments</a></li>
+                <li><a href="">Calc name</a></li>
+                <li><a href="">Call</a></li>
+                <li><a href="">Content Exists</a></li>
+                <li><a href="">Feature Exists</a></li>
+                <li><a href="">Function Exists</a></li>
+                <li><a href="">Get function</a></li>
+                <li><a href="">Get mixin</a></li>
+                <li><a href="">Global Variable Exists</a></li>
+                <li><a href="">Inspect</a></li>
+                <li><a href="">Keywords</a></li>
+                <li><a href="">Mixin Exists</a></li>
+                <li><a href="">Module Functions</a></li>
+                <li><a href="">Module Mixins</a></li>
+                <li><a href="">Module Variables</a></li>
+                <li><a href="">Type of</a></li>
+                <li><a href="">Variable Exists</a></li>
             </ul>
         </li>
     </ul>
@@ -51,7 +51,7 @@
 
 <h2>Mixins</h2>
 
-<h3>apply</h3>
+<h3>Apply</h3>
 
 ```sass
 meta.apply($mixin, $args...)
@@ -97,7 +97,7 @@ meta.apply($mixin, $args...)
 > }
 > ```
 
-<h3>load-css</h3>
+<h3>Load CSS</h3>
 
 ```sass
 meta.load-css($url, $with: null)
@@ -153,7 +153,7 @@ meta.load-css($url, $with: null)
 > }
 > ```
 
-<h3>accepts-content</h3>
+<h3>Accepts Content</h3>
 
 ```sass
 meta.accepts-content($mixin)  //=> boolean
@@ -183,7 +183,7 @@ meta.accepts-content($mixin)  //=> boolean
 > @debug meta.accepts-content($check2)  //=> false
 > ```
 
-<h3>calc-args</h3>
+<h3>Calc Arguments</h3>
 
 ```sass
 meta.calc-args($calc)  //=> list
@@ -201,7 +201,7 @@ meta.calc-args($calc)  //=> list
 > @debug meta.calc-args(clamp(50px, var(--width), 1000px))  //=> 50px, unquote("var(--width)"), 1000px
 > ```
 
-<h3>calc-name</h3>
+<h3>Calc Name</h3>
 
 ```sass
 meta.calc-name($calc)  //=> quoted string
@@ -218,7 +218,7 @@ meta.calc-name($calc)  //=> quoted string
 > @debug meta.calc-name(clamp(50px, var(--width), 1000px))  //=> "clamp"
 > ```
 
-<h3>call</h3>
+<h3>Call</h3>
 
 ```sass
 meta.call($function, $args...)
@@ -260,7 +260,7 @@ meta.call($function, $args...)
 > }
 > ```
 
-<h3>content-exists</h3>
+<h3>Content Exists</h3>
 
 ```sass
 meta.content-exists()  //=> boolean
@@ -282,7 +282,7 @@ meta.content-exists()  //=> boolean
 > @include debug-content-exists  //=> true
 > ```
 
-<h3>feature-exists</h3>
+<h3>Feature Exists</h3>
 
 ```sass
 meta.feature-exists($feature)  //=> boolean
@@ -310,7 +310,7 @@ meta.feature-exists($feature)  //=> boolean
 > @debug meta.feature-exists("unrecognized")  //=> false
 > ```
 
-<h3>function-exists</h3>
+<h3>Function Exists</h3>
 
 ```sass
 meta.function-exists($name, $module: null)  //=> boolean
@@ -334,7 +334,7 @@ meta.function-exists($name, $module: null)  //=> boolean
 > @debug meta.function-exists("add")  //=> true
 > ```
 
-<h3>get-function</h3>
+<h3>Fet Function</h3>
 
 ```sass
 meta.get-function($name, $css: false, $module: null)  //=> function
@@ -366,7 +366,7 @@ meta.get-function($name, $css: false, $module: null)  //=> function
 > @include apply-to-all(meta.get-mixin("font-class"), $sizes)
 > ```
 
-<h3>get-mixin</h3>
+<h3>Get Mixin</h3>
 
 ```sass
 meta.get-mixin($name, $module: null)  //=> function
@@ -411,7 +411,7 @@ meta.get-mixin($name, $module: null)  //=> function
 > }
 > ```
 
-<h3>global-variable-exists</h3>
+<h3>Global Variable Exists</h3>
 
 ```sass
 meta.global-variable-exists($name, $module: null)  //=> boolean
@@ -436,7 +436,7 @@ meta.global-variable-exists($name, $module: null)  //=> boolean
 >   @debug meta.global-variable-exists("var2")  //=> false
 > ```
 
-<h3>inspect</h3>
+<h3>Inspect</h3>
 
 ```sass
 meta.inspect($value)  //=> unquoted string
@@ -456,7 +456,7 @@ meta.inspect($value)  //=> unquoted string
 > @debug meta.inspect("Helvetica")  //=> unquote('"Helvetica"')
 > ```
 
-<h3>keywords</h3>
+<h3>Keywords</h3>
 
 ```sass
 meta.keywords($args)  //=> map
@@ -498,7 +498,7 @@ meta.keywords($args)  //=> map
 > }
 > ```
 
-<h3>mixin-exists</h3>
+<h3>Mixin Exists</h3>
 
 ```sass
 meta.mixin-exists($name, $module: null)  //=> boolean
@@ -520,7 +520,7 @@ meta.mixin-exists($name, $module: null)  //=> boolean
 > @debug meta.mixin-exists("shadow-none")  //=> true
 > ```
 
-<h3>module-functions</h3>
+<h3>Module Functions</h3>
 
 ```sass
 meta.module-functions($module)  //=> map
@@ -550,7 +550,7 @@ meta.module-functions($module)  //=> map
 > @debug meta.call(map.get(meta.module-functions("functions"), "pow"), 3, 4)  //=> 81
 > ```
 
-<h3>module-mixins</h3>
+<h3>Module Mixins</h3>
 
 ```sass
 meta.module-mixins($module)  //=> map
@@ -591,7 +591,7 @@ meta.module-mixins($module)  //=> map
 > }
 > ```
 
-<h3>module-variables</h3>
+<h3>Module Variables</h3>
 
 ```sass
 meta.module-variables($module)  //=> map
@@ -622,7 +622,7 @@ meta.module-variables($module)  //=> map
 > // )
 > ```
 
-<h3>type-of</h3>
+<h3>Type of</h3>
 
 ```sass
 meta.type-of($value)  //=> unquoted string
@@ -656,7 +656,7 @@ meta.type-of($value)  //=> unquoted string
 > @debug meta.type-of(())  //=> list
 > ```
 
-<h3>variable-exists</h3>
+<h3>Variable Exists</h3>
 
 ```sass
 meta.variable-exists($name)  //=> boolean

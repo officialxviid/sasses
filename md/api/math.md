@@ -20,41 +20,41 @@
             <a href="">Variables</a>
             <ul>
                 <li><a href=""><i>e</i></a></li>
-                <li><a href="">epsilon</a></li>
-                <li><a href="">max number</a></li>
-                <li><a href="">max safe integer</a></li>
-                <li><a href="">min number</a></li>
-                <li><a href="">min safe integer</a></li>
-                <li><a href="">pi</a></li>
+                <li><a href="">Epsilon</a></li>
+                <li><a href="">Max Number</a></li>
+                <li><a href="">Max Safe Integer</a></li>
+                <li><a href="">Min Number</a></li>
+                <li><a href="">Min Safe Integer</a></li>
+                <li><a href="">Pi</a></li>
             </ul>
         </li>
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">ceil</a></li>
-                <li><a href="">clamp</a></li>
-                <li><a href="">floor</a></li>
-                <li><a href="">max</a></li>
-                <li><a href="">min</a></li>
-                <li><a href="">round</a></li>
-                <li><a href="">absolute</a></li>
-                <li><a href="">hypot</a></li>
-                <li><a href="">logarithm</a></li>
-                <li><a href="">power</a></li>
-                <li><a href="">sqrt</a></li>
-                <li><a href="">cos</a></li>
-                <li><a href="">sin</a></li>
-                <li><a href="">tan</a></li>
-                <li><a href="">acos</a></li>
-                <li><a href="">asin</a></li>
-                <li><a href="">atan</a></li>
-                <li><a href="">atan2</a></li>
-                <li><a href="">compatible</a></li>
-                <li><a href="">is unitless</a></li>
-                <li><a href="">unit</a></li>
-                <li><a href="">div</a></li>
-                <li><a href="">percentage</a></li>
-                <li><a href="">random</a></li>
+                <li><a href="">Ceil</a></li>
+                <li><a href="">Clamp</a></li>
+                <li><a href="">Floor</a></li>
+                <li><a href="">Max</a></li>
+                <li><a href="">Min</a></li>
+                <li><a href="">Round</a></li>
+                <li><a href="">Absolute</a></li>
+                <li><a href="">Hypot</a></li>
+                <li><a href="">Logarithm</a></li>
+                <li><a href="">Power</a></li>
+                <li><a href="">Square Root</a></li>
+                <li><a href="">Cosine</a></li>
+                <li><a href="">Sine</a></li>
+                <li><a href="">Tangent</a></li>
+                <li><a href="">Arccosine</a></li>
+                <li><a href="">Arcsine</a></li>
+                <li><a href="">Arctangent</a></li>
+                <li><a href="">2-Argument Arctangent</a></li>
+                <li><a href="">Compatible</a></li>
+                <li><a href="">Is Unitless</a></li>
+                <li><a href="">Unit</a></li>
+                <li><a href="">Dividing</a></li>
+                <li><a href="">Percentage</a></li>
+                <li><a href="">Random</a></li>
             </ul>
         </li>
     </ul>
@@ -78,7 +78,7 @@ math.$e
 > @debug math.$e  //=> 2.7182818285
 > ```
 
-<h3>epsilon</h3>
+<h3>Epsilon</h3>
 
 ```sass
 math.$epsilon
@@ -94,7 +94,7 @@ math.$epsilon
 > @debug math.$epsilon  //=> 0
 > ```
 
-<h3>max-number</h3>
+<h3>Max Number</h3>
 
 ```sass
 math.$max-number
@@ -111,7 +111,7 @@ math.$max-number
 > //=> 179769313486231570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 > ```
 
-<h3>max-safe-integer</h3>
+<h3>Max Safe Integer</h3>
 
 ```sass
 math.$max-safe-integer
@@ -127,7 +127,7 @@ math.$max-safe-integer
 > @debug math.$max-safe-integer  //=> 9007199254740991
 > ```
 
-<h3>min-number</h3>
+<h3>Min Number</h3>
 
 ```sass
 math.$min-number
@@ -143,7 +143,7 @@ math.$min-number
 > @debug math.$min-number  //=> 0
 > ```
 
-<h3>min-safe-integer</h3>
+<h3>Min Safe Integer</h3>
 
 ```sass
 math.$min-safe-integer
@@ -159,7 +159,7 @@ math.$min-safe-integer
 > @debug math.$min-safe-integer  //=> -9007199254740991
 > ```
 
-<h3>pi</h3>
+<h3>Pi</h3>
 
 ```sass
 math.$pi
@@ -177,7 +177,7 @@ math.$pi
 
 <h2>Functions</h2>
 
-<h3>ceil</h3>
+<h3>Ceil</h3>
 
 ```sass
 math.ceil($number)  //=> number
@@ -199,7 +199,7 @@ ceil($number)  //=> number
 > @debug math.ceil(4.9)  //=> 5
 > ```
 
-<h3>clamp</h3>
+<h3>Clamp</h3>
 
 ```sass
 math.clamp($min, $number, $max)  //=> number
@@ -218,7 +218,7 @@ math.clamp($min, $number, $max)  //=> number
 > @debug math.clamp(-1in, 1cm, 10mm)  //=> 10mm
 > ```
 
-<h3>floor</h3>
+<h3>Floor</h3>
 
 ```sass
 math.floor($number)  //=> number
@@ -240,7 +240,7 @@ floor($number)  //=> number
 > @debug math.floor(4.9)  //=> 4
 > ```
 
-<h3>max</h3>
+<h3>Max</h3>
 
 ```sass
 math.max($number...)  //=> number
@@ -263,7 +263,7 @@ max($number...)  //=> number
 > @debug math.max($widths...)  //=> 100px
 > ```
 
-<h3>min</h3>
+<h3>Min</h3>
 
 ```sass
 math.min($number...)  //=> number
@@ -286,7 +286,7 @@ min($number...)  //=> number
 > @debug math.min($widths...)  //=> 30px
 > ```
 
-<h3>round</h3>
+<h3>Round</h3>
 
 ```sass
 math.round($number)  //=> number
@@ -308,7 +308,7 @@ round($number)  //=> number
 > @debug math.round(4.9)  //=> 5
 > ```
 
-<h3>absolute</h3>
+<h3>Absolute</h3>
 
 ```sass
 math.abs($number)  //=> number
@@ -329,7 +329,7 @@ abs($number)  //=> number
 > @debug math.abs(-10px)  //=> 10px
 > ```
 
-<h3>hypot</h3>
+<h3>Hypot</h3>
 
 ```sass
 math.hypot($number...) //=> number
@@ -349,7 +349,7 @@ math.hypot($number...) //=> number
 > @debug math.hypot($lengths...)  //=> 4.0952775683in
 > ```
 
-<h3>logarithm</h3>
+<h3>Logarithm</h3>
 
 ```sass
 math.log($number, $base: null) //=> number
@@ -367,7 +367,7 @@ math.log($number, $base: null) //=> number
 > @debug math.log(10, 10);  //=> 1
 > ```
 
-<h3>power</h3>
+<h3>Power</h3>
 
 ```sass
 math.pow($base, $exponent)  //=> number
@@ -386,7 +386,7 @@ math.pow($base, $exponent)  //=> number
 > @debug math.pow(5, -2)  //=> 0.04
 > ```
 
-<h3>sqrt</h3>
+<h3>Square Root</h3>
 
 ```sass
 math.sqrt($number)  //=> number
@@ -405,7 +405,7 @@ math.sqrt($number)  //=> number
 > @debug math.sqrt(-1)  //=> NaN
 > ```
 
-<h3>cos</h3>
+<h3>Cosine</h3>
 
 ```sass
 math.cos($number)  //=> number
@@ -424,7 +424,7 @@ math.cos($number)  //=> number
 > @debug math.cos(1)  //=> 0.5403023059
 > ```
 
-<h3>sin</h3>
+<h3>Sine</h3>
 
 ```sass
 math.sin($number)  //=> number
@@ -443,7 +443,7 @@ math.sin($number)  //=> number
 > @debug math.sin(1)  //=> 0.8414709848
 > ```
 
-<h3>tan</h3>
+<h3>Tangent</h3>
 
 ```sass
 math.tan($number)  //=> number
@@ -462,7 +462,7 @@ math.tan($number)  //=> number
 > @debug math.tan(1)  //=> 1.5574077247
 > ```
 
-<h3>acos</h3>
+<h3>Arccosine</h3>
 
 ```sass
 math.acos($number)  //=> number
@@ -480,7 +480,7 @@ math.acos($number)  //=> number
 > @debug math.acos(2)  //=> NaNdeg
 > ```
 
-<h3>asin</h3>
+<h3>Arcsine</h3>
 
 ```sass
 math.asin($number)  //=> number
@@ -498,7 +498,7 @@ math.asin($number)  //=> number
 > @debug math.asin(2)  //=> NaNdeg
 > ```
 
-<h3>atan</h3>
+<h3>Arctangent</h3>
 
 ```sass
 math.atan($number)  //=> number
@@ -515,7 +515,7 @@ math.atan($number)  //=> number
 > @debug math.atan(10)  //=> 84.2894068625deg
 > ```
 
-<h3>atan2</h3>
+<h3>2-Argument Arctangent</h3>
 
 ```sass
 math.atan2($y, $x)  //=> number
@@ -532,7 +532,7 @@ math.atan2($y, $x)  //=> number
 > @debug math.atan2(-1, 1)  //=> 135deg
 > ```
 
-<h3>compatible</h3>
+<h3>Compatible</h3>
 
 ```sass
 math.compatible($number1, $number2)  //=> boolean
@@ -555,7 +555,7 @@ comparable($number1, $number2)  //=> boolean
 > @debug math.compatible(10cm, 3mm)  //=> true
 > ```
 
-<h3>is-unitless</h3>
+<h3>Is Unitless</h3>
 
 ```sass
 math.is-unitless($number)  //=> boolean
@@ -576,7 +576,7 @@ unitless($number)  //=> boolean
 > @debug math.is-unitless(100px)  //=> false
 > ```
 
-<h3>unit</h3>
+<h3>Unit</h3>
 
 ```sass
 math.unit($number)  //=> quoted string
@@ -599,7 +599,7 @@ unit($number)  //=> quoted string
 > @debug math.unit(math.div(5px, 1s))  //=> "px/s"
 > ```
 
-<h3>div</h3>
+<h3>Dividing</h3>
 
 ```sass
 math.div($number1, $number2)  //=> number
@@ -619,7 +619,7 @@ math.div($number1, $number2)  //=> number
 > @debug math.div(100px, 5s)  //=> 20px/s
 > ```
 
-<h3>percentage</h3>
+<h3>Percentage</h3>
 
 ```sass
 math.percentage($number)  //=> number
@@ -640,7 +640,7 @@ percentage($number)  //=> number
 > @debug math.percentage(math.div(100px, 50px))  //=> 200%
 > ```
 
-<h3>random</h3>
+<h3>Random</h3>
 
 ```sass
 math.random($limit: null)  //=> number

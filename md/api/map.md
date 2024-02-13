@@ -19,15 +19,15 @@
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">deep merge</a></li>
-                <li><a href="">deep remove</a></li>
-                <li><a href="">get</a></li>
-                <li><a href="">has key</a></li>
-                <li><a href="">keys</a></li>
-                <li><a href="">merge</a></li>
-                <li><a href="">remove</a></li>
-                <li><a href="">set</a></li>
-                <li><a href="">values</a></li>
+                <li><a href="">Deep Merge</a></li>
+                <li><a href="">Deep Remove</a></li>
+                <li><a href="">Get</a></li>
+                <li><a href="">Has Key</a></li>
+                <li><a href="">Keys</a></li>
+                <li><a href="">Merge</a></li>
+                <li><a href="">Remove</a></li>
+                <li><a href="">Set</a></li>
+                <li><a href="">Values</a></li>
             </ul>
         </li>
     </ul>

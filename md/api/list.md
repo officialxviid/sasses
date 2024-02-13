@@ -19,16 +19,16 @@
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">append</a></li>
-                <li><a href="">index</a></li>
-                <li><a href="">is bracketed</a></li>
-                <li><a href="">join</a></li>
-                <li><a href="">length</a></li>
-                <li><a href="">separator</a></li>
-                <li><a href="">nth</a></li>
-                <li><a href="">set nth</a></li>
-                <li><a href="">slash</a></li>
-                <li><a href="">zip</a></li>
+                <li><a href="">Append</a></li>
+                <li><a href="">Index</a></li>
+                <li><a href="">Is Bracketed</a></li>
+                <li><a href="">Join</a></li>
+                <li><a href="">Length</a></li>
+                <li><a href="">Separator</a></li>
+                <li><a href="">Nth</a></li>
+                <li><a href="">Set Nth</a></li>
+                <li><a href="">Slash</a></li>
+                <li><a href="">Zip</a></li>
             </ul>
         </li>
     </ul>
@@ -36,7 +36,7 @@
 
 <h2>Functions</h2>
 
-<h3>append</h3>
+<h3>Append</h3>
 
 ```sass
 list.append($list, $val, $separator: auto) //=> list
@@ -58,7 +58,7 @@ list.append($list, $val, $separator: auto) //=> list
 > @debug list.append((blue, red), green, $separator: space)  //=> blue red green
 > ```
 
-<h3>index</h3>
+<h3>Index</h3>
 
 ```sass
 list.index($list, $value) //=> number | null
@@ -77,7 +77,7 @@ list.index($list, $value) //=> number | null
 > @debug list.index(1px solid red, dashed)  //=> null
 > ```
 
-<h3>is-bracketed</h3>
+<h3>Is Bracketed</h3>
 
 ```sass
 list.is-bracketed($list) //=> boolean
@@ -94,7 +94,7 @@ list.is-bracketed($list) //=> boolean
 > @debug list.is-bracketed([1px, 2px, 3px])  //=> true
 > ```
 
-<h3>join</h3>
+<h3>Join</h3>
 
 ```sass
 list.join($list1, $list2, $separator: auto, $bracketed: auto) //=> list
@@ -118,7 +118,7 @@ list.join($list1, $list2, $separator: auto, $bracketed: auto) //=> list
 > @debug list.join(10px, 20px, $bracketed: true)  //=> [10px 20px]
 > ```
 
-<h3>length</h3>
+<h3>Length</h3>
 
 ```sass
 list.length($list) //=> number
@@ -137,7 +137,7 @@ list.length($list) //=> number
 > @debug list.length((width: 10px, height: 20px))  //=> 2
 > ```
 
-<h3>separator</h3>
+<h3>Separator</h3>
 
 ```sass
 list.separator($list) //=> unquoted string
@@ -157,7 +157,7 @@ list.separator($list) //=> unquoted string
 > @debug list.separator(())  //=> space
 > ```
 
-<h3>nth</h3>
+<h3>Nth</h3>
 
 ```sass
 list.nth($list, $n)
@@ -175,7 +175,7 @@ list.nth($list, $n)
 > @debug list.nth([line1, line2, line3], -1)  // line3
 > ```
 
-<h3>set-nth</h3>
+<h3>Set Nth</h3>
 
 ```sass
 list.set-nth($list, $n, $value)  //=> list
@@ -194,7 +194,7 @@ list.set-nth($list, $n, $value)  //=> list
 > @debug list.set-nth((Helvetica, Arial, sans-serif), 3, Roboto);  //=> Helvetica, Arial, Roboto
 > ```
 
-<h3>slash</h3>
+<h3>Slash</h3>
 
 ```sass
 list.slash($elements...)  //=> list
@@ -210,7 +210,7 @@ list.slash($elements...)  //=> list
 > @debug list.slash(1px, 50px, 100px)  //=> 1px / 50px / 100px
 > ```
 
-<h3>zip</h3>
+<h3>Zip</h3>
 
 ```sass
 list.zip($lists...)  //=> list

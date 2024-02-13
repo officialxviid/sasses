@@ -19,14 +19,14 @@
         <li>
             <a href="">Functions</a>
             <ul>
-                <li><a href="">is superselector</a></li>
-                <li><a href="">append</a></li>
-                <li><a href="">extend</a></li>
-                <li><a href="">nest</a></li>
-                <li><a href="">parse</a></li>
-                <li><a href="">replace</a></li>
-                <li><a href="">unify</a></li>
-                <li><a href="">simple selectors</a></li>
+                <li><a href="">Is Superselector</a></li>
+                <li><a href="">Append</a></li>
+                <li><a href="">Extend</a></li>
+                <li><a href="">Nest</a></li>
+                <li><a href="">Parse</a></li>
+                <li><a href="">Replace</a></li>
+                <li><a href="">Unify</a></li>
+                <li><a href="">Simple Selectors</a></li>
             </ul>
         </li>
     </ul>
@@ -34,7 +34,7 @@
 
 <h2>Functions</h2>
 
-<h3>is-superselector</h3>
+<h3>Is Superselector</h3>
 
 ```sass
 selector.is-superselector($super, $sub)  //=> boolean
@@ -60,7 +60,7 @@ is-superselector($super, $sub)  //=> boolean
 > @debug selector.is-superselector("a", "a")  //=> true
 > ```
 
-<h3>append</h3>
+<h3>Append</h3>
 
 ```sass
 selector.append($selectors...)  //=> selector
@@ -84,7 +84,7 @@ selector-append($selectors...)  //=> selector
 > @debug selector.append(".accordion", "__copy, __image")  //=> .accordion__copy, .accordion__image
 > ```
 
-<h3>extend</h3>
+<h3>Extend</h3>
 
 ```sass
 selector.extend($selector, $extendee, $extender)  //=> selector
@@ -117,7 +117,7 @@ selector-extend($selector, $extendee, $extender)  //=> selector
 > //=> .guide .info, .guide .content nav.sidebar, .content .guide nav.sidebar
 > ```
 
-<h3>nest</h3>
+<h3>Nest</h3>
 
 ```sass
 selector.nest($selectors...)  //=> selector
@@ -141,7 +141,7 @@ selector-nest($selectors...)  //=> selector
 > @debug selector.nest(".accordion", "&__copy")  //=> .accordion__copy
 > ```
 
-<h3>parse</h3>
+<h3>Parse</h3>
 
 ```sass
 selector.parse($selector)  //=> selector
@@ -163,7 +163,7 @@ selector-parse($selector)  //=> selector
 > //  (unquote(".sidebar") unquote("p")))
 > ```
 
-<h3>replace</h3>
+<h3>Replace</h3>
 
 ```sass
 selector.replace($selector, $original, $replacement)  //=> selector
@@ -188,7 +188,7 @@ selector-replace($selector, $original, $replacement)  //=> selector
 > //=> .guide .content nav.sidebar, .content .guide nav.sidebar
 > ```
 
-<h3>unify</h3>
+<h3>Unify</h3>
 
 ```sass
 selector.unify($selector1, $selector2)  //=> selector | null
@@ -213,7 +213,7 @@ selector-unify($selector1, $selector2)  //=> selector | null
 > @debug selector.unify(".warning a", "main a")  //=> .warning main a, main .warning a
 > ```
 
-<h3>simple-selectors</h3>
+<h3>Simple Selectors</h3>
 
 ```sass
 selector.simple-selectors($selector)  //=> list
