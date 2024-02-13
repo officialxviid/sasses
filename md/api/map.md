@@ -35,7 +35,7 @@
 
 <h2>Functions</h2>
 
-<h3>deep-merge</h3>
+<h3>Deep Merge</h3>
 
 ```sass
 map.deep-merge($map1, $map2)  //=> map
@@ -69,7 +69,7 @@ map.deep-merge($map1, $map2)  //=> map
 > // )
 > ```
 
-<h3>deep-remove</h3>
+<h3>Deep Remove</h3>
 
 ```sass
 map.deep-remove($map, $key, $keys...)  //=> map
@@ -108,7 +108,7 @@ map.deep-remove($map, $key, $keys...)  //=> map
 > // )
 > ```
 
-<h3>get</h3>
+<h3>Get</h3>
 
 ```sass
 map.get($map, $key, $keys...)
@@ -143,7 +143,7 @@ map.get($map, $key, $keys...)
 > @debug map.get($fonts, "Helvetica", "colors")  //=> null
 > ```
 
-<h3>has-key</h3>
+<h3>Has Key</h3>
 
 ```sass
 map.has-key($map, $key, $keys...)  //=> boolean
@@ -177,7 +177,7 @@ map.has-key($map, $key, $keys...)  //=> boolean
 > @debug map.has-key($fonts, "Helvetica", "colors")  //=> false
 > ```
 
-<h3>keys</h3>
+<h3>Keys</h3>
 
 ```sass
 map.keys($map)  //=> list
@@ -195,7 +195,7 @@ map.keys($map)  //=> list
 > @debug map.keys($font-weights)  //=> "regular", "medium", "bold"
 > ```
 
-<h3>merge</h3>
+<h3>Merge</h3>
 
 ```sass
 map.merge($map1, $map2)  //=> map
@@ -245,7 +245,7 @@ map.merge($map1, $keys..., $map2)  //=> map
 > // )
 > ```
 
-<h3>remove</h3>
+<h3>Remove</h3>
 
 ```sass
 map.remove($map, $keys...)  //=> map
@@ -266,7 +266,7 @@ map.remove($map, $keys...)  //=> map
 > @debug map.remove($font-weights, "bolder")  //=> ("regular": 400, "medium": 500, "bold": 700)
 > ```
 
-<h3>set</h3>
+<h3>Set</h3>
 
 ```sass
 map.set($map, $key, $value)  //=> map
@@ -311,7 +311,7 @@ map.set($map, $keys..., $key, $value)  //=> map
 > // )
 > ```
 
-<h3>values</h3>
+<h3>Values</h3>
 
 ```sass
 map.values($map)  //=> list
