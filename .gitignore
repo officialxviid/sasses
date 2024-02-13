@@ -6,7 +6,23 @@
 #  @license     MIT              #
 ##################################
 
+# User-specific files
+.DS_Store
+*.vs
+*.user
+
+# SASS Package Managers
 .sass-cache/
 *.css.map
 *.sass.map
 *.scss.map
+
+# NPM Package Managers
+node_modules
+npm-debug.log
+
+# Build Artifacts
+*.lock.json
+*-lock.json
+*.backup
+*.cache
