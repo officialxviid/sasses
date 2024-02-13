@@ -17,17 +17,17 @@
 <p>
     <ul>
         <li>
-            <a href="">Functions</a>
+            <a href="#functions">Functions</a>
             <ul>
-                <li><a href="">Deep Merge</a></li>
-                <li><a href="">Deep Remove</a></li>
-                <li><a href="">Get</a></li>
-                <li><a href="">Has Key</a></li>
-                <li><a href="">Keys</a></li>
-                <li><a href="">Merge</a></li>
-                <li><a href="">Remove</a></li>
-                <li><a href="">Set</a></li>
-                <li><a href="">Values</a></li>
+                <li><a href="#deep-merge">Deep Merge</a></li>
+                <li><a href="#deep-remove">Deep Remove</a></li>
+                <li><a href="#GET">Get</a></li>
+                <li><a href="#has-key">Has Key</a></li>
+                <li><a href="#keys">Keys</a></li>
+                <li><a href="#merge">Merge</a></li>
+                <li><a href="#remove">Remove</a></li>
+                <li><a href="#set">Set</a></li>
+                <li><a href="#values">Values</a></li>
             </ul>
         </li>
     </ul>
