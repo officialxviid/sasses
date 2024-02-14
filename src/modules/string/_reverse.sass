@@ -1,0 +1,38 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Reverse `$string`.
+///
+/// @param {String} $string - string to reverse
+/// @return {String}
+/// 
+/// @example
+///		@debug string.reverse('XVIID')  //=> 'DIIVX'
+///
+/// @access public
+/// @require validation.is-string
+/// @require exception.parameter-type
+/// @require string.index
+/// @require string.slice
+///
+@function reverse($string)
+	@if not validation.is-string($string)
+		@error exception.parameter-type('reverse', 'string', $string, 'string')
+	
+	$result: ""
+	
+	@for $i from string.length($string) through 1
+		$result: $result + string.slice($string, $i, $i)
+	
+	@return $result

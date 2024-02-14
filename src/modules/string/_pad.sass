@@ -1,0 +1,69 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use 'sass:list'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Pad `$string` from `$direction` with `$pad` to reach `$length` characters.
+///
+/// @param {String} $string - string to pad
+/// @param {Number} $length - number of characters to go for in returned string
+/// @param {String} $pad (" ")  - string to use to pad `$string`
+/// @param {String} $direction (left) - direction left or right for padding
+/// @return {String}
+/// 
+/// @example
+///		@debug string.pad('i love XVIID')  //=> 'I love XVIID'
+///
+/// @access public
+/// @require validation.is-string
+/// @require validation.is-unitless
+/// @require validation.is-integer
+/// @require exception.parameter-type
+/// @require exception.parameter
+/// @require list.index
+/// @require string.slice
+/// @require string.length
+/// @require string.insert
+///
+@function pad($string, $length, $pad: " ", $direction: left)
+	@if not validation.is-string($string)
+		@error exception.parameter-type('pad', 'string', $string, 'string')
+	
+	@if not validation.is-unitless($length) and not validation.is-integer($length)
+		@error exception.parameter-type('pad', 'length', $length, 'unitless', 'integer')
+	
+	@if not validation.is-string($pad)
+		@error exception.parameter-type('pad', 'pad', $pad, 'string')
+	
+	@if not validation.is-string($direction)
+		@error exception.parameter-type('pad', 'direction', $direction, 'string')
+	
+	@if list.index('right' 'left', $direction) == null
+		@error exception.parameter('Must be either "left" or "right"', 'pad', 'direction')
+	
+	$new-string: $string
+	$index: 1
+	
+	@if $length > string.length($string)
+		@while string.length($new-string) < $length
+			$remains: $length - string.length($new-string)
+			$pad: if($remains < string.length($pad), string.slice($pad, 1, $remains), $pad)
+			
+			@if $direction == left
+				$new-string: string.insert($new-string, $pad, $index)
+				$index: $index + string.length($pad)
+			
+			@else
+				$new-string: $new-string + $pad
+	
+	@return $new-string

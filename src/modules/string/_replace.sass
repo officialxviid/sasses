@@ -1,0 +1,47 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Replace `$search` with `$replace` in `$string`.
+///
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ("") - New value
+/// @return {String} - Updated string
+/// 
+/// @example
+///		@debug string.replace('I Love Sass', 'Sass', 'XVIID')  //=> 'I Love XVIID'
+///
+/// @access public
+/// @require validation.is-string
+/// @require exception.parameter-type
+/// @require string.index
+/// @require string.slice
+/// @require string.length
+///
+@function replace($string, $search, $replace: "")
+	@if not validation.is-string($string)
+		@error exception.parameter-type('replace', 'string', $string, 'string')
+	
+	@if not validation.is-string($search)
+		@error exception.parameter-type('replace', 'search', $search, 'string')
+	
+	@if not validation.is-string($replace)
+		@error exception.parameter-type('replace', 'replace', $replace, 'string')
+	
+	$index: string.index($string, $search)
+	
+	@if $index
+		@return string.slice($string, 1, $index - 1) + $replace + replace(string.slice($string, $index + string.length($search)), $search, $replace)
+	
+	@return $string

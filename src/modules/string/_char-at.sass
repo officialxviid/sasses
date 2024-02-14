@@ -1,0 +1,38 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Return character from `$string` at `$index`.
+///
+/// @param {String} $string - string to check
+/// @param {Number} $index  - index to inspect
+/// @return {String}
+/// 
+/// @example
+///		@debug string.char-at('i love XVIID')  //=> 'I love XVIID'
+///
+/// @access public
+/// @require validation.is-string
+/// @require validation.is-unitless
+/// @require validation.is-integer
+/// @require exception.parameter-type
+/// @require string.slice
+///
+@function char-at($string, $index)
+	@if not validation.is-string($string)
+		@error exception.parameter-type('char-at', 'string', $string, 'string')
+	
+	@if not validation.is-unitless($index) and not validation.is-integer($index)
+		@error exception.parameter-type('char-at', 'index', $index, 'unitless', 'integer')
+	
+	@return string.slice($string, $index, $index)

@@ -1,0 +1,52 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use 'sass:list'
+@use 'trim'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Count number of words in `$string`.
+/// 
+/// @param {String} $string - string to check
+/// @return {String}
+/// 
+/// @example
+///		@debug string.word-count("XVIID")  //=> 1
+///		@debug string.word-count("I love XVIID")  //=> 3
+///
+/// @access public
+/// @require validation.is-string
+/// @require exception.parameter-type
+/// @require trim.trim
+/// @require string.length
+/// @require string.slice
+/// @require list.length
+/// @require list.append
+///
+@function word-count($string)
+	@if not validation.is-string($string)
+		@error exception.parameter-type('word-count', 'string', $string, 'string')
+	
+	@if $string == ""
+		@return 0
+	
+	$string: trim.trim($string)
+	$words: ()
+	$i: string.length($string)
+	
+	@while $i > 0
+		@if string.slice($string, $i, $i) == " "
+			$words: list.append($words, string.slice($string, $i + 1))
+			$string: string.slice($string, 1, $i - 1)
+		$i: $i - 1
+	
+	@return list.length(list.append($words, $string))

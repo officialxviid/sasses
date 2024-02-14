@@ -1,0 +1,41 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:string'
+@use 'sass:list'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Cast `$literal` to string.
+///
+/// @param {*} $literal - number to cast to string
+/// @return {String}
+/// 
+/// @example
+///		@debug string.stringify(xviid)  //=> "xviid"
+///		@debug string.stringify(i love xviid)  //=> "Ilovexviid"
+///
+/// @access public
+/// @require validation.is-string
+/// @require exception.parameter-type
+/// @require list.length
+/// @require string.unquote
+/// @require string.quote
+///
+@function stringify($literal)
+	$result: ""
+	
+	@if list.length($literal) == 1
+		$result: $literal + string.unquote("")
+	@else
+		@each $item in $literal
+			$result: $result + stringify($item)
+	
+	@return string.quote($result)
