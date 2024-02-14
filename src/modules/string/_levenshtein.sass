@@ -92,7 +92,7 @@
 /// @example
 ///		@debug levenshtein._element((0 1 2 3 4 5) (1 1 2 3 4 5) (2 2 2 2 3 4), 3, 6)  //=> 4
 ///
-/// @access internal
+/// @access private
 /// @require validation.is-number
 /// @require exception.parameter-type
 /// @require list.nth
@@ -120,7 +120,7 @@
 /// @example
 ///		@debug levenshtein._matrix(3, 6)  //=> (0 0 0 0 0 0) (0 0 0 0 0 0) (0 0 0 0 0 0)
 ///
-/// @access internal
+/// @access private
 /// @require validation.is-number
 /// @require exception.parameter-type
 /// @require list.append
@@ -157,7 +157,7 @@
 /// @example
 ///		@debug levenshtein._set-matrix((0 0 0 0 0) (0 0 0 0 0), 2, 2, 1)  //=> (0 0 0 0 0) (0 1 0 0 0)
 ///
-/// @access internal
+/// @access private
 /// @require validation.is-number
 /// @require exception.parameter-type
 /// @require list.set-nth
