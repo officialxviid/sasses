@@ -1,0 +1,76 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'gcd'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns the Least Common Multiple (LCM) of a set of numbers.
+///
+/// @param {ArgList} $numbers - The numbers for which to calculate the least common multiple.
+///
+/// @throw `#{$numbers}` is not a arglist.
+/// @throw `#{$numbers[i]}` is not a number.
+/// 
+/// @example
+///		@debug math.lcm()  //=> 
+///
+/// @access public
+/// @require validation.is-arglist
+/// @require validation.is-number
+/// @require exception.parameter-type
+/// @require _lcm
+///
+@function lcm($numbers...)
+	@if not validation.is-arglist($numbers)
+		@error exception.parameter-type('lcm', 'numbers', $numbers, 'arglist')
+	
+	$result: 1
+
+	@each $number in $numbers
+		@if not validation.is-number($number)
+			@error exception.parameter-type('lcm', 'number', $number, 'number')
+	
+		$result: _lcm($result, $number)
+
+	@return $result
+
+
+///
+/// Calculates the Least Common Multiple (LCM) of two numbers.
+///
+/// @param {Number} $first-number - The first number of the calculation.
+/// @param {Number} $second-number - The second number of the calculation.
+/// @return {Number}
+///
+/// @throw `#{$first-number|$second-number}` is not a number.
+/// 
+/// @example
+///		@debug lcm._lcm()  //=> 
+///
+/// @access private
+/// @require validation.is-number
+/// @require exception.parameter-type
+/// @require gcd.gcd
+/// @require math.abs
+/// @require math.div
+///
+@function _lcm($first-number, $second-number)
+	@if not validation.is-number($first-number)
+		@error exception.parameter-type('_lcm', 'first-number', $first-number, 'number')
+	
+	@if not validation.is-number($second-number)
+		@error exception.parameter-type('_lcm', 'second-number', $second-number, 'number')
+	
+	$first-number: math.abs($first-number)
+	$second-number: math.abs($second-number)
+
+	@return math.div($first-number * $second-number, gcd.gcd($first-number, $second-number))

@@ -1,0 +1,41 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Calculates the Great Common Divisor (GCD) of two numbers.
+///
+/// @param {Number} $first-number - The first number of the calculation.
+/// @param {Number} $second-number - The second number of the calculation.
+/// @return {Number}
+///
+/// @throw `#{$first-number|$second-number}` is not a number.
+/// 
+/// @example
+///		@debug math.gcd(36, 60)  //=> 12
+///
+/// @access internal
+/// @require validation.is-string
+/// @require exception.parameter-type
+/// @require math.abs
+///
+@function gcd($first-number, $second-number)
+	@if not validation.is-number($first-number)
+		@error exception.parameter-type('gcd', 'first-number', $first-number, 'number')
+	
+	@if not validation.is-number($second-number)
+		@error exception.parameter-type('gcd', 'second-number', $second-number, 'number')
+	
+	$first-number: math.abs($first-number)
+	$second-number: math.abs($second-number)
+	
+	@return if($second-number == 0, $first-number, gcd($second-number, $first-number % $second-number))
