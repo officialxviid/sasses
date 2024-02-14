@@ -1,0 +1,36 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Map collect function
+/// Since the builtin map-merge function in Sass only take 2 arguments, it can only merge 2 maps at a time.
+/// The map-collect function below allows you to combine multiple maps together in a cleaner way.
+///
+/// @param {Map} $maps...
+/// @return {Map} - Merges maps to one map
+///
+/// @access public
+/// @require validation.is-map
+/// @require exception.parameter-type
+/// @require map.merge
+///
+@function collect($maps...)
+	@if not validation.is-map($maps)
+		@error exception.parameter-type('collect', 'maps', $maps, 'map')
+	
+	$collection: ()
+	
+	@each $map in $maps
+		$collection: map.merge($collection, $map)
+	
+	@return $collection

@@ -1,0 +1,31 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use '../../core/internal/from'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns a string representing the specified map and its key/value pairs.
+///
+/// @param {Map | ArgList} $map - The map from which to generate a string. When is an argument list, keywords will be included.
+/// @return {String}
+///
+/// @access public
+/// @require validation.is-arglist
+/// @require validation.is-map
+/// @require exception.parameter-type
+/// @require from.to-string
+///
+@function to-string($map)
+	@if not validation.is-arglist($map) or not validation.is-map($map)
+		@error exception.parameter-type('to-string', 'map', $map, 'arglist', 'map')
+	
+	@return from.to-string($map, $type)

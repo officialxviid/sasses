@@ -1,0 +1,42 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use 'sass:list'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Creates a map from the provided key/value pairs.
+///
+/// @param {ArgList} $pairs - The key/value pairs from which a map will be created.
+/// @return {Map}
+///
+/// @throw One or more key/value pairs are required.
+///
+/// @access public
+/// @require validation.is-arglist
+/// @require exception.parameter-type
+/// @require exception.parameter
+/// @require list.length
+/// @require map.set
+///
+@function from($pairs...)
+	@if not validation.is-arglist($pairs)
+		@error exception.parameter-type('from', 'pairs', $pairs, 'arglist')
+	
+	@if list.length($pairs) < 1
+		@error exception.parameter('One or more key/value pairs are required', 'from', 'pairs')
+	
+	$result: ()
+
+	@each $key, $value in $pairs
+		$result: map.set($result, $key, $value)
+
+	@return $result
