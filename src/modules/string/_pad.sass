@@ -20,6 +20,10 @@
 /// @param {String} $pad (" ")  - string to use to pad `$string`
 /// @param {String} $direction (left) - direction left or right for padding
 /// @return {String}
+///
+/// @throw `#{$string|$pad|$direction}` is not a string
+/// @throw `#{$length}` is not a unitless and integer
+/// @throw `#{$direction}` is not "right" or "left" value
 /// 
 /// @example
 ///		@debug string.pad('i love XVIID')  //=> 'I love XVIID'

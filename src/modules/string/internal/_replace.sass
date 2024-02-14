@@ -17,6 +17,8 @@
 /// @param {String} $replacement
 /// @param {String} $original - This allows the original $string value to forward through recursion so it may be used for special replacement patterns.
 /// @return {String}
+///
+/// @throw `#{$string|$substring|$replacement|$original}` is not a string
 /// 
 /// @example
 ///		@debug string.replace(XVIID, X)  //=> true
