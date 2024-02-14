@@ -1,0 +1,39 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      compare
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use 'sass:list'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Allows a function to return its reference when no parameters are provided, otherwise maintaining its regular behavior.
+///
+/// @param {Function} $function - The function to call or reference.
+/// @param {ArgList} $args - The arguments to apply to the invocation of the function.
+/// @return {Function | *}
+///
+/// @throw `#{$function}` is not a function.
+///
+/// @access public
+/// @require validation.is-function
+/// @require exception.parameter-type
+/// @require list.length
+/// @require list.length
+/// @require meta.keywords
+/// @require meta.call
+///
+@function reference($function, $args...)
+	@if not validation.is-function($function)
+		@error exception.parameter-type('reference', 'function', $function, 'function')
+	
+	@if list.length($args) != 0 or list.length(meta.keywords($args)) != 0
+		@return meta.call($function, $args...)
+
+	@return $function
