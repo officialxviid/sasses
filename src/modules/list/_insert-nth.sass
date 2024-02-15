@@ -34,7 +34,7 @@
 /// @require exception.validate-index
 /// @require validation.is-number
 /// @require exception.parameter-type
-/// @require validation.is-separator-invalid
+/// @require validation.is-separator
 /// @require exception.separator
 /// @require internal.insert-nth
 ///
@@ -44,7 +44,7 @@
 	@if not validation.is-number($index)
 		@error exception.parameter-type('insert-nth', 'index', $index, 'number')
 	
-	@if validation.is-separator-invalid($separator)
+	@if validation.is-separator($separator)
 		@error exception.separator('insert-nth')
 
 	@return internal.insert-nth($list, $index, $value, $separator)

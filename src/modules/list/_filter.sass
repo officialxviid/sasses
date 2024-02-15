@@ -30,7 +30,7 @@
 ///
 /// @access public
 /// @require validation.is-function
-/// @require validation.is-separator-invalid
+/// @require validation.is-separator
 /// @require exception.parameter-type
 /// @require exception.separator
 /// @require empty.empty
@@ -41,7 +41,7 @@
 	@if not validation.is-function($predicate)
 		@error exception.parameter-type('filter', 'predicate', $predicate, 'function')
 	
-	@if validation.is-separator-invalid($separator)
+	@if validation.is-separator($separator)
 		@error exception.separator('filter')
 
 	$result: empty.empty($separator, $list: $list)
