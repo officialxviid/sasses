@@ -1,0 +1,47 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns a copy of a list with the value at the given index replaced with the specified value.
+///
+/// @param {List} $list - The list from which the value is to be replaced.
+/// @param {Number} $index - The index at which the value is to be replaced. A negative index can be used, indicating an offset from the end of the list.
+/// @param {*} $value - The value which is to be replaced.
+/// @param {String} $separator [auto] - The type of separator to be used by the copied list.
+/// @return {List}
+///
+/// @throw `#{$index}` is not a number.
+/// @throw List index may not be 0.
+/// @throw Invalid index #{$index} for a list with #{length} elements.
+/// @throw Must be "space", "comma", "slash", or "auto".
+/// 
+/// @example
+///		@debug list.reverse()  //=> 
+///
+/// @access public
+/// @require exception.validate-index
+/// @require validation.is-separator
+/// @require exception.separator
+/// @require list.join
+/// @require list.set-nth
+///
+@function set-nth($list, $index, $value, $separator: auto)
+	$index: exception.validate-index('set-nth', 'index', $index, $list)
+
+	@if not validation.is-number($index)
+		@error exception.parameter-type('set-nth', 'index', $index, 'number')
+
+	@if validation.is-separator($separator)
+		@error exception.separator('set-nth')
+
+	@return list.join(list.set-nth($list, $index, $value), (), $separator)

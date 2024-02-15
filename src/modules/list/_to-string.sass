@@ -1,0 +1,35 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use '../../../meta'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns a string representing the specified list and its items.
+///
+/// @param {List | Map | ArgList} $list - The list from which to generate a string.
+/// @return {String}
+/// 
+/// @example
+///		@debug list.to-string()  //=> 
+///
+/// @access public
+/// @require validation.is-list
+/// @require validation.is-map
+/// @require validation.is-arglist
+/// @require exception.parameter-type
+/// @require from.to-string
+///
+@function to-string($list)
+	@if not validation.is-list($compare) and not validation.is-map($compare) and not validation.is-arglist($compare)
+		@error exception.parameter-type('to-string', 'list', $list, 'list', 'map', 'arglist')
+	
+	@return from.to-string($list, 'list')

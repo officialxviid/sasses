@@ -1,0 +1,61 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'map'
+@use '../../../meta'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns a copy of a list with all occurrences of the given value replaced by the specified replacement.
+///
+/// @param {List} $list - The list from which the value is to be replaced.
+/// @param {*} $value - The value to be replace by the replacement.
+/// @param {*} $replacement - The value that replaces the specified value.
+/// @param {String} $separator [auto] - The type of separator to be used by the copied list.
+/// @return {List}
+///
+/// @throw Must be "space", "comma", "slash", or "auto".
+/// 
+/// @example
+///		@debug list.replace()  //=> 
+///
+/// @access public
+/// @require validation.is-separator
+/// @require exception.separator
+/// @require list.separator
+/// @require map.map
+/// @require meta.get-function
+///
+@function replace($list, $value, $replacement, $separator: auto)
+
+	@if validation.is-separator($separator)
+		@error exception.separator('replace')
+
+	@if $value == $replacement and ($separator != auto or $separator == list.separator($list))
+		@return $list
+
+	@return map.map($list, meta.get-function('_replace-transformer'), $separator, auto, $value, $replacement)
+
+
+///
+/// Used to compare two list values for equality, returning the replacement when true, otherwise returning the original value.
+///
+/// @param {*} $item - The current item being processed in the list.
+/// @param {Number} $index - The index of the current item being processed in the list.
+/// @param {List} $list - The list being processed.
+/// @param {*} $value - The value to be replace by the replacement.
+/// @param {*} $replacement - The value that replaces the specified value.
+/// @return {*}
+///
+/// @access private
+///
+@function _replace-transformer($item, $index, $list, $value, $replacement)
+	@return if($item == $value, $replacement, $item)

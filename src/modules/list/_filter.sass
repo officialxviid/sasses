@@ -1,0 +1,57 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'empty'
+@use '../../../meta'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Creates a new list with all item from a list that satisfy the test implemented by the specified function.
+///
+/// @param {List} $list - The list from which items will be tested.
+/// @param {Function} $predicate - The function that tests each item for a condition. The first parameter is the current item being processed in the list. The second parameter is the index of the current item being processed in the list. The third parameter is the list being processed. The returned value will be compared for truthiness.
+/// @param {String} $separator [auto] - The type of separator to be used by the extracted list.
+/// @param {ArgList} $args - Additional parameters which are provided to predicate function.
+/// @return {List}
+///
+/// @throw `#{$predicate}` is not a function.
+/// @throw `#{$separator}` Must be "space", "comma", "slash", or "auto".
+/// 
+/// @example
+///		@debug list.filter()  //=> 
+///
+/// @access public
+/// @require validation.is-function
+/// @require validation.is-separator-invalid
+/// @require exception.parameter-type
+/// @require exception.separator
+/// @require empty.empty
+/// @require meta.call
+/// @require list.append
+///
+@function filter($list, $predicate, $separator: auto, $args...)
+	@if not validation.is-function($predicate)
+		@error exception.parameter-type('filter', 'predicate', $predicate, 'function')
+	
+	@if validation.is-separator-invalid($separator)
+		@error exception.separator('filter')
+
+	$result: empty.empty($separator, $list: $list)
+	$index: 1
+
+	@each $item in $list
+
+		@if meta.call($predicate, $item, $index, $list, $args...)
+			$result: list.append($result, $item)
+
+		$index: $index + 1
+
+	@return $result

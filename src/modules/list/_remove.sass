@@ -1,0 +1,46 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'remove-nth'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Returns a copy of a list without the specified value.
+///
+/// @param {List} $list - The list from which the value is to be removed.
+/// @param {Number} $value - The value to be removed.
+/// @param {String} $separator [auto] - The type of separator to be used by the copied list.
+/// @return {List}
+///
+/// @throw Must be "space", "comma", "slash", or "auto".
+/// 
+/// @example
+///		@debug list.remove()  //=> 
+///
+/// @access public
+/// @require validation.is-separator
+/// @require exception.separator
+/// @require list.index
+/// @require remove-nth.remove-nth
+/// @require list.index
+///
+@function remove($list, $value, $separator: auto)
+
+	@if validation.is-separator($separator)
+		@error exception.separator('remove')
+
+	$index: list.index($list, $value)
+
+	@while $index
+		$list: remove-nth.remove-nth($list, $index, $separator)
+		$index: list.index($list, $value)
+
+	@return $list

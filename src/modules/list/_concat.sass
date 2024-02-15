@@ -1,0 +1,59 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'empty'
+@use '../../../meta'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Merges two or more lists into a new list.
+///
+/// @param {ArgList} $values - The lists or single values to concatenate.
+/// @return {List}
+///
+/// @throw `#{$separator}` Must be "space", "comma", "slash", or "auto".
+/// @throw `#{$values}` is not arglist.
+/// @throw `#{$values}` The beginning index is not less than the length of the list.
+/// 
+/// @example
+///		@debug list.concat()  //=> 
+///
+/// @access public
+/// @require validation.is-arglist
+/// @require exception.parameter-type
+/// @require exception.parameter
+/// @require validation.is-separator
+/// @require exception.separator
+/// @require list.length
+/// @require meta.get-keyword
+/// @require empty.empty
+/// @require list.nth
+/// @require list.join
+///
+@function concat($values...)
+	@if not validation.is-arglist($values)
+		@error exception.parameter-type('concat', 'values', $values, 'arglist')
+	
+	@if list.length($values) < 2
+		@error exception.parameter('Two or more values are required', 'concat', 'values')
+
+	$separator: meta.get-keyword($values, 'separator', auto)
+
+	@if validation.is-separator($separator)
+		@error exception.separator('concat')
+
+	$bracketed: meta.get-keyword($values, 'bracketed', auto)
+	$result: empty.empty($separator, $bracketed, list.nth($values, 1))
+
+	@each $value in $values
+		$result: list.join($result, $value)
+
+	@return $result

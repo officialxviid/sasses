@@ -621,4 +621,7 @@
 /// @access public
 ///
 @function is-separator($value)
-	@return is-list($value) and list.index(space comma slash, list.separator($value)) != null
+	@if is-list($value)
+		@return list.index(space comma slash auto, list.separator($value)) != null
+	
+	@return list.index(space comma slash auto, $value) != null
