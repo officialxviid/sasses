@@ -1,0 +1,47 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'encode'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+/// 
+/// URLs prefixed with the data: scheme, allow content creators to embed small files inline in documents.
+/// 
+/// @param {String} $data
+/// @param {String} $media-type
+/// @param {Bool} $encode
+/// @return {String}
+/// 
+/// @throw `#{$string|$media-type}` is not a string.
+/// @throw `#{$encode}` is not a boolean.
+/// 
+/// @example
+///		@debug url.data($data, $media-type, $encode)  //=> 
+///
+/// @access public
+/// @require validation.is-string
+/// @require validation.is-bool
+/// @require exception.parameter-type
+/// @require encode.encode
+/// 
+@function data($data, $media-type: 'text/plain', $encode: true)
+	@if not validation.is-string($data)
+		@error exception.parameter-type('data', 'data', $data, 'string')
+	
+	@if not validation.is-string($media-type)
+		@error exception.parameter-type('data', 'media-type', $media-type, 'string')
+	
+	@if not validation.is-bool($encode)
+		@error exception.parameter-type('data', 'encode', $encode, 'bool')
+	
+	@if $encode
+		$data: encode.encode($data)
+
+	@return url('data:#{$media-type},#{$data}')
