@@ -48,7 +48,7 @@ $min-contrast-ratio: 4.5
 ///
 /// @param {Color} $background - Background color
 /// @param {Color} $foreground - Foreground color
-/// @return {Color}
+/// @return {Number}
 ///
 /// @throw `#{$background}` is not a color.
 /// @throw `#{$foreground}` is not a color.
@@ -98,7 +98,7 @@ $min-contrast-ratio: 4.5
 /// @require exception.parameter-type
 /// @require contrast-ratio
 ///
-@function color-contrast($background, $color-dark: $color, $color-light: $color, $min-contrast: $min-contrast-ratio)
+@function color-contrast($background, $color-dark: $color-contrast-dark, $color-light: $color-contrast-light, $min-contrast: $min-contrast-ratio)
 	@if not validation.is-color($background)
 		@error exception.parameter-type('color-contrast', 'background', $background, 'color')
 	

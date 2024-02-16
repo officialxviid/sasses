@@ -43,7 +43,7 @@
 /// @require map-get
 /// @require _pre-luminance-calculate
 ///
-@function luminance($color, $weight)
+@function luminance($color)
 	@if not validation.is-color($color)
 		@error exception.parameter-type('luminance', 'color', $color, 'color')
 	
