@@ -1,0 +1,45 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:color'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Mix a color with black.
+///
+/// @param {Color} $color - Base color
+///	@param {Number} $weight - The weight of the color blend you want to mix.
+/// @return {Color}
+///
+/// @throw `#{$color}` is not a color.
+/// @throw `#{$weight}` is not a percentage.
+/// 
+/// @example
+///		@debug shade(#0B89FE, 20%)  //=> #096ecb
+///		@debug shade(#0B89FE, 40%)  //=> #075298
+///		@debug shade(#0B89FE, 60%)  //=> #043766
+///		@debug shade(#0B89FE, 80%)  //=> #021b33
+///		@debug shade(#0B89FE, 90%)  //=> #010e19
+///
+/// @access public
+/// @require validation.is-color
+/// @require exception.parameter-type
+/// @require validation.is-percentage
+/// @require color.mix
+///
+@function shade($color, $weight)
+	@if not validation.is-color($color)
+		@error exception.parameter-type('shade', 'color', $color, 'color')
+	
+	@if not validation.is-percentage($weight)
+		@error exception.parameter-type('shade', 'weight', $weight, 'percentage')
+	
+	@return color.mix(black, $color, $weight)
+

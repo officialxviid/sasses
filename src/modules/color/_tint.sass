@@ -1,0 +1,45 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:color'
+@use '../../core/validation'
+@use '../../core/exception'
+
+
+///
+/// Mix a color with white.
+///
+/// @param {Color} $color - Base color
+///	@param {Number} $weight - The weight of the color blend you want to mix.
+/// @return {Color}
+///
+/// @throw `#{$color}` is not a color.
+/// @throw `#{$weight}` is not a percentage.
+/// 
+/// @example
+///		@debug tint(#0B89FE, 20%)  //=> #3ca1fe
+///		@debug tint(#0B89FE, 40%)  //=> #6db8fe
+///		@debug tint(#0B89FE, 60%)  //=> #9dd0ff
+///		@debug tint(#0B89FE, 80%)  //=> #cee7ff
+///		@debug tint(#0B89FE, 90%)  //=> #e7f3ff
+///
+/// @access public
+/// @require validation.is-color
+/// @require exception.parameter-type
+/// @require validation.is-percentage
+/// @require color.mix
+///
+@function tint($color, $weight)
+	@if not validation.is-color($color)
+		@error exception.parameter-type('tint', 'color', $color, 'color')
+	
+	@if not validation.is-percentage($weight)
+		@error exception.parameter-type('tint', 'weight', $weight, 'percentage')
+	
+	@return color.mix(white, $color, $weight)
+
