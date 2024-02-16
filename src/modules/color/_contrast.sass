@@ -80,9 +80,9 @@ $min-contrast-ratio: 4.5
 /// How one color stands out from another color.
 ///
 /// @param {Color} $background - Background color
-/// @param {Color} $color-dark - Foreground color
-/// @param {Color} $color-light - Foreground color
-/// @param {Number} $min-contrast - Foreground color
+/// @param {Color} $color-dark - Dark foreground color
+/// @param {Color} $color-light - Light foreground color
+/// @param {Number} $min-contrast - Minimal contrast ratio
 /// @return {Color}
 ///
 /// @throw `#{$background|$color-dark|$color-light}` is not a color.
@@ -111,7 +111,7 @@ $min-contrast-ratio: 4.5
 	@if not validation.is-number($min-contrast) and not validation.is-unitless($min-contrast)
 		@error exception.parameter-type('color-contrast', 'min-contrast', $min-contrast, 'number', 'unitless')
 	
-	$foregrounds: $color-contrast-light, $color-contrast-dark, white, black
+	$foregrounds: $color-light, $color-dark, white, black
 	$max-ratio: 0
 	$max-ratio-color: null
 	
