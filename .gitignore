@@ -26,3 +26,7 @@ npm-debug.log
 *-lock.json
 *.backup
 *.cache
+*.jest
+*.tgz
+dist
+package
