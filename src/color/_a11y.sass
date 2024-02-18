@@ -1,0 +1,117 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:color'
+@use 'sass:map'
+@use 'sass:math'
+@use 'sass:meta'
+@use 'sass:string'
+@use '../exception/parameter'
+@use '../exception/parameter-type'
+@use 'contrast'
+
+
+/// 
+/// Finds the nearest accessible color for the given color against another given color according to the specified WCAG standard contrast ratio.
+/// 
+/// @param {Color} $a11y-color - The color that should change when the contrast does not meet the expected contrast ratio.
+/// @param {Color} $other-color - The color that is compare against.
+/// @param {normal | large} $size [normal] - The size category of the WCAG standard which should be used to determine compliance.
+/// @param {AA | AAA} $level [AA] - The color that should change when the contrast does not meet the expected contrast ratio.
+/// @return {Color}
+///
+/// @throw `#{$a11y-color|$other-color}` is not a color.
+/// @throw Must be either "normal" or "large".
+/// @throw Must be either "AA" or "AAA".
+///
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require string.to-lower-case
+/// @require string.to-upper-case
+/// @require parameter.parameter
+/// @require map.get
+/// @require contrast.$contrast-ratios
+/// @require contrast.contrast
+/// @require color.lightness
+/// @require math.div
+/// @require color.hue
+/// @require color.saturation
+///
+@function a11y($a11y-color, $other-color, $size: 'normal', $level: 'AA')
+
+	@if meta.type-of($a11y-color) != 'color'
+		@error parameter-type.parameter-type('a11y', 'a11y-color', $a11y-color, 'color')
+
+	@if meta.type-of($other-color) != 'color'
+		@error parameter-type.parameter-type('a11y', 'other-color', $other-color, 'color')
+
+	@if meta.type-of($size) == 'string'
+		$size: string.to-lower-case($size)
+
+	@if $size != 'normal' and $size != 'large'
+		@error parameter.parameter('Must be either "normal" or "large"', 'a11y', 'size')
+
+	@if meta.type-of($level) == 'string'
+		$level: string.to-upper-case($level)
+
+	@if $level != 'AA' and $level != 'AAA'
+		@error parameter.parameter('Must be either "AA" or "AAA"', 'a11y', 'level')
+
+	$size: map.get(contrast.$contrast-ratios, $level, $size)
+
+	@if contrast.contrast($a11y-color, $other-color) >= $size
+		@return $a11y-color
+
+	$lightness: color.lightness($a11y-color)
+
+	$is-contrasted-to-black: contrast.contrast(#000, $other-color) >= $size
+	$is-contrasted-to-white: contrast.contrast(#fff, $other-color) >= $size
+	$min-lightness: 0
+	$max-lightness: 100
+	$is-dark: false
+
+	@if $is-contrasted-to-black and $is-contrasted-to-white
+
+		@if $lightness >= 50
+			$min-lightness: $lightness
+
+		@else
+			$max-lightness: $lightness
+			$is-dark: true
+
+	@else if $is-contrasted-to-black
+		$max-lightness: $lightness
+		$is-dark: true
+
+	@else
+		$min-lightness: $lightness
+
+	$found-color: null
+
+	@while $found-color == null
+		$mid-lightness: math.div($min-lightness + $max-lightness, 2)
+		$mid-color: hsl(color.hue($a11y-color), color.saturation($a11y-color), $mid-lightness)
+
+		@if contrast.contrast($mid-color, $other-color) >= $size
+			@if	$max-lightness - $min-lightness < math.div(100, 255)
+				$found-color: $mid-color
+
+			@if $is-dark
+				$min-lightness: $mid-lightness
+
+			@else
+				$max-lightness: $mid-lightness
+
+		@else if $is-dark
+			$max-lightness: $mid-lightness
+
+		@else
+			$min-lightness: $mid-lightness
+
+	@return $found-color

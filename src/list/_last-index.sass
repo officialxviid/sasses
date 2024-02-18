@@ -1,0 +1,41 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:meta'
+@use '../exception/validate-index'
+
+
+///
+/// Returns the last index at which a specified item can be found in a list; otherwise, 0 is returned, indicating the item is not present. The list is searched backwards, starting at a given index when specified.
+///
+/// @param {List} $list - The list from which the value is to be located.
+/// @param {*} $value - The value to locate in the list.
+/// @param {Number} $start-at [-1] - The index at which to begin the search. A negative index can be used, indicating an offset from the end of the list.
+/// @return {Number}
+///
+/// @throw `#{$start-at}` is not a number.
+/// @throw List index may not be 0.
+/// @throw Invalid index #{$start-at} for a list with #{length} elements.
+///
+/// @access public
+/// @require validate-index.validate-index
+/// @require meta.type-of
+/// @require list.nth
+///
+@function last-index($list, $value, $start-at: -1)
+	$start-at: validate-index.validate-index('last-index', 'start-at', $start-at, $list)
+
+	@if meta.type-of($start-at) != 'number'
+		@error $start-at
+
+	@for $index from $start-at through 1
+		@if list.nth($list, $index) == $value
+			@return $index
+
+	@return 0

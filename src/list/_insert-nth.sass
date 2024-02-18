@@ -1,0 +1,46 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../checker/is-separator'
+@use '../exception/separator'
+@use '../exception/validate-index'
+@use 'internal/insert-nth'
+
+
+///
+/// Returns a copy of a list with the specified value inserted into the list at a given index.
+///
+/// @param {List} $list - The list to which the value is to be inserted.
+/// @param {Number} $index - The index at which the value is to be inserted. A negative index can be used, indicating an offset from the end of the list.
+/// @param {*} $value - The value which is to be inserted.
+/// @param {String} $separator [auto] - The type of separator to be used by the copied list.
+/// @return {List}
+///
+/// @throw `#{$index}` is not a number.
+/// @throw List index may not be 0.
+/// @throw Invalid index #{$index} for a list with #{length} elements.
+/// @throw Must be "space", "comma", "slash", or "auto".
+///
+/// @access public
+/// @require insert-nth.insert-nth
+/// @require is-separator.is-separator
+/// @require separator.separator
+/// @require validate-index.validate-index
+/// @require meta.type-of
+///
+@function insert-nth($list, $index, $value, $separator: auto)
+	$index: validate-index.validate-index('insert-nth', 'index', $index, $list)
+
+	@if meta.type-of($index) != 'number'
+		@error $index
+
+	@if is-separator.is-separator($separator)
+		@error separator.separator('insert-nth')
+
+	@return insert-nth.insert-nth($list, $index, $value, $separator)

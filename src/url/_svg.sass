@@ -1,0 +1,36 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../list/join'
+@use '../string/includes'
+@use '../string/replace'
+@use 'data'
+
+
+///
+/// Creates a data URL for the provided SVG, escaping the required characters.
+///
+/// @param {ArgList} $data - The data containing the SVG which is to be delivered by the URL.
+/// @return {String}
+///
+/// @access public
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require list.length
+/// @require meta.keywords
+/// @require meta.call
+///
+@function svg($data...)
+	$data: join.join($data, '')
+	$namespace: 'xmlns="http://www.w3.org/2000/svg"'
+
+	@if not includes.includes($data, $namespace)
+		$data: replace.replace($data, '<svg', '$& #{$namespace}')
+
+	@return data.data($data, 'image/svg+xml')

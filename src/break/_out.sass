@@ -1,0 +1,82 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use 'internal/to-string'
+@use 'internal/validate-breakpoint'
+
+
+///
+/// Generates a media query rule for the given horizontal breakpoint and wider.
+///
+/// @param {String} $name - The name of the breakpoint at which the generated rule should break.
+///
+/// @throw No breakpoint exists by the name `#{$name}`
+///
+	@overload out($name)
+///
+/// Generates a media query rule for the given size and wider.
+///
+/// @param {Number} $size - The size at which the generated rule should break.
+///
+	@overload out($size)
+///
+/// @return {String}
+///
+/// @throw `#{$breakpoint}` is not a string or number.
+///
+/// @access public
+/// @require internal.to-string
+/// @require internal.validate-breakpoint
+///
+@function out($breakpoint)
+	$breakpoint: validate-breakpoint.validate-breakpoint('out', 'breakpoint', $breakpoint, 'min-width')
+
+	@if meta.type-of($breakpoint) != 'map'
+		@error $breakpoint
+
+	@return to-string.to-string($breakpoint)
+
+
+///
+/// Applies a media query rule to the content for the given horizontal breakpoint and wider.
+///
+/// @param {String} $name - The name of the breakpoint at which the applied rule should break.
+///
+/// @throw No breakpoint exists by the name `#{$name}`
+///
+	@overload out($name)
+///
+/// Applies a media query rule to the content for the given size and wider.
+///
+/// @param {Number} $size - The size at which the applied rule should break.
+///
+	@overload out($size)
+///
+/// @output Unless the breakpoint's size is zero, makes the content apply to the given breakpoint.
+///
+/// @throw `#{$breakpoint}` is not a string or number.
+///
+/// @access public
+/// @require internal.to-string
+/// @require internal.validate-breakpoint
+///
+@mixin out($breakpoint)
+	$breakpoint: validate-breakpoint.validate-breakpoint('out', 'breakpoint', $breakpoint, 'min-width', true)
+
+	@if $breakpoint
+
+		@if meta.type-of($breakpoint) != 'map'
+			// true:cannot-test
+			@error $breakpoint
+
+		@media #{to-string.to-string($breakpoint)}
+			@content
+
+	@else
+		@content

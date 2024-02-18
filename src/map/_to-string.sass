@@ -1,0 +1,31 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../exception/core/from'
+@use '../exception/parameter-type'
+
+
+///
+/// Returns a string representing the specified map and its key/value pairs.
+///
+/// @param {Map | ArgList} $map - The map from which to generate a string. When is an argument list, keywords will be included.
+/// @return {String}
+///
+/// @access public
+/// @require from.to-string
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+///
+@function to-string($map)
+	$type: meta.type-of($map)
+
+	@if $type != 'map' and $type != 'arglist'
+		@error parameter-type.parameter-type('to-string', 'map', $map, 'map', 'arglist')
+
+	@return from.to-string($map, $type)

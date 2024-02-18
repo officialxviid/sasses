@@ -1,0 +1,41 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use 'sass-exception/src/exception/parameter-type'
+
+
+///
+/// Returns the factorial of the specified integer.
+///
+/// @param {Number} $number - The integer to factorialize.
+/// @return {Number}
+///
+/// @throw `#{$number}` is not a integer.
+///
+/// @access public
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require math.abs
+/// @require math.floor
+///
+@function fact($number)
+
+	@if meta.type-of($number) != 'number' or $number != math.floor($number)
+		@error parameter-type.parameter-type('fact', 'number', $number, 'integer')
+
+	$number: math.abs($number)
+
+	$result: 1
+
+	@while $number > 0
+		$result: $result * $number
+		$number: $number - 1
+
+	@return $result

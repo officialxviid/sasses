@@ -1,0 +1,53 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:meta'
+@use '../checker/is-bracketed'
+@use '../checker/is-separator'
+@use '../exception/separator'
+
+
+///
+/// Creates an empty list with the specified characteristics or the characteristics of the specified list.
+///
+/// @param {String} $separator [comma] - The type of separator to be used by the empty list.
+/// @param {Boolean} $bracketed [false] - Whether the empty list has square brackets or no brackets.
+/// @param {List} $list [null] - The list from which to determine separator and bracket style.
+/// @return {List}
+///
+/// @throw Must be "space", "comma", "slash", or "auto".
+///
+/// @access public
+/// @require is-separator.is-separator
+/// @require separator.separator
+/// @require meta.type-of
+/// @require list.separator
+/// @require is-bracketed.is-bracketed
+/// @require list.join
+///
+@function empty($separator: null, $bracketed: null, $list: null)
+
+	@if meta.type-of($list) == 'list'
+		@if $separator == auto or $separator == null
+			$separator: list.separator($list)
+
+		@if $bracketed == auto or $bracketed == null
+			$bracketed: is-bracketed.is-bracketed($list)
+
+	@else
+		@if $separator == null
+			$separator: comma
+
+		@if $bracketed == null
+			$bracketed: false
+
+	@if is-separator.is-separator($separator)
+		@error separator.separator('empty')
+
+	@return list.join((), (), $separator, $bracketed)

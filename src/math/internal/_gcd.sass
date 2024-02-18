@@ -1,0 +1,41 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use '../exception/parameter-type'
+
+
+///
+/// Calculates the Great Common Divisor (GCD) of two numbers.
+///
+/// @param {Number} $first-number - The first number of the calculation.
+/// @param {Number} $second-number - The second number of the calculation.
+/// @return {Number}
+///
+/// @throw `#{$first-number|$second-number}` is not a number.
+///
+/// @access public
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require math.abs
+///
+@function gcd($first-number, $second-number)
+
+	@if meta.type-of($first-number) != 'number'
+		// 'numbers' is used here are the parameter name, because the error is only intended for `sass-module-math.gcd()`.
+		@error parameter-type.parameter-type('gcd', 'numbers', $first-number, 'number')
+
+	@if meta.type-of($second-number) != 'number'
+		// 'numbers' is used here are the parameter name, because the error is only intended for `sass-module-math.gcd()`.
+		@error parameter-type.parameter-type('gcd', 'numbers', $second-number, 'number')
+
+	$first-number: math.abs($first-number)
+	$second-number: math.abs($second-number)
+
+	@return if($second-number == 0, $first-number, gcd($second-number, $first-number % $second-number))

@@ -1,0 +1,42 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use 'sass:meta'
+@use '../exception/parameter-type'
+
+
+///
+/// Gets the value of the named parameter from the given argument list, otherwise providing a default value.
+///
+/// @param {ArgList} $args - The argument list from which to get the named parameter.
+///	@param {String} $name - The name of the parameter to get.
+/// @param {*} $default [null] - The value of the parameter when not contained in the argument list.
+/// @return {*}
+///
+/// @throw `#{$args}` is not a arglist.
+/// @throw `#{$name}` is not a string.
+///
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require meta.keywords
+/// @require map.has-key
+/// @require map.get
+///
+@function get-keyword($args, $name, $default: null)
+
+	@if meta.type-of($args) != 'arglist'
+		@error parameter-type.parameter-type('get-keyword', 'args', $args, 'arglist')
+
+	@if meta.type-of($name) != 'string'
+		@error parameter-type.parameter-type('get-keyword', 'name', $name, 'string')
+
+	$args: meta.keywords($args)
+
+	@return if(map.has-key($args, $name), map.get($args, $name), $default)

@@ -1,0 +1,49 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use 'sass:string'
+@use '../checker/is-quoted'
+@use '../exception/parameter-type'
+
+
+/// 
+/// Returns a string which contains the specified number of copies of the source string, concatenated together.
+/// 
+/// @param {String} $string - The source string to be copied.
+/// @param {Number} $count - The number of times to copy the source string.
+/// @return {String} 
+/// 
+/// @throw `#{$string}` is not a string.
+/// @throw `#{$count}` is not a non-negative number.
+/// 
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require is-quoted.is-quoted
+/// @require string.unquote
+/// 
+@function repeat($string, $count)
+
+	@if meta.type-of($string) != 'string'
+		@error parameter-type.parameter-type('repeat', 'string', $string, 'string')
+
+	@if meta.type-of($count) != 'number' or $count < 0
+		@error parameter-type.parameter-type('repeat', 'count', $count, 'non-negative number')
+
+	$result: ''
+
+	@if not is-quoted.is-quoted($string)
+		$result: string.unquote($result)
+
+	@if $count > 0
+		@for $_ from 1 through math.floor($count)
+			$result: $result + $string
+
+	@return $result

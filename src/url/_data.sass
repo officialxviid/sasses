@@ -1,0 +1,44 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../exception/parameter-type'
+@use 'encode'
+
+
+/// 
+/// Creates a data URL for the provided data of the specified type.
+/// 
+/// @param {String} $data - The data which is to be delivered by the URL.
+/// @param {String} $media-type [text/plain] - The media type indicates the MIME type to be delivered by the URL.
+/// @param {Bool} $encode [true] - Whether or not the given data should be percent-encoded.
+/// @return {String}
+/// 
+/// @throw `#{$data|$media-type}` is not a string.
+/// @throw `#{$encode}` is not a boolean.
+/// 
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require encode.encode
+/// 
+@function data($data, $media-type: 'text/plain', $encode: true)
+
+	@if meta.type-of($data) != 'string'
+		@error parameter-type.parameter-type('data', 'data', $data, 'string')
+
+	@if meta.type-of($media-type) != 'string'
+		@error parameter-type.parameter-type('data', 'media-type', $media-type, 'string')
+
+	@if meta.type-of($encode) != 'bool'
+		@error parameter-type.parameter-type('data', 'encode', $encode, 'boolean')
+
+	@if $encode
+		$data: encode.encode($data)
+
+	@return url('data:#{$media-type},#{$data}')

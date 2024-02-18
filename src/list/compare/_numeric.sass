@@ -1,0 +1,115 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use '../../../checker'
+@use 'sass-module-math/src/math/change'
+@use 'sass-meta/src/meta/reference'
+
+
+///
+/// Returns a function reference to the numeric comparison method used by the sort function.
+///
+/// @return {Function}
+///
+	@overload numeric()
+///
+/// Used to compare two list items as numbers in ascending order. All non-numeric items are shifted right.
+///
+/// @param {*} $first-item - The first item for the comparison.
+/// @param {*} $second-item - The second item for the comparison.
+/// @param {Number} $center [0] - The value indicating the center (zero) position between positive and negative values.
+/// @return {Number}
+///
+	@overload numeric($first-item, $second-item, $center: 0)
+///
+/// @access public
+/// @require _numeric
+/// @require reference.reference
+/// @require meta.get-function
+///
+@function numeric($args...)
+	@return reference.reference(meta.get-function('_numeric'), $args...)
+
+
+///
+/// Returns a function reference to the descending numeric comparison method used by the sort function.
+///
+/// @return {Function}
+///
+	@overload numeric-desc()
+///
+/// Used to compare two list items as numbers in descending order. All non-numeric items are shifted left.
+///
+/// @param {*} $first-item - The first item for the comparison.
+/// @param {*} $second-item - The second item for the comparison.
+/// @param {Number} $center [0] - The value indicating the center (zero) position between positive and negative values.
+/// @return {Number}
+///
+	@overload numeric-desc($first-item, $second-item, $center: 0)
+///
+/// @access public
+/// @require _numeric-desc
+/// @require reference.reference
+/// @require meta.get-function
+///
+@function numeric-desc($args...)
+	@return reference.reference(meta.get-function('_numeric-desc'), $args...)
+
+
+///
+/// Used to compare two list items as numbers in ascending order. All non-numeric items are shifted right.
+///
+/// @param {*} $first-item - The first item for the comparison.
+/// @param {*} $second-item - The second item for the comparison.
+/// @param {Number} $center [0] - The value indicating the center (zero) position between positive and negative values.
+/// @return {Number}
+///
+/// @access private
+/// @require change.change
+/// @require meta.type-of
+/// @require checker.is-unitless
+/// @require math.compatible
+/// @require change.change
+///
+@function _numeric($first-item, $second-item, $center: 0)
+
+	@if meta.type-of($first-item) != 'number'
+		@return 1
+
+	@if meta.type-of($second-item) != 'number'
+		@return -1
+
+	$center-test: checker.is-unitless($center)
+	$first-test: checker.is-unitless($first-item)
+	$second-test: checker.is-unitless($second-item)
+
+	// Normalize units for incompatible and unitless numbers
+	@if $center-test and not $first-test or $first-test or not math.compatible($first-item, $center)
+		$first-item: change.change($first-item, $center)
+
+	@if $center-test and not $second-test or $second-test or not math.compatible($second-item, $center)
+		$second-item: change.change($second-item, $center)
+
+	@return $first-item - $second-item
+
+
+///
+/// Used to compare two list items as numbers in descending order. All non-numeric items are shifted left.
+///
+/// @param {*} $first-item - The first item for the comparison.
+/// @param {*} $second-item - The second item for the comparison.
+/// @param {Number} $center [0] - The value indicating the center (zero) position between positive and negative values.
+/// @return {Number}
+///
+/// @access private
+/// @require _numeric
+///
+@function _numeric-desc($first-item, $second-item, $center: 0)
+	@return _numeric($second-item, $first-item, $center)

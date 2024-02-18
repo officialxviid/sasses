@@ -1,0 +1,24 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'is-relative-length'
+@use 'is-absolute-length'
+
+
+///
+/// Check if value has square brackets.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require is-absolute-length.is-absolute-length
+/// @require is-relative-length.is-relative-length
+///
+@function is-bracketed($value)
+	@return is-relative-length.is-relative-length($value) or is-absolute-length.is-absolute-length($value)

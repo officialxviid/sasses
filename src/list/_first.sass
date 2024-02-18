@@ -1,0 +1,26 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+
+
+///
+/// Selecting first values from list
+///
+/// @param {List} $list - The list from which the value is to be selected.
+/// @return {*}
+///
+/// @throw `#{$start-at}` is not a number.
+/// @throw List index may not be 0.
+/// @throw Invalid index #{$start-at} for a list with #{length} elements.
+///
+/// @access public
+/// @require list.nth
+///
+@function first($list)
+	@return list.nth($list, 1)

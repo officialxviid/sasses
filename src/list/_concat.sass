@@ -1,0 +1,51 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use '../checker/is-separator'
+@use '../meta/get-keyword'
+@use '../exception/parameter'
+@use '../exception/separator'
+@use 'empty'
+
+
+///
+/// Merges two or more lists into a new list.
+///
+/// @param {ArgList} $values - The lists or single values to concatenate.
+/// @param {String} $separator [auto] - The type of separator to be used by the merged list. Must be passed by name.
+/// @param {Boolean | String} $bracketed [auto] - Whether the merged list has square brackets or no brackets. Must be passed by name.
+/// @return {List}
+///
+/// @throw Must be "space", "comma", "slash", or "auto".
+/// @throw The beginning index is not less than the length of the list.
+///
+/// @access public
+/// @require empty.empty
+/// @require get-keyword.get-keyword
+/// @require is-separator.is-separator
+/// @require parameter.parameter
+/// @require separator.separator
+///
+@function concat($values...)
+
+	@if list.length($values) < 2
+		@error parameter.parameter('Two or more values are required', 'concat', 'values')
+
+	$separator: get-keyword.get-keyword($values, 'separator', auto)
+
+	@if is-separator.is-separator($separator)
+		@error separator.separator('concat')
+
+	$bracketed: get-keyword.get-keyword($values, 'bracketed', auto)
+	$result: empty.empty($separator, $bracketed, list.nth($values, 1))
+
+	@each $value in $values
+		$result: list.join($result, $value)
+
+	@return $result

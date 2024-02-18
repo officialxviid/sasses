@@ -1,0 +1,122 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../exception/parameter'
+@use 'down'
+@use 'up'
+@use 'internal/to-string'
+@use 'internal/value'
+@use 'internal/validate-breakpoint'
+
+
+///
+/// Generates a media query rule for the given vertical breakpoints which is equal and taller than the smaller, and equal and shorter than the larger.
+///
+/// @param {String} $first-name - The name of the smaller breakpoint at which the generated rule should break.
+/// @param {String} $second-name - The name of the larger breakpoint at which the generated rule should break.
+///
+/// @throw No breakpoint exists by the name `#{$first-name|$second-name}`
+///
+	@overload down-between($first-name, $second-name)
+///
+/// Generates a media query rule for the given sizes which is equal and taller than the smaller, and equal and shorter than the larger.
+///
+/// @param {Number} $first-size - The smaller size at which the generated rule should break.
+/// @param {Number} $second-size - The larger size at which the generated rule should break.
+///
+	@overload down-between($first-size, $second-size)
+///
+/// @return {String}
+///
+/// @throw `#{$first-breakpoint|$second-breakpoint}` is not a string or number.
+/// @throw First breakpoint must be smaller than second breakpoint.
+///
+/// @access public
+/// @require internal.to-string
+/// @require internal.validate-breakpoint
+/// @require internal.value
+/// @require parameter.parameter
+///
+@function down-between($first-breakpoint, $second-breakpoint)
+	$first-breakpoint: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height')
+
+	@if meta.type-of($first-breakpoint) != 'map'
+		@error $first-breakpoint
+
+	$second-breakpoint: validate-breakpoint.validate-breakpoint('down-between', 'second-breakpoint', $second-breakpoint, 'max-height')
+
+	@if meta.type-of($second-breakpoint) != 'map'
+		@error $second-breakpoint
+
+	@if value.value($first-breakpoint) >= value.value($second-breakpoint)
+		@error parameter.parameter('First breakpoint must be smaller than second breakpoint', 'down-between', 'first-breakpoint', 'second-breakpoint')
+
+	@return '#{to-string.to-string($first-breakpoint)} and #{to-string.to-string($second-breakpoint)}'
+
+
+///
+/// Applies a media query rule to the content for the given vertical breakpoints which is equal and taller than the smaller, and equal and shorter than the larger.
+///
+/// @param {String} $first-name - The name of the smaller breakpoint at which the applied rule should break.
+/// @param {String} $second-name - The name of the larger breakpoint at which the applied rule should break.
+///
+/// @throw No breakpoint exists by the name `#{$first-name|$second-name}`
+///
+	@overload down-between($first-name, $second-name)
+///
+/// Applies a media query rule to the content for the given sizes which is equal and taller than the smaller, and equal and shorter than the larger.
+///
+/// @param {Number} $first-size - The smaller size at which the applied rule should break.
+/// @param {Number} $second-size - The larger size at which the applied rule should break.
+///
+	@overload down-between($first-size, $second-size)
+///
+/// @output Unless the breakpoint is the smallest or largest, makes the content apply to the given breakpoints.
+///
+/// @throw `#{$first-breakpoint|$second-breakpoint}` is not a string or number.
+/// @throw First breakpoint must be smaller than second breakpoint.
+///
+/// @access public
+/// @require down.down
+/// @require internal.to-string
+/// @require internal.validate-breakpoint
+/// @require internal.value
+/// @require up.up
+///
+@mixin down-between($first-breakpoint, $second-breakpoint)
+	$first: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height', true)
+
+	@if $first and meta.type-of($first) != 'map'
+		// true:cannot-test
+		@error $first
+
+	$second: validate-breakpoint.validate-breakpoint('down-between', 'second-breakpoint', $second-breakpoint, 'max-height', true)
+
+	@if $second
+
+		@if meta.type-of($second) != 'map'
+			// true:cannot-test
+			@error $second
+
+		@if $first == null
+			@include down.down($second-breakpoint)
+				@content
+
+		@else
+
+			@if value.value($first) >= value.value($second)
+				// true:cannot-test
+				@error parameter.parameter('First breakpoint must be smaller than second breakpoint', 'down-between', 'first-breakpoint', 'second-breakpoint')
+
+			@media #{to-string.to-string($first)} and #{to-string.to-string($second)}
+				@content
+
+	@else
+		@include up.up($first-breakpoint)
+			@content

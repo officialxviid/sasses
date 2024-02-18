@@ -1,0 +1,49 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:meta'
+@use '../exception/parameter'
+@use '../exception/parameter-type'
+
+
+///
+/// Reduces a list to a single value as the product of calling a specified function on every item in a list.
+///
+/// @param {List} $list - The list from which items will be reduced.
+/// @param {Function} $transformer - The transform function to apply to each item. The first parameter is the accumulated value previously returned in the prior transformation or the initial value. The second parameter is the current item being processed in the list. The third parameter is the index of the current item being processed in the list. The fourth parameter is the list being processed. The returned value will be the product of the prior and current transformation.
+/// @param {*} $initial-value [null] - The value to use as the first parameter for the first call to the transformer.
+/// @param {ArgList} $args - Additional parameters which are provided to transform function.
+/// @return {*}
+///
+/// @throw `#{$transformer}` is not a function.
+/// @throw Reduction of empty list with no initial value.
+///
+/// @access public
+/// @require parameter.parameter
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require meta.call
+/// @require list.length
+///
+@function reduce($list, $transformer, $initial-value: null, $args...)
+
+	@if meta.type-of($transformer) != 'function'
+		@error parameter-type.parameter-type('reduce', 'transformer', $transformer, 'function')
+
+	@if $initial-value == null and list.length($list) == 0
+		@error parameter.parameter('Reduction of empty list with no initial value', 'reduce', 'list', 'initial-value')
+
+	$accumulator: $initial-value
+	$index: 1
+
+	@each $item in $list
+		$accumulator: meta.call($transformer, $accumulator, $item, $index, $list, $args...)
+		$index: $index + 1
+
+	@return $accumulator

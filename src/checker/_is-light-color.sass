@@ -1,0 +1,22 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'is-dark-color'
+
+
+///
+/// Check if its a light color.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require is-dark-color.is-dark-color
+///
+@function is-light-color($value)
+	@return not is-dark-color.is-dark-color($value)

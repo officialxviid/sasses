@@ -1,0 +1,25 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+
+
+///
+/// Check if its a empty value.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require list.length
+///
+@function is-empty($value)
+	@if not $value or $value == "" or $value == 0 or $value == () or list.length($value) == 0
+		@return true
+
+	@return false

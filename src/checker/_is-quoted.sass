@@ -1,0 +1,29 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use '../exception/parameter-type'
+
+
+///
+/// Check if its a quote.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require meta.inspect
+///
+@function is-quoted($value)
+
+	@if meta.type-of($value) != 'string'
+		@error parameter-type.parameter-type('is-quoted', 'string', $value, 'string')
+
+	@return meta.inspect($value) != $value

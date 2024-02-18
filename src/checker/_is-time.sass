@@ -1,0 +1,26 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:math'
+@use 'is-number'
+
+
+///
+/// Check if its a time value.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require is-number.is-number
+/// @require list.index
+/// @require math.unit
+///
+@function is-time($value)
+	@return is-number.is-number($value) and list.index('ms' 's', math.unit($value)) != null

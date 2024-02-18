@@ -1,0 +1,22 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+
+
+///
+/// Check if its a arglist value.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require meta.type-of
+///
+@function is-arglist($value)
+	@return meta.type-of($value) == 'arglist'

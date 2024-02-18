@@ -1,0 +1,22 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+
+
+///
+/// Check if its a unitless value.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require math.is-unitless
+///
+@function is-unitless($value)
+	@return math.is-unitless($value)

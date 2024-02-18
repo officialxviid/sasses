@@ -1,0 +1,51 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:meta'
+@use 'sass:math'
+
+
+///
+/// Replacing value at index n
+///
+/// @param {List} $list - The list from which the value is to be selected.
+/// @param {Number} $index - The list from which the value is to be selected.
+/// @param {String | Number} $value - The value to replace.
+/// @return {*}
+///
+/// @access public
+/// @require parameter.parameter
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require list.nth
+/// @require list.length
+/// @require list.append
+/// @require math.abs
+///
+@function replace-nth($list, $index, $value) {
+	$result: null
+
+	@if meta.type-of($index) != number
+		@return parameter-type.parameter-type('replace-nth', 'index', $index, 'number')
+	@else if $index == 0
+		@return parameter.parameter('List index 0 must be a non-zero integer', 'replace-nth', 'index')
+	@else if math.abs($index) > list.length($list)
+		@return parameter.parameter('List index is #{$index} but list is only #{list.length($list)} item long', 'replace-nth', 'index')
+	@else
+		$result: ()
+		$index: if($index < 0, list.length($list) + $index + 1, $index)
+
+		@for $i from 1 through list.length($list) 
+			@if $i == $index 
+				$result: list.append($result, $value)
+			@else 
+				$result: list.append($result, list.nth($list, $i))
+
+	@return $result
+}

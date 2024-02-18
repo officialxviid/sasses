@@ -1,0 +1,24 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:math'
+
+
+///
+/// Check if its a separator.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require list.index
+/// @require math.unit
+///
+@function is-separator($value)
+	@return list.index(space comma slash auto, math.unit($value)) != null

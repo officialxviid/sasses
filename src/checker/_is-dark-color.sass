@@ -1,0 +1,28 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:color'
+@use 'sass:math'
+@use 'is-color'
+
+
+///
+/// Check if its a dark color.
+///
+///	@param {Void} $value - Value to check.
+/// @return {Boolean}
+///
+/// @access public
+/// @require is-color.is-color
+/// @require math.div
+/// @require color.red
+/// @require color.green
+/// @require color.blue
+///
+@function is-dark($value)
+	@return is-color.is-color($value) and math.div(color.red($color) * 299 + color.green($color) * 587 + color.blue($color) * 114, 1000) < 128

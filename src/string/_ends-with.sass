@@ -1,0 +1,49 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:meta'
+@use 'sass:string'
+@use '../exception/parameter-type'
+@use '../exception/validate-index'
+@use 'index'
+
+
+///
+/// Determines whether a string ends with the characters of a specified substring, returning true or false as appropriate.
+///
+/// @param {String} $string - The source string in which the substring is to be searched for.
+/// @param {String} $substring - The characters to be searched for at the end of the source string.
+/// @param {Number} $end-at [-1] - The index in the source string at which to finish searching for the substring. A negative index can be used, indicating an offset from the end of the string.
+/// @return {Boolean}
+///
+/// @throw `#{$string|$substring}` is not a string.
+/// @throw `#{$end-at}` is not a number.
+///
+/// @access public
+/// @require meta.type-of
+/// @require index.index
+/// @require parameter-type.parameter-type
+/// @require validate-index.validate-index
+/// @require string.length
+///
+@function ends-with($string, $substring, $end-at: -1)
+
+	@if meta.type-of($string) != 'string'
+		@error parameter-type.parameter-type('ends-with', 'string', $string, 'string')
+
+	@if meta.type-of($substring) != 'string'
+		@error parameter-type.parameter-type('ends-with', 'substring', $substring, 'string')
+
+	$end-at: validate-index.validate-index('ends-with', 'end-at', $end-at, $string)
+
+	@if meta.type-of($end-at) != 'number'
+		@error $end-at
+
+	$start-at: $end-at - string.length($substring) + 1
+
+	@return index.index($string, $substring, $start-at) == $start-at

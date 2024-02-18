@@ -1,0 +1,54 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use 'sass:math'
+@use 'sass:meta'
+@use '../exception/parameter-type'
+@use 'luminance'
+
+
+/// 
+/// A map defining the WCAG standard contrast ratios.
+/// 
+/// @type {Map}
+/// 
+/// @access public
+/// 
+$contrast-ratios: (AA: (normal: 4.5, large: 3), AAA: (normal: 7, large: 4.5))
+
+
+/// 
+/// The WCAG contrast ratio between two colors, from 1 to 21 (commonly written 1:1 to 21:1).
+/// 
+/// @param {Color} $background - The background color.
+/// @param {Color} $foreground - The foreground color.
+/// @return {Number}
+/// 
+/// @throw `#{$background|$foreground}` is not a color.
+///
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require luminance.luminance
+/// @require math.div
+/// @require math.max
+/// @require math.min
+///
+@function contrast($background, $foreground)
+
+	@if meta.type-of($background) != 'color'
+		@error parameter-type.parameter-type('contrast', 'background', $background, 'color')
+
+	@if meta.type-of($foreground) != 'color'
+		@error parameter-type.parameter-type('contrast', 'foreground', $foreground, 'color')
+
+	$background: luminance.luminance($background) + 0.05
+	$foreground: luminance.luminance($foreground) + 0.05
+
+	@return math.div(math.max($background, $foreground), math.min($background, $foreground))

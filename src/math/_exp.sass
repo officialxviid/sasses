@@ -1,0 +1,33 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use '../exception/parameter-type'
+
+
+///
+/// Returns Euler's number to the specified power.
+///
+/// @param {Number} $number - The power to which Euler's number will be raise.
+/// @return {Number}
+///
+/// @throw `#{$number}` is not a number.
+///
+/// @access public
+/// @require parameter-type.parameter-type
+/// @require meta.type-of
+/// @require math.pow
+/// @require math.$e
+///
+@function exp($number)
+
+	@if meta.type-of($number) != 'number'
+		@error parameter-type.parameter-type('exp', 'number', $number, 'number')
+
+	@return math.pow(math.$e, $number)

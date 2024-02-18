@@ -1,0 +1,39 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:math'
+@use 'sass:meta'
+@use '../exception/parameter-type'
+@use 'unitless'
+
+
+///
+/// Returns the given number with the same units as another specified number.
+///
+/// @param {Number} $number - The number whose units will be changed.
+/// @param {Number} $units - The number whose units will be inherited.
+/// @return {Number}
+///
+/// @throw `#{$number|$units}` is not a number.
+///
+/// @access public
+/// @require parameter-type.parameter-type
+/// @require unitless.unitless
+/// @require math.abs
+///
+@function change($number, $units)
+
+	@if meta.type-of($number) != 'number'
+		@error parameter-type.parameter-type('change', 'number', $number, 'number')
+
+	@if meta.type-of($units) != 'number'
+		@error parameter-type.parameter-type('change', 'units', $units, 'number')
+
+	$units: math.abs($units)
+
+	@return unitless.unitless($number) * ($units - $units + 1)

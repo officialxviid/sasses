@@ -1,0 +1,61 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:list'
+@use 'sass:meta'
+@use 'sass:string'
+@use 'parameter'
+@use 'parameter-type'
+
+
+///
+/// Returns a valid index for a list of a given length; otherwise, an error message stating the reason the index is invalid.
+///
+///	@param {List} $list - The list value for which the index is validated against.
+/// @return {Number | String} A string when the index is not a number, is zero, or is invalid for the amount of elements in the list; otherwise, a number.
+///
+	@overload validate-index($context, $name, $value, $list)
+///
+/// Returns a valid index for a string of a given length; otherwise, an error message stating the reason the index is invalid.
+///
+///	@param {String} $string - The string value for which the index is validated against.
+/// @return {Number | String} A string when the index is not a number; otherwise, a number.
+///
+	@overload validate-index($context, $name, $value, $string)
+///
+/// @param {String} $context - The name of the function or mixin issuing the error.
+/// @param {String} $name - The name of the index parameter which is being validated.
+///	@param {Number} $value - The value of the index parameter which is being validated. A valid negative value will be transformed to the respective positive index value.
+///
+/// @access public
+/// @require meta.type-of
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+/// @require list.length
+/// @require string.length
+/// 
+@function validate-index($context, $name, $value, $iterable)
+
+	@if meta.type-of($value) != 'number'
+		@return parameter-type.parameter-type($context, $name, $value, 'number')
+
+	$is-list: meta.type-of($iterable) != 'string'
+
+	@if $is-list and $value == 0
+		@return parameter.parameter('List index may not be 0', $context, $name)
+
+	$length: if($is-list, list.length($iterable), string.length($iterable))
+	$negative-transform: $value + $length + 1
+
+	@if $value < 1 and ($negative-transform >= 1 and $negative-transform <= $length)
+		$value: $negative-transform
+
+	@if $is-list and ($value < 0 or $value > $length)
+		@return parameter.parameter('Invalid index #{$value} for a list with #{$length} elements', $context, $name)
+
+	@return $value
