@@ -3,7 +3,7 @@
 <img src="logo.png" align="right" alt="Size Limit logo by Anton Lovchikov" width="150">
 
 <p>
-    <img src="https://img.shields.io/npm/v/sasses" />&nbsp;<img src="https://img.shields.io/npm/dm/sasses" />&nbsp;<img src="https://img.shields.io/npm/l/sasses" />
+    <a target="_blank" href="https://www.npmjs.com/package/sasses?activeTab=versions"><img src="https://img.shields.io/npm/v/sasses" /></a>&nbsp;<img src="https://img.shields.io/npm/dm/sasses" />&nbsp;<a target="_blank" href="https://github.com/officialxviid/sasses/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/sasses" /></a>
 </p>
 
 <p>Sass modules provide more advanced functions.</p>
