@@ -13,7 +13,17 @@
   "keywords": [
     "sasses",
     "sass",
-    "sass-module"
+    "sass-module",
+    "break",
+    "checker",
+    "color",
+    "exception",
+    "list",
+    "map",
+    "math",
+    "meta",
+    "selector",
+    "string"
   ],
   "author": "XVIID <support@xviid.net>",
   "license": "MIT",
