@@ -1,0 +1,23 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:selector'
+
+
+///
+/// Check if its a super selector value.
+///
+///	@param {Void} $super - May contain placeholder selectors, but not parent selectors.
+///	@param {Void} $sub - May contain placeholder selectors, but not parent selectors.
+/// @return {Boolean}
+///
+/// @access public
+/// @require selector.is-superselector
+///
+@function is-superselector($super, $sub)
+	@return selector.is-superselector($super, $sub)

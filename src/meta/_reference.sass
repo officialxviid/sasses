@@ -27,10 +27,10 @@
 /// @require meta.keywords
 /// @require meta.call
 ///
-@function call-or-reference($function, $args...)
+@function reference($function, $args...)
 
 	@if meta.type-of($function) != 'function'
-		@error parameter-type.parameter-type('call-or-reference', 'function', $function, 'function')
+		@error parameter-type.parameter-type('reference', 'function', $function, 'function')
 
 	@if list.length($args) != 0 or list.length(meta.keywords($args)) != 0
 		@return meta.call($function, $args...)

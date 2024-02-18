@@ -11,7 +11,7 @@
 
 
 ///
-/// Check if value has square brackets.
+/// Check if its a length value.
 ///
 ///	@param {Void} $value - Value to check.
 /// @return {Boolean}
@@ -20,5 +20,5 @@
 /// @require is-absolute-length.is-absolute-length
 /// @require is-relative-length.is-relative-length
 ///
-@function is-bracketed($value)
+@function is-length($value)
 	@return is-relative-length.is-relative-length($value) or is-absolute-length.is-absolute-length($value)

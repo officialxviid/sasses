@@ -24,5 +24,5 @@
 /// @require color.green
 /// @require color.blue
 ///
-@function is-dark($value)
+@function is-dark-color($value)
 	@return is-color.is-color($value) and math.div(color.red($color) * 299 + color.green($color) * 587 + color.blue($color) * 114, 1000) < 128
