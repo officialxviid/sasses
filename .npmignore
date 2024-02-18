@@ -1,3 +1,10 @@
+##################################
+#  @package     sasses           #
+#  @author      XVIID            #
+#  @copyright   XVIID            #
+#  @license     MIT              #
+##################################
+
 # User-specific files
 *.editorconfig
 *.user
