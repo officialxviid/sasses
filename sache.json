@@ -1,9 +1,9 @@
 {
-    "name": "sasses",
-    "description": "Sass modules provide more advanced functions.",
-    "tags": [
-        "sasses",
-        "sass",
-        "sass-module"
-    ]
+	"name": "sasses",
+	"description": "Sass modules provide more advanced functions.",
+	"tags": [
+		"sasses",
+		"sass",
+		"sass-module"
+	]
 }
