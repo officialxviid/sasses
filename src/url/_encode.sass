@@ -6,27 +6,27 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
+@use '../checker/is-string'
 @use '../exception/parameter-type'
 @use '../string/replace'
 
 
-/// 
+///
 /// Percent-encodes a URL component, replacing each instance of certain characters by escape sequences representing the UTF-8 encoding of the characters.
-/// 
+///
 /// @param {String} $string - The URL component to be encoded.
 /// @return {String}
-/// 
+///
 /// @throw `#{$string}` is not a string.
-/// 
+///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
 /// @require parameter-type.parameter-type
 /// @require replace.replace
 ///
 @function encode($string)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('encode', 'string', $string, 'string')
 
 	// https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding

@@ -8,6 +8,7 @@
 
 @use 'sass:list'
 @use 'sass:meta'
+@use '../checker/is-function'
 @use '../exception/parameter'
 @use '../exception/parameter-type'
 
@@ -27,13 +28,13 @@
 /// @access public
 /// @require parameter.parameter
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-function.is-function
 /// @require meta.call
 /// @require list.nth
 ///
 @function reduce-right($list, $transformer, $initial-value: null, $args...)
 
-	@if meta.type-of($transformer) != 'function'
+	@if not is-function.is-function($transformer)
 		@error parameter-type.parameter-type('reduce-right', 'transformer', $transformer, 'function')
 
 	$length: list.length($list)

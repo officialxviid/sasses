@@ -8,8 +8,8 @@
 
 @use 'sass:list'
 @use 'sass:math'
-@use 'sass:meta'
 @use '../checker/is-separator'
+@use '../checker/is-map'
 @use '../exception/separator'
 
 
@@ -25,7 +25,7 @@
 /// @access public
 /// @require is-separator.is-separator
 /// @require separator.separator
-/// @require meta.type-of
+/// @require is-map.is-map
 /// @require list.length
 /// @require list.join
 /// @require math.floor
@@ -41,7 +41,7 @@
 	$length: list.length($list)
 
 	@if $length < 2
-		@if meta.type-of($list) == 'map'
+		@if is-map.is-map($list)
 			@return list.join($list, (), $separator)
 		@else
 			@return $list

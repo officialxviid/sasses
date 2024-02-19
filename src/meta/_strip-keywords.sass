@@ -1,24 +1,24 @@
 @use 'sass:list'
-@use 'sass:meta'
+@use '../checker/is-arglist'
 @use '../exception/parameter-type'
 
 
-/// 
+///
 /// Strips all named parameters from the given argument list.
-/// 
+///
 /// @param {!ArgList} $args - The argument list from which to strip all named parameters.
 /// @return {List}
-/// 
+///
 /// @throw `#{$args}` is not a arglist.
 ///
 /// @access public
-/// @require meta.type-of
+/// @require is-arglist.is-arglist
 /// @require parameter-type.parameter-type
 /// @require list.join
 ///
 @function strip-keywords($args)
 
-	@if meta.type-of($args) != 'arglist'
+	@if is-arglist.is-arglist($args)
 		@error parameter-type.parameter-type('strip-keywords', 'args', $args, 'arglist')
 
 	@return list.join($args, ())

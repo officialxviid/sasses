@@ -1,26 +1,26 @@
-@use 'sass:meta'
+@use '../checker/is-string'
 @use '../exception/parameter-type'
 @use 'rtrim'
 @use 'ltrim'
 
 
-/// 
+///
 /// Removes whitespace from both ends of a string. Whitespace in this context is all the whitespace characters (space, tab, no-break space, etc.) and all the line terminator characters (LF, CR, etc.).
-/// 
+///
 /// @param {String} $string - The source string from which to remove leading and trailing whitespace.
 /// @return {String}
-/// 
+///
 /// @throw `#{$string}` is not a string.
-/// 
+///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
 /// @require parameter-type.parameter-type
 /// @require ltrim.ltrim
 /// @require rtrim.rtrim
 ///
 @function trim($string)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('trim', 'string', $string, 'string')
 
 	@return ltrim.ltrim(rtrim.rtrim($string))

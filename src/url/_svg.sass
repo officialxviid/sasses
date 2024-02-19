@@ -6,7 +6,6 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
 @use '../list/join'
 @use '../string/includes'
 @use '../string/replace'
@@ -20,11 +19,10 @@
 /// @return {String}
 ///
 /// @access public
-/// @require parameter-type.parameter-type
-/// @require meta.type-of
-/// @require list.length
-/// @require meta.keywords
-/// @require meta.call
+/// @require join.join
+/// @require includes.includes
+/// @require replace.replace
+/// @require data.data
 ///
 @function svg($data...)
 	$data: join.join($data, '')

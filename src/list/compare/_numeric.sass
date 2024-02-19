@@ -8,9 +8,9 @@
 
 @use 'sass:math'
 @use 'sass:meta'
-@use '../../../checker'
-@use 'sass-module-math/src/math/change'
-@use 'sass-meta/src/meta/reference'
+@use '../../checker/is-unitless'
+@use '../../math/change'
+@use '../../meta/reference'
 
 
 ///
@@ -74,7 +74,7 @@
 /// @access private
 /// @require change.change
 /// @require meta.type-of
-/// @require checker.is-unitless
+/// @require is-unitless.is-unitless
 /// @require math.compatible
 /// @require change.change
 ///
@@ -86,9 +86,9 @@
 	@if meta.type-of($second-item) != 'number'
 		@return -1
 
-	$center-test: checker.is-unitless($center)
-	$first-test: checker.is-unitless($first-item)
-	$second-test: checker.is-unitless($second-item)
+	$center-test: is-unitless.is-unitless($center)
+	$first-test: is-unitless.is-unitless($first-item)
+	$second-test: is-unitless.is-unitless($second-item)
 
 	// Normalize units for incompatible and unitless numbers
 	@if $center-test and not $first-test or $first-test or not math.compatible($first-item, $center)

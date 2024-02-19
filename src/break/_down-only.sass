@@ -12,6 +12,7 @@
 @use 'vertical-sizes' as sizes
 @use 'internal/next'
 @use 'internal/validate-breakpoint'
+@use '../checker/is-map'
 
 
 ///
@@ -30,11 +31,12 @@
 /// @require internal.validate-breakpoint
 /// @require up.up
 /// @require sizes.$names
+/// @require is-map.is-map
 ///
 @function down-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-only', 'breakpoint', $breakpoint, 'min-height', $must-be-name: true)
 
-	@if meta.type-of($first) != 'map'
+	@if not is-map.is-map($first)
 		@error $first
 
 	$second: next.next(sizes.$names, $breakpoint, 'min-height')
@@ -59,11 +61,12 @@
 /// @require internal.validate-breakpoint
 /// @require up.up
 /// @require sizes.$names
+/// @require is-map.is-map
 ///
 @mixin down-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-only', 'breakpoint', $breakpoint, 'min-height', true, true)
 
-	@if $first and meta.type-of($first) != 'map'
+	@if $first and not is-map.is-map($first)
 		// true:cannot-test
 		@error $first
 

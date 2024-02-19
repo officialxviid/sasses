@@ -9,6 +9,9 @@
 @use 'sass:list'
 @use 'sass:math'
 @use 'sass:meta'
+@use '../checker/is-function'
+@use '../checker/is-map'
+@use '../checker/is-number'
 @use '../checker/is-separator'
 @use '../checker/is-unitless'
 @use '../exception/parameter'
@@ -53,20 +56,22 @@
 /// @require parameter.parameter
 /// @require separator.separator
 /// @require slice.slice
-/// @require meta.type-of
+/// @require is-function.is-function
 /// @require list.length
 /// @require math.floor
 /// @require math.div
+/// @require is-map.is-map
+/// @require is-number.is-number
 ///
 @function sort($list, $compare: compare.string(), $center: auto, $separator: auto)
 
-	@if meta.type-of($compare) != 'function'
+	@if not is-function.is-function($compare)
 		@error parameter-type.parameter-type('sort', 'compare', $compare, 'function')
 
 	@if is-separator.is-separator($separator)
 		@error separator.separator('sort')
 
-	@if $separator == 'auto' and meta.type-of($list) == 'map'
+	@if $separator == 'auto' and is-map.is-map($list)
 		$separator: 'comma'
 
 	$length: list.length($list)

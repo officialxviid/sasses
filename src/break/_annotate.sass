@@ -9,10 +9,13 @@
 @use 'sass:meta'
 @use 'sass:string'
 @use '../color/a11y'
-@use '../exception/parameter-type'
 @use '../list/box-model'
 @use '../string/includes'
 @use '../url/svg'
+@use '../checker/is-color'
+@use '../checker/is-string'
+@use '../checker/is-number'
+@use '../exception/parameter-type'
 @use 'horizontal-sizes'
 @use 'out'
 @use 'up'
@@ -21,29 +24,40 @@
 
 ///
 /// Enables a fixed annotation displaying the active breakpoints of the viewport.
-/// 
+///
 /// @param {'horizontal' | 'vertical' | 'both'} $direction - The breakpoint categories to annotate.
 /// @param {'top right' | 'top left' | 'bottom right' | 'bottom left'} $position - The location in the viewport where the annotation will be positioned.
 /// @param {Color} $color - The primary color of the annotation.
 /// @param {Number} $size - The font size of the annotation.
-/// 
+///
 /// @output Styles a single `::before` pseudo-element to a fixed position, with `content` that describes the active horizontal and/or vertical breakpoints.
-/// 
+///
 /// @throw `#{$position}` is not a string.
 /// @throw `#{$color}` is not a color.
 /// @throw `#{$size}` is not a Number.
 ///
+/// @require is-string.is-string
+/// @require is-color.is-color
+/// @require is-number.is-number
+/// @require parameter-type.parameter-type
+/// @require a11y.a11y
+/// @require includes.includes
+/// @require box-model.box-model
+/// @require horizontal-sizes.$sizes
+/// @require vertical-sizes.$sizes
+/// @require
+///
 @mixin annotate($direction: 'both', $position: 'bottom right', $color: #f3afe6, $size: 12px)
 
-	@if meta.type-of($position) != 'string'
+	@if not is-string.is-string($position)
 		// true:cannot-test
 		@error parameter-type.parameter-type('annotate', 'position', $position, 'string')
 
-	@if meta.type-of($color) != 'color'
+	@if not is-color.is-color($color)
 		// true:cannot-test
 		@error parameter-type.parameter-type('annotate', 'color', $color, 'color')
 
-	@if meta.type-of($size) != 'number'
+	@if not is-number.is-number($size)
 		// true:cannot-test
 		@error parameter-type.parameter-type('annotate', 'size', $size, 'number')
 
@@ -120,5 +134,14 @@
 							content: '#{_content($h-name, $h-value)}\A#{_content($v-name, $v-value)}'
 
 
+///
+/// Set content property
+///
+/// @param {*} $name
+/// @param {*} $value
+/// @return {String}
+///
+/// @access private
+///
 @function _content($name, $value)
 	@return '#{$name} ≥ #{$value}'

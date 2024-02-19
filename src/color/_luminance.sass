@@ -10,17 +10,18 @@
 @use 'sass:list'
 @use 'sass:math'
 @use 'sass:meta'
+@use '../checker/is-color'
 @use '../exception/parameter-type'
 
 
-/// 
+///
 /// Returns a number indicating the WCAG relative luminance of the given color.
-/// 
+///
 /// @param {Color} $color - The color for which to calculate the relative luminance.
 /// @return {Number}
-/// 
+///
 /// @throw `#{$color}` is not a color.
-/// 
+///
 /// @access public
 /// @require meta.type-of
 /// @require parameter-type.parameter-type
@@ -34,7 +35,7 @@
 ///
 @function luminance($color)
 
-	@if meta.type-of($color) != 'color'
+	@if not is-color.is-color($color)
 		@error parameter-type.parameter-type('luminance', 'color', $color, 'color')
 
 	$color: color.red($color), color.green($color), color.blue($color)

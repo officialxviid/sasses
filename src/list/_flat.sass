@@ -7,8 +7,8 @@
 //////////////////////////////////
 
 @use 'sass:list'
-@use 'sass:meta'
 @use 'empty'
+@use '../checker/is-number'
 @use '../checker/is-separator'
 @use '../exception/parameter'
 @use '../exception/parameter-type'
@@ -33,11 +33,11 @@
 /// @require parameter.parameter
 /// @require parameter-type.parameter-type
 /// @require separator.separator
-/// @require meta.type-of
+/// @require is-number.is-number
 ///
 @function flat($list, $depth: 1, $separator: auto, $bracketed: auto)
 
-	@if meta.type-of($depth) != 'number'
+	@if not is-number.is-number($depth)
 		@error parameter-type.parameter-type('flat', 'depth', $depth, 'number')
 
 	@if $depth < 1

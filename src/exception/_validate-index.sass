@@ -38,13 +38,13 @@
 /// @require parameter.parameter
 /// @require list.length
 /// @require string.length
-/// 
+///
 @function validate-index($context, $name, $value, $iterable)
 
-	@if meta.type-of($value) != 'number'
+	@if not is-number.is-number($value)
 		@return parameter-type.parameter-type($context, $name, $value, 'number')
 
-	$is-list: meta.type-of($iterable) != 'string'
+	$is-list: not is-string.is-string($iterable)
 
 	@if $is-list and $value == 0
 		@return parameter.parameter('List index may not be 0', $context, $name)

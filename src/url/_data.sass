@@ -6,36 +6,38 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
+@use '../checker/is-bool'
+@use '../checker/is-string'
 @use '../exception/parameter-type'
 @use 'encode'
 
 
-/// 
+///
 /// Creates a data URL for the provided data of the specified type.
-/// 
+///
 /// @param {String} $data - The data which is to be delivered by the URL.
 /// @param {String} $media-type [text/plain] - The media type indicates the MIME type to be delivered by the URL.
 /// @param {Bool} $encode [true] - Whether or not the given data should be percent-encoded.
 /// @return {String}
-/// 
+///
 /// @throw `#{$data|$media-type}` is not a string.
 /// @throw `#{$encode}` is not a boolean.
-/// 
+///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
+/// @require is-bool.is-bool
 /// @require parameter-type.parameter-type
 /// @require encode.encode
-/// 
+///
 @function data($data, $media-type: 'text/plain', $encode: true)
 
-	@if meta.type-of($data) != 'string'
+	@if not is-string.is-string($data)
 		@error parameter-type.parameter-type('data', 'data', $data, 'string')
 
-	@if meta.type-of($media-type) != 'string'
+	@if not is-string.is-string($media-type)
 		@error parameter-type.parameter-type('data', 'media-type', $media-type, 'string')
 
-	@if meta.type-of($encode) != 'bool'
+	@if not is-bool.is-bool($encode)
 		@error parameter-type.parameter-type('data', 'encode', $encode, 'boolean')
 
 	@if $encode

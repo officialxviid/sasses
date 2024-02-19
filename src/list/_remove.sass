@@ -23,14 +23,14 @@
 /// @throw Must be "space", "comma", "slash", or "auto".
 ///
 /// @access public
-/// @require is-separator-invalid.is-separator-invalid
+/// @require is-separator.is-separator
 /// @require remove-nth.remove-nth
 /// @require separator.separator
 /// @require list.index
 ///
 @function remove($list, $value, $separator: auto)
 
-	@if is-separator-invalid.is-separator-invalid($separator)
+	@if is-separator.is-separator($separator)
 		@error separator.separator('remove')
 
 	$index: list.index($list, $value)

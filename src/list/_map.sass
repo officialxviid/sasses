@@ -8,6 +8,7 @@
 
 @use 'sass:list'
 @use 'sass:meta'
+@use '../checker/is-function'
 @use '../checker/is-separator'
 @use '../exception/parameter-type'
 @use '../exception/separator'
@@ -32,13 +33,13 @@
 /// @require is-separator.is-separator
 /// @require parameter-type.parameter-type
 /// @require separator.separator
-/// @require meta.type-of
+/// @require is-function.is-function
 /// @require list.append
 /// @require meta.call
 ///
 @function map($list, $transformer, $separator: auto, $bracketed: auto, $args...)
 
-	@if meta.type-of($transformer) != 'function'
+	@if not is-function.is-function($transformer)
 		@error parameter-type.parameter-type('map', 'transformer', $transformer, 'function')
 
 	@if is-separator.is-separator($separator)

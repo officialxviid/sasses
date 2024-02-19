@@ -7,7 +7,7 @@
 //////////////////////////////////
 
 @use 'sass:math'
-@use 'sass:meta'
+@use '../checker/is-number'
 @use '../exception/parameter-type'
 
 
@@ -21,12 +21,12 @@
 ///
 /// @access public
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-number.is-number
 /// @require math.div
 ///
 @function unitless($number)
 
-	@if meta.type-of($number) != 'number'
+	@if not is-number.is-number($number)
 		@error parameter-type.parameter-type('unitless', 'number', $number, 'number')
 
 	@return math.div($number, $number * 0 + 1)

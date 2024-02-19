@@ -6,8 +6,9 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
 @use 'sass:string'
+@use '../checker/is-string'
+@use '../checker/is-number'
 @use '../exception/parameter-type'
 @use '../exception/validate-index'
 @use 'index'
@@ -25,7 +26,8 @@
 /// @throw `#{$end-at}` is not a number.
 ///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
+/// @require is-number.is-number
 /// @require index.index
 /// @require parameter-type.parameter-type
 /// @require validate-index.validate-index
@@ -34,15 +36,15 @@
 ///
 @function last-index($string, $substring, $end-at: -1)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('last-index', 'string', $string, 'string')
 
-	@if meta.type-of($substring) != 'string'
+	@if not is-string.is-string($substring)
 		@error parameter-type.parameter-type('last-index', 'substring', $substring, 'string')
 
 	$end-at: validate-index.validate-index('last-index', 'end-at', $end-at, $string)
 
-	@if meta.type-of($end-at) != 'number'
+	@if not is-number.is-number($end-at)
 		@error $end-at
 
 	$string: string.slice($string, 1, $end-at)

@@ -6,7 +6,9 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
+@use '../checker/is-list'
+@use '../checker/is-map'
+@use '../checker/is-arglist'
 @use '../exception/core/from'
 @use '../exception/parameter-type'
 
@@ -20,12 +22,12 @@
 /// @access public
 /// @require from.to-string
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-list.is-list
+/// @require is-map.is-map
+/// @require is-arglist.is-arglist
 ///
 @function to-string($list)
-	$type: meta.type-of($list)
-
-	@if $type != 'list' and $type != 'map' and $type != 'arglist'
+	@if not is-list.is-list($list) and not is-map.is-map($list) and not is-arglist.is-arglist($list)
 		@error parameter-type.parameter-type('to-string', 'list', $list, 'list', 'map', 'arglist')
 
 	@return from.to-string($list, 'list')

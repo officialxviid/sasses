@@ -6,35 +6,35 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
+@use '../checker/is-string'
 @use '../exception/parameter-type'
 @use 'internal/replace'
 
 
-/// 
+///
 /// Replaces all instances of a specified substring from the source string with a given replacement.
-/// 
+///
 /// @param {String} $string - The source string in which the substring is to be replaced.
 /// @param {String} $substring - The substring to replace in the source string.
 /// @param {String} $replacement - The replacement for each instance of the substring. A number of special replacement patterns are supported.
-/// @return {String} 
+/// @return {String}
 ///
 /// @throw `#{$string|$substring|$replacement}` is not a string.
 ///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
 /// @require parameter-type.parameter-type
 /// @require replace.replace
 ///
 @function replace($string, $substring, $replacement)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('replace', 'string', $string, 'string')
 
-	@if meta.type-of($substring) != 'string'
+	@if not is-string.is-string($substring)
 		@error parameter-type.parameter-type('replace', 'substring', $substring, 'string')
 
-	@if meta.type-of($replacement) != 'string'
+	@if not is-string.is-string($replacement)
 		@error parameter-type.parameter-type('replace', 'replacement', $replacement, 'string')
 
 	@return replace.replace($string, $substring, $replacement, $string)

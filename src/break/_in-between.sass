@@ -13,6 +13,7 @@
 @use 'internal/to-string'
 @use 'internal/validate-breakpoint'
 @use 'internal/value'
+@use '../checker/is-map'
 
 
 ///
@@ -42,16 +43,17 @@
 /// @require internal.validate-breakpoint
 /// @require internal.value
 /// @require parameter.parameter
+/// @require is-map.is-map
 ///
 @function in-between($first-breakpoint, $second-breakpoint)
 	$first-breakpoint: validate-breakpoint.validate-breakpoint('in-between', 'first-breakpoint', $first-breakpoint, 'min-width')
 
-	@if meta.type-of($first-breakpoint) != 'map'
+	@if not is-map.is-map($first-breakpoint)
 		@error $first-breakpoint
 
 	$second-breakpoint: validate-breakpoint.validate-breakpoint('in-between', 'second-breakpoint', $second-breakpoint, 'max-width')
 
-	@if meta.type-of($second-breakpoint) != 'map'
+	@if not is-map.is-map($second-breakpoint)
 		@error $second-breakpoint
 
 	@if value.value($first-breakpoint) >= value.value($second-breakpoint)
@@ -88,11 +90,12 @@
 /// @require internal.validate-breakpoint
 /// @require internal.value
 /// @require out.out
+/// @require is-map.is-map
 ///
 @mixin in-between($first-breakpoint, $second-breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('in-between', 'first-breakpoint', $first-breakpoint, 'min-width', true)
 
-	@if $first and meta.type-of($first) != 'map'
+	@if $first and not is-map.is-map($first)
 		// true:cannot-test
 		@error $first
 
@@ -100,7 +103,7 @@
 
 	@if $second
 
-		@if meta.type-of($second) != 'map'
+		@if not is-map.is-map($second)
 			// true:cannot-test
 			@error $second
 

@@ -1,20 +1,28 @@
-@use 'sass:list'
-@use 'sass:meta'
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
 @use 'sass:string'
+@use 'sass:list'
+@use '../checker/is-string'
 @use '../exception/parameter-type'
 @use 'internal/whitespace'
 
 
-/// 
+///
 /// Removes whitespace from the end of a string.
-/// 
+///
 /// @param {String} $string - The source string from which to remove trailing whitespace.
 /// @return {String}
-/// 
+///
 /// @throw `#{$string}` is not a string.
-/// 
+///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
 /// @require parameter-type.parameter-type
 /// @require list.index
 /// @require string.length
@@ -23,7 +31,7 @@
 ///
 @function rtrim($string)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('rtrim', 'string', $string, 'string')
 
 	@while list.index(whitespace.$whitespace, string.slice($string, string.length($string), -1))

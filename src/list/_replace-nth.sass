@@ -7,8 +7,8 @@
 //////////////////////////////////
 
 @use 'sass:list'
-@use 'sass:meta'
 @use 'sass:math'
+@use '../checker/is-number'
 
 
 ///
@@ -22,7 +22,7 @@
 /// @access public
 /// @require parameter.parameter
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-number.is-number
 /// @require list.nth
 /// @require list.length
 /// @require list.append
@@ -31,7 +31,7 @@
 @function replace-nth($list, $index, $value)
 	$result: null
 
-	@if meta.type-of($index) != number
+	@if not is-number.is-number($index)
 		@return parameter-type.parameter-type('replace-nth', 'index', $index, 'number')
 	@else if $index == 0
 		@return parameter.parameter('List index 0 must be a non-zero integer', 'replace-nth', 'index')

@@ -8,6 +8,7 @@
 
 @use 'sass:list'
 @use 'sass:meta'
+@use '../checker/is-function'
 @use '../exception/parameter-type'
 
 
@@ -22,14 +23,14 @@
 ///
 /// @access public
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-function.is-function
 /// @require list.length
 /// @require meta.keywords
 /// @require meta.call
 ///
 @function reference($function, $args...)
 
-	@if meta.type-of($function) != 'function'
+	@if not is-function.is-function($function)
 		@error parameter-type.parameter-type('reference', 'function', $function, 'function')
 
 	@if list.length($args) != 0 or list.length(meta.keywords($args)) != 0

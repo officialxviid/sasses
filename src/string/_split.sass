@@ -6,10 +6,12 @@
 /// @license    MIT
 //////////////////////////////////
 
+@use 'sass:string'
 @use 'sass:list'
 @use 'sass:math'
-@use 'sass:meta'
-@use 'sass:string'
+@use '../checker/is-string'
+@use '../checker/is-number'
+@use '../checker/is-null'
 @use '../checker/is-separator'
 @use '../exception/parameter-type'
 @use '../exception/separator'
@@ -32,7 +34,9 @@
 /// @throw Must be "space", "comma", "slash", or "auto".
 ///
 /// @access public
-/// @require meta.type-of
+/// @require is-string.is-string
+/// @require is-number.is-number
+/// @require is-null.is-null
 /// @require empty.empty
 /// @require is-separator.is-separator
 /// @require parameter-type.parameter-type
@@ -40,13 +44,13 @@
 ///
 @function split($string, $delimiter: null, $limit: null, $separator: auto, $bracketed: auto)
 
-	@if meta.type-of($string) != 'string'
+	@if not is-string.is-string($string)
 		@error parameter-type.parameter-type('split', 'string', $string, 'string')
 
-	@if meta.type-of($delimiter) != 'string' and meta.type-of($delimiter) != 'null'
+	@if not is-string.is-string($delimiter) and not is-null.is-null($delimiter)
 		@error parameter-type.parameter-type('split', 'delimiter', $delimiter, 'string', 'null')
 
-	@if meta.type-of($limit) != 'number' and meta.type-of($limit) != 'null'
+	@if not is-number.is-number($limit) and not is-null.is-null($limit)
 		@error parameter-type.parameter-type('split', 'limit', $limit, 'number', 'null')
 
 	@if is-separator.is-separator($separator)

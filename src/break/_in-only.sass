@@ -12,6 +12,7 @@
 @use 'out'
 @use 'internal/next'
 @use 'internal/validate-breakpoint'
+@use '../checker/is-map'
 
 
 ///
@@ -30,11 +31,12 @@
 /// @require internal.validate-breakpoint
 /// @require out.out
 /// @require sizes.$names
+/// @require is-map.is-map
 ///
 @function in-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('in-only', 'breakpoint', $breakpoint, 'min-width', $must-be-name: true)
 
-	@if meta.type-of($first) != 'map'
+	@if not is-map.is-map($first)
 		@error $first
 
 	$second: next.next(sizes.$names, $breakpoint, 'min-width')
@@ -59,11 +61,12 @@
 /// @require internal.validate-breakpoint
 /// @require out.out
 /// @require sizes.$names
+/// @require is-map.is-map
 ///
 @mixin in-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('in-only', 'breakpoint', $breakpoint, 'min-width', true, true)
 
-	@if $first and meta.type-of($first) != 'map'
+	@if $first and not is-map.is-map($first)
 		// true:cannot-test
 		@error $first
 

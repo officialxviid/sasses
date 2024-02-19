@@ -7,7 +7,7 @@
 //////////////////////////////////
 
 @use 'sass:math'
-@use 'sass:meta'
+@use '../checker/is-number'
 @use '../exception/parameter-type'
 @use 'unitless'
 
@@ -25,13 +25,14 @@
 /// @require parameter-type.parameter-type
 /// @require unitless.unitless
 /// @require math.abs
+/// @require is-number.is-number
 ///
 @function change($number, $units)
 
-	@if meta.type-of($number) != 'number'
+	@if not is-number.is-number($number)
 		@error parameter-type.parameter-type('change', 'number', $number, 'number')
 
-	@if meta.type-of($units) != 'number'
+	@if not is-number.is-number($units)
 		@error parameter-type.parameter-type('change', 'units', $units, 'number')
 
 	$units: math.abs($units)

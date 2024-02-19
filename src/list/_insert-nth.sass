@@ -6,7 +6,7 @@
 /// @license    MIT
 //////////////////////////////////
 
-@use 'sass:meta'
+@use '../checker/is-number'
 @use '../checker/is-separator'
 @use '../exception/separator'
 @use '../exception/validate-index'
@@ -32,12 +32,12 @@
 /// @require is-separator.is-separator
 /// @require separator.separator
 /// @require validate-index.validate-index
-/// @require meta.type-of
+/// @require is-number.is-number
 ///
 @function insert-nth($list, $index, $value, $separator: auto)
 	$index: validate-index.validate-index('insert-nth', 'index', $index, $list)
 
-	@if meta.type-of($index) != 'number'
+	@if not is-number.is-number($index)
 		@error $index
 
 	@if is-separator.is-separator($separator)

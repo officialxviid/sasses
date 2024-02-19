@@ -9,6 +9,7 @@
 @use 'sass:map'
 @use 'sass:meta'
 @use 'internal/validate-sizes'
+@use '../checker/is-string'
 
 
 ///
@@ -27,7 +28,7 @@ $sizes: (xs: 0) !default
 
 $sizes: validate-sizes.validate-sizes($sizes)
 
-@if meta.type-of($sizes) == 'string'
+@if is-string.is-string($sizes)
 	// true:cannot-test
 	@error $sizes
 

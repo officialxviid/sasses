@@ -7,6 +7,7 @@
 //////////////////////////////////
 
 @use 'sass:meta'
+@use '../checker/is-map'
 @use '../exception/parameter'
 @use 'down'
 @use 'up'
@@ -38,20 +39,21 @@
 /// @throw First breakpoint must be smaller than second breakpoint.
 ///
 /// @access public
-/// @require internal.to-string
-/// @require internal.validate-breakpoint
-/// @require internal.value
+/// @require to-string.to-string
+/// @require validate-breakpoint.validate-breakpoint
+/// @require value.value
 /// @require parameter.parameter
+/// @require is-map.is-map
 ///
 @function down-between($first-breakpoint, $second-breakpoint)
 	$first-breakpoint: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height')
 
-	@if meta.type-of($first-breakpoint) != 'map'
+	@if not is-map.is-map($first-breakpoint)
 		@error $first-breakpoint
 
 	$second-breakpoint: validate-breakpoint.validate-breakpoint('down-between', 'second-breakpoint', $second-breakpoint, 'max-height')
 
-	@if meta.type-of($second-breakpoint) != 'map'
+	@if not is-map.is-map($second-breakpoint)
 		@error $second-breakpoint
 
 	@if value.value($first-breakpoint) >= value.value($second-breakpoint)
@@ -88,11 +90,12 @@
 /// @require internal.validate-breakpoint
 /// @require internal.value
 /// @require up.up
+/// @require is-map.is-map
 ///
 @mixin down-between($first-breakpoint, $second-breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height', true)
 
-	@if $first and meta.type-of($first) != 'map'
+	@if $first and not is-map.is-map($first)
 		// true:cannot-test
 		@error $first
 
@@ -100,7 +103,7 @@
 
 	@if $second
 
-		@if meta.type-of($second) != 'map'
+		@if not is-map.is-map($second)
 			// true:cannot-test
 			@error $second
 

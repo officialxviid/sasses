@@ -9,6 +9,11 @@
 @use 'sass:list'
 @use 'sass:meta'
 @use 'sass:string'
+@use '../../checker/is-string'
+@use '../../checker/is-map'
+@use '../../checker/is-list'
+@use '../../checker/is-arglist'
+@use '../../checker/is-function'
 @use '../internal/delimiter'
 
 
@@ -29,19 +34,19 @@
 @function from($value)
 	$type: meta.type-of($value)
 
-	@if $type == 'string'
+	@if is-string.is-string($value)
 		@return $value
 
-	@if $type == 'map'
+	@if is-map.is-map($value)
 		@return '{' + to-string($value, $type) + '}'
 
-	@if $type == 'list' or $type == 'arglist'
+	@if is-list.is-list($value) or is-arglist.is-arglist($value)
 		$is-bracketed: list.is-bracketed($value)
 		$value: to-string($value, $type)
 
 		@return if($is-bracketed, '[' + $value + ']', '(' + $value + ')')
 
-	@if $type == 'function'
+	@if is-function.is-function($value)
 		$value: meta.inspect($value)
 		$value: string.slice($value, string.index($value, '"') + 1)
 		$value: string.slice($value, 0, string.index($value, '"') - 1) + '()'

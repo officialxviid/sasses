@@ -7,7 +7,7 @@
 //////////////////////////////////
 
 @use 'sass:math'
-@use 'sass:meta'
+@use '../../checker/is-number'
 @use '../exception/parameter-type'
 
 
@@ -22,16 +22,16 @@
 ///
 /// @access public
 /// @require parameter-type.parameter-type
-/// @require meta.type-of
+/// @require is-number.is-number
 /// @require math.abs
 ///
 @function gcd($first-number, $second-number)
 
-	@if meta.type-of($first-number) != 'number'
+	@if not is-number.is-number($first-number)
 		// 'numbers' is used here are the parameter name, because the error is only intended for `sass-module-math.gcd()`.
 		@error parameter-type.parameter-type('gcd', 'numbers', $first-number, 'number')
 
-	@if meta.type-of($second-number) != 'number'
+	@if not is-number.is-number($second-number)
 		// 'numbers' is used here are the parameter name, because the error is only intended for `sass-module-math.gcd()`.
 		@error parameter-type.parameter-type('gcd', 'numbers', $second-number, 'number')
 

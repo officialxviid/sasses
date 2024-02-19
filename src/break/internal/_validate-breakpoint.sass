@@ -9,6 +9,8 @@
 @use 'sass:list'
 @use 'sass:map'
 @use 'sass:meta'
+@use '../../checker/is-string'
+@use '../../checker/is-number'
 @use '../../exception/parameter'
 @use '../../exception/parameter-type'
 @use '../../string/ends-with'
@@ -47,20 +49,20 @@
 	$size: $value
 	$type: meta.type-of($value)
 
-	@if $type == 'string'
+	@if is-string.is-string($value)
 
 		@if not map.has-key($sizes, $value)
 			@return parameter.parameter('No breakpoint exists by the name `#{meta.inspect($value)}`', $context, $name)
 
 		$size: map.get($sizes, $value)
 
-	@else if $must-be-name or $type != 'number'
+	@else if $must-be-name or not is-number.is-number($value)
 		$types: if($must-be-name, 'string', 'string' 'number')
 		@return parameter-type.parameter-type($context, $name, $value, $types...)
 
 	$is-max-rule: starts-with.starts-with($rule, 'max')
 
-	@if $is-mixin and ($size <= 0 or $is-max-rule and $type == 'string' and $size == list.nth($values, -1))
+	@if $is-mixin and ($size <= 0 or $is-max-rule and is-string.is-string($value) and $size == list.nth($values, -1))
 		@return null
 
 	@if $is-max-rule and $size > 0

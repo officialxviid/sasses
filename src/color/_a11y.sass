@@ -11,14 +11,16 @@
 @use 'sass:math'
 @use 'sass:meta'
 @use 'sass:string'
+@use '../checker/is-color'
+@use '../checker/is-string'
 @use '../exception/parameter'
 @use '../exception/parameter-type'
 @use 'contrast'
 
 
-/// 
+///
 /// Finds the nearest accessible color for the given color against another given color according to the specified WCAG standard contrast ratio.
-/// 
+///
 /// @param {Color} $a11y-color - The color that should change when the contrast does not meet the expected contrast ratio.
 /// @param {Color} $other-color - The color that is compare against.
 /// @param {normal | large} $size [normal] - The size category of the WCAG standard which should be used to determine compliance.
@@ -42,22 +44,24 @@
 /// @require math.div
 /// @require color.hue
 /// @require color.saturation
+/// @require is-color.is-color
+/// @require is-string.is-string
 ///
 @function a11y($a11y-color, $other-color, $size: 'normal', $level: 'AA')
 
-	@if meta.type-of($a11y-color) != 'color'
+	@if not is-color.is-color($a11y-color)
 		@error parameter-type.parameter-type('a11y', 'a11y-color', $a11y-color, 'color')
 
-	@if meta.type-of($other-color) != 'color'
+	@if not is-color.is-color($other-color)
 		@error parameter-type.parameter-type('a11y', 'other-color', $other-color, 'color')
 
-	@if meta.type-of($size) == 'string'
+	@if is-string.is-string($size)
 		$size: string.to-lower-case($size)
 
 	@if $size != 'normal' and $size != 'large'
 		@error parameter.parameter('Must be either "normal" or "large"', 'a11y', 'size')
 
-	@if meta.type-of($level) == 'string'
+	@if is-string.is-string($level)
 		$level: string.to-upper-case($level)
 
 	@if $level != 'AA' and $level != 'AAA'

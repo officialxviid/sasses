@@ -8,6 +8,7 @@
 
 @use 'sass:list'
 @use 'sass:meta'
+@use '../checker/is-list'
 @use '../checker/is-bracketed'
 @use '../checker/is-separator'
 @use '../exception/separator'
@@ -33,7 +34,7 @@
 ///
 @function empty($separator: null, $bracketed: null, $list: null)
 
-	@if meta.type-of($list) == 'list'
+	@if is-list.is-list($list)
 		@if $separator == auto or $separator == null
 			$separator: list.separator($list)
 

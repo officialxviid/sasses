@@ -7,8 +7,8 @@
 //////////////////////////////////
 
 @use 'sass:list'
-@use 'sass:meta'
 @use '../checker/is-separator'
+@use '../checker/is-number'
 @use '../exception/parameter'
 @use '../exception/separator'
 @use '../exception/validate-index'
@@ -44,19 +44,19 @@
 /// @require parameter.parameter
 /// @require separator.separator
 /// @require validate-index.validate-index
-/// @require meta.type-of
+/// @require is-number.is-number
 /// @require list.append
 /// @require list.nth
 ///
 @function slice($list, $start-at, $end-at: -1, $separator: auto)
 	$start-at: validate-index.validate-index('slice', 'start-at', $start-at, $list)
 
-	@if meta.type-of($start-at) != 'number'
+	@if not is-number.is-number($start-at)
 		@error $start-at
 
 	$end-at: validate-index.validate-index('slice', 'end-at', $end-at, $list)
 
-	@if meta.type-of($end-at) != 'number'
+	@if not is-number.is-number($end-at)
 		@error $end-at
 
 	@if $start-at > $end-at

@@ -9,6 +9,7 @@
 @use 'sass:meta'
 @use 'internal/to-string'
 @use 'internal/validate-breakpoint'
+@use '../checker/is-map'
 
 
 ///
@@ -33,11 +34,12 @@
 /// @access public
 /// @require internal.to-string
 /// @require internal.validate-breakpoint
+/// @require is-map.is-map
 ///
 @function in($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('in', 'breakpoint', $breakpoint, 'max-width')
 
-	@if meta.type-of($breakpoint) != 'map'
+	@if not is-map.is-map($breakpoint)
 		@error $breakpoint
 
 	@return to-string.to-string($breakpoint)
@@ -65,13 +67,14 @@
 /// @access public
 /// @require internal.to-string
 /// @require internal.validate-breakpoint
+/// @require is-map.is-map
 ///
 @mixin in($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('in', 'breakpoint', $breakpoint, 'max-width', true)
 
 	@if $breakpoint
 
-		@if meta.type-of($breakpoint) != 'map'
+		@if not is-map.is-map($breakpoint)
 			// true:cannot-test
 			@error $breakpoint
 
