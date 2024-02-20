@@ -63,6 +63,8 @@
 /// @require is-map.is-map
 /// @require is-number.is-number
 ///
+/// @since v2024.2.0
+///
 @function sort($list, $compare: compare.string(), $center: auto, $separator: auto)
 
 	@if not is-function.is-function(meta.get-function($compare))
@@ -119,6 +121,8 @@
 /// @require list.append
 /// @require list.join
 ///
+/// @since v2024.2.0
+///
 @function _order($left, $right, $compare, $center, $separator)
 	$result: empty.empty($list: $left)
 	$left-index: 1
@@ -151,6 +155,8 @@
 /// @access private
 /// @require is-unitless.is-unitless
 /// @require meta.type-of
+///
+/// @since v2024.2.0
 ///
 @function _is-number-and-not-unitless($value, $args...)
 	@return meta.type-of($value) == 'number' and not is-unitless.is-unitless($value)

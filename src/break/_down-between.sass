@@ -45,6 +45,8 @@
 /// @require parameter.parameter
 /// @require is-map.is-map
 ///
+/// @since v2024.2.0
+///
 @function down-between($first-breakpoint, $second-breakpoint)
 	$first-breakpoint: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height')
 
@@ -91,6 +93,8 @@
 /// @require internal.value
 /// @require up.up
 /// @require is-map.is-map
+///
+/// @since v2024.2.0
 ///
 @mixin down-between($first-breakpoint, $second-breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-between', 'first-breakpoint', $first-breakpoint, 'min-height', true)

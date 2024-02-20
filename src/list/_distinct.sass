@@ -29,6 +29,8 @@
 /// @require separator.separator
 /// @require meta.get-function
 ///
+/// @since v2024.2.0
+///
 @function distinct($list, $separator: auto)
 
 	@if is-separator.is-separator($separator)
@@ -47,6 +49,8 @@
 ///
 /// @access private
 /// @require list.index
+///
+/// @since v2024.2.0
 ///
 @function _distinct-predicate($item, $index, $list)
 	@return list.index($list, $item) == $index

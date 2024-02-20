@@ -33,6 +33,8 @@
 /// @require sizes.$names
 /// @require is-map.is-map
 ///
+/// @since v2024.2.0
+///
 @function in-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('in-only', 'breakpoint', $breakpoint, 'min-width', $must-be-name: true)
 
@@ -62,6 +64,8 @@
 /// @require out.out
 /// @require sizes.$names
 /// @require is-map.is-map
+///
+/// @since v2024.2.0
 ///
 @mixin in-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('in-only', 'breakpoint', $breakpoint, 'min-width', true, true)

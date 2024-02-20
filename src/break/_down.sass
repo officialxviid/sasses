@@ -36,6 +36,8 @@
 /// @require internal.validate-breakpoint
 /// @require is-map.is-map
 ///
+/// @since v2024.2.0
+///
 @function down($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('down', 'breakpoint', $breakpoint, 'max-height')
 
@@ -68,6 +70,8 @@
 /// @require internal.to-string
 /// @require internal.validate-breakpoint
 /// @require is-map.is-map
+///
+/// @since v2024.2.0
 ///
 @mixin down($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('down', 'breakpoint', $breakpoint, 'max-height', true)

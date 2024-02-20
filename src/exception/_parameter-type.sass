@@ -23,5 +23,7 @@
 /// @require invalid-type.invalid-type
 /// @require parameter.parameter
 ///
+/// @since v2024.2.0
+///
 @function parameter-type($context, $name, $value, $types...)
 	@return parameter.parameter(invalid-type.invalid-type($types, $value), $context, $name)

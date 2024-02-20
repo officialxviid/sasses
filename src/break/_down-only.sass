@@ -33,6 +33,8 @@
 /// @require sizes.$names
 /// @require is-map.is-map
 ///
+/// @since v2024.2.0
+///
 @function down-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-only', 'breakpoint', $breakpoint, 'min-height', $must-be-name: true)
 
@@ -62,6 +64,8 @@
 /// @require up.up
 /// @require sizes.$names
 /// @require is-map.is-map
+///
+/// @since v2024.2.0
 ///
 @mixin down-only($breakpoint)
 	$first: validate-breakpoint.validate-breakpoint('down-only', 'breakpoint', $breakpoint, 'min-height', true, true)

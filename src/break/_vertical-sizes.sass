@@ -23,6 +23,8 @@
 /// @access public
 /// @require validate-sizes.validate-sizes
 ///
+/// @since v2024.2.0
+///
 $sizes: (xs: 0) !default
 
 
@@ -40,6 +42,8 @@ $sizes: validate-sizes.validate-sizes($sizes)
 ///
 /// @access public
 ///
+/// @since v2024.2.0
+///
 $values: map.values($sizes)
 
 
@@ -49,5 +53,7 @@ $values: map.values($sizes)
 /// @type List
 ///
 /// @access public
+///
+/// @since v2024.2.0
 ///
 $names: map.keys($sizes)

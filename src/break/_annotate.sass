@@ -45,7 +45,8 @@
 /// @require box-model.box-model
 /// @require horizontal-sizes.$sizes
 /// @require vertical-sizes.$sizes
-/// @require
+///
+/// @since v2024.2.0
 ///
 @mixin annotate($direction: 'both', $position: 'bottom right', $color: #f3afe6, $size: 12px)
 
@@ -142,6 +143,8 @@
 /// @return {String}
 ///
 /// @access private
+///
+/// @since v2024.2.0
 ///
 @function _content($name, $value)
 	@return '#{$name} ≥ #{$value}'

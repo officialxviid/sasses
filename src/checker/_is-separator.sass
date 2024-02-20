@@ -20,5 +20,7 @@
 /// @require list.index
 /// @require math.unit
 ///
+/// @since v2024.2.0
+///
 @function is-separator($value)
 	@return list.index(space comma slash auto, math.unit($value)) != null

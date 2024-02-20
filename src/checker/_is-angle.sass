@@ -22,5 +22,7 @@
 /// @require list.index
 /// @require math.unit
 ///
+/// @since v2024.2.0
+///
 @function is-angle($value)
 	@return is-number.is-number($value) and list.index('deg' 'rad' 'grad' 'turn', math.unit($value)) != null

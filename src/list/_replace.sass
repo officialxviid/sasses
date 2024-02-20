@@ -30,6 +30,8 @@
 /// @require separator.separator
 /// @require meta.get-function
 ///
+/// @since v2024.2.0
+///
 @function replace($list, $value, $replacement, $separator: auto)
 
 	@if is-separator.is-separator($separator)
@@ -52,6 +54,8 @@
 /// @return {*}
 ///
 /// @access private
+///
+/// @since v2024.2.0
 ///
 @function _replace-transformer($item, $index, $list, $value, $replacement)
 	@return if($item == $value, $replacement, $item)

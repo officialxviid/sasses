@@ -9,20 +9,22 @@
 @use 'sass:string'
 
 
-/// 
+///
 /// Replaces all instances of a specified substring from the source string with a given replacement.
-/// 
+///
 /// @param {String} $string
 /// @param {String} $substring
 /// @param {String} $replacement
 /// @param {String} $original - This allows the original $string value to forward through recursion so it may be used for special replacement patterns.
 /// @return {String}
-/// 
+///
 /// @access public
 /// @require string.index
 /// @require string.length
 /// @require string.slice
-/// 
+///
+/// @since v2024.2.0
+///
 @function replace($string, $substring, $replacement, $original)
 	$index: string.index($string, $substring)
 

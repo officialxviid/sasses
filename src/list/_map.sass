@@ -37,6 +37,8 @@
 /// @require list.append
 /// @require meta.call
 ///
+/// @since v2024.2.0
+///
 @function map($list, $transformer, $separator: auto, $bracketed: auto, $args...)
 
 	@if not is-function.is-function(meta.get-function($transformer))

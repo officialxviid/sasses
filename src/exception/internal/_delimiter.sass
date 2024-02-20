@@ -18,6 +18,8 @@
 /// @access internal
 /// @require list.separator
 ///
+/// @since v2024.2.0
+///
 @function delimiter($list)
 	$separator: list.separator($list)
 	@return if($separator == 'space', ' ', if($separator == 'comma', ', ', ' / '))

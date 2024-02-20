@@ -36,6 +36,8 @@
 /// @require meta.call
 /// @require list.append
 ///
+/// @since v2024.2.0
+///
 @function filter($list, $predicate, $separator: auto, $args...)
 
 	@if not is-function.is-function(meta.get-function($predicate))

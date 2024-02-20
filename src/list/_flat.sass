@@ -35,6 +35,8 @@
 /// @require separator.separator
 /// @require is-number.is-number
 ///
+/// @since v2024.2.0
+///
 @function flat($list, $depth: 1, $separator: auto, $bracketed: auto)
 
 	@if not is-number.is-number($depth)
@@ -63,6 +65,8 @@
 /// @require empty.empty
 /// @require list.length
 /// @require list.append
+///
+/// @since v2024.2.0
 ///
 @function _flat($list, $depth, $at-depth, $separator: auto, $bracketed: auto)
 	$result: empty.empty($separator, $bracketed, $list)

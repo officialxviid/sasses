@@ -21,6 +21,8 @@
 /// @require join.join
 /// @require string.unquote
 ///
+/// @since v2024.2.0
+///
 @function variable($message, $names...)
 	$names: join.join($names, ', $')
 	@return string.unquote('$#{$names}: #{$message}.')

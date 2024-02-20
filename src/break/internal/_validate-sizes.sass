@@ -30,6 +30,8 @@
 /// @require variable.variable
 /// @require variable-type.variable-type
 ///
+/// @since v2024.2.0
+///
 @function validate-sizes($sizes)
 
 	@if meta.type-of($sizes) != 'map'
@@ -56,6 +58,8 @@
 /// @access internal
 /// @require numeric-value.numeric-value
 /// @require variable-type.variable-type
+///
+/// @since v2024.2.0
 ///
 @function compare($first-pair, $second-pair, $center)
 	$first-value: if(list.length($first-pair) < 2, null, list.nth($first-pair, 2))

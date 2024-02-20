@@ -42,6 +42,8 @@
 /// @require vertical-sizes.$sizes
 /// @require vertical-sizes.$values
 ///
+/// @since v2024.2.0
+///
 @function validate-breakpoint($context, $name, $value, $rule, $is-mixin: false, $must-be-name: false)
 	$is-horizontal: ends-with.ends-with($rule, 'width')
 	$sizes: if($is-horizontal, horizontal-sizes.$sizes, vertical-sizes.$sizes)
@@ -79,5 +81,7 @@
 /// @see @link https://bugs.webkit.org/show_bug.cgi?id=178261
 ///
 /// @type Number
+///
+/// @since v2024.2.0
 ///
 $-max-correction: 0.02

@@ -48,6 +48,8 @@
 /// @require list.append
 /// @require list.nth
 ///
+/// @since v2024.2.0
+///
 @function slice($list, $start-at, $end-at: -1, $separator: auto)
 	$start-at: validate-index.validate-index('slice', 'start-at', $start-at, $list)
 

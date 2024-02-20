@@ -23,6 +23,8 @@
 /// @require delimiter.delimiter
 /// @require from.join
 ///
+/// @since v2024.2.0
+///
 @function join($list, $glue: delimiter.delimiter($list))
 	@return from.join(_flat($list), $glue, 'list')
 
@@ -38,6 +40,8 @@
 /// @require list.separator
 /// @require list.length
 /// @require list.append
+///
+/// @since v2024.2.0
 ///
 @function _flat($list)
 	$result: list.join((), (), list.separator($list))

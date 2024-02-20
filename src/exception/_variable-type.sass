@@ -28,6 +28,8 @@
 /// @require variable.variable
 /// @require invalid-type.invalid-type
 ///
+/// @since v2024.2.0
+///
 @function variable-type($name, $value, $types...)
 	$keywords: meta.keywords($types)
 	$message: if(map.has-key($keywords, 'message'), map.get($keywords, 'message'), null)

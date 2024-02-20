@@ -36,6 +36,8 @@
 /// @require internal.validate-breakpoint
 /// @require is-map.is-map
 ///
+/// @since v2024.2.0
+///
 @function out($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('out', 'breakpoint', $breakpoint, 'min-width')
 
@@ -68,6 +70,8 @@
 /// @require internal.to-string
 /// @require internal.validate-breakpoint
 /// @require is-map.is-map
+///
+/// @since v2024.2.0
 ///
 @mixin out($breakpoint)
 	$breakpoint: validate-breakpoint.validate-breakpoint('out', 'breakpoint', $breakpoint, 'min-width', true)

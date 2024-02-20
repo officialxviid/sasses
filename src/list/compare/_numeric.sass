@@ -34,6 +34,8 @@
 /// @require reference.reference
 /// @require meta.get-function
 ///
+/// @since v2024.2.0
+///
 @function numeric($args...)
 	@return reference.reference(meta.get-function('_numeric'), $args...)
 
@@ -59,6 +61,8 @@
 /// @require reference.reference
 /// @require meta.get-function
 ///
+/// @since v2024.2.0
+///
 @function numeric-desc($args...)
 	@return reference.reference(meta.get-function('_numeric-desc'), $args...)
 
@@ -77,6 +81,8 @@
 /// @require is-unitless.is-unitless
 /// @require math.compatible
 /// @require change.change
+///
+/// @since v2024.2.0
 ///
 @function _numeric($first-item, $second-item, $center: 0)
 
@@ -110,6 +116,8 @@
 ///
 /// @access private
 /// @require _numeric
+///
+/// @since v2024.2.0
 ///
 @function _numeric-desc($first-item, $second-item, $center: 0)
 	@return _numeric($second-item, $first-item, $center)

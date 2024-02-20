@@ -28,6 +28,8 @@
 /// @require validate-index.validate-index
 /// @require is-number.is-number
 ///
+/// @since v2024.2.0
+///
 @function includes($list, $value, $start-at: 1)
 	$start-at: validate-index.validate-index('includes', 'start-at', $start-at, $list)
 

@@ -24,6 +24,8 @@
 /// @require validate-sizes.validate-sizes
 /// @require is-string.is-string
 ///
+/// @since v2024.2.0
+///
 $sizes: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px) !default
 
 
@@ -41,6 +43,8 @@ $sizes: validate-sizes.validate-sizes($sizes)
 ///
 /// @access public
 ///
+/// @since v2024.2.0
+///
 $values: map.values($sizes)
 
 
@@ -50,5 +54,7 @@ $values: map.values($sizes)
 /// @type List
 ///
 /// @access public
+///
+/// @since v2024.2.0
 ///
 $names: map.keys($sizes)

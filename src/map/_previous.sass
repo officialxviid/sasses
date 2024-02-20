@@ -7,7 +7,6 @@
 //////////////////////////////////
 
 @use 'sass:map'
-@use 'sass:list'
 @use '../checker/is-map'
 @use '../exception/parameter-type'
 @use '../exception/parameter'
@@ -33,7 +32,8 @@
 /// @require parameter-type.parameter-type
 /// @require parameter.parameter
 /// @require map.has-key
-/// @require list.length
+///
+/// @since v2024.2.2
 ///
 @function previous($map, $key, $return: value, $fallback: false)
 

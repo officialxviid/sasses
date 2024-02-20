@@ -26,6 +26,8 @@
 /// @require is-map.is-map
 /// @require is-arglist.is-arglist
 ///
+/// @since v2024.2.0
+///
 @function to-string($list)
 	@if not is-list.is-list($list) and not is-map.is-map($list) and not is-arglist.is-arglist($list)
 		@error parameter-type.parameter-type('to-string', 'list', $list, 'list', 'map', 'arglist')

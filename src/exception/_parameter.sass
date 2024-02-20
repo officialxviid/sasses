@@ -20,5 +20,7 @@
 /// @access public
 /// @require variable.variable
 ///
+/// @since v2024.2.0
+///
 @function parameter($message, $context, $names...)
 	@return variable.variable('#{$message} for `#{$context}()`', $names...)

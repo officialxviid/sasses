@@ -33,6 +33,8 @@
 /// @require _key
 /// @require reference.reference
 ///
+/// @since v2024.2.0
+///
 @function key($args...)
 	@return reference.reference(meta.get-function('_key'), $args...)
 
@@ -58,6 +60,8 @@
 /// @require _key-desc
 /// @require reference.reference
 ///
+/// @since v2024.2.0
+///
 @function key-desc($args...)
 	@return reference.reference(meta.get-function('_key-desc'), $args...)
 
@@ -71,6 +75,8 @@
 ///
 /// @return {Number}
 /// @require string.string
+///
+/// @since v2024.2.0
 ///
 @function _key($first-pair, $second-pair, $center: never)
 	@if list.length($first-pair) < 1
@@ -91,6 +97,8 @@
 ///
 /// @return {Number}
 /// @require _key
+///
+/// @since v2024.2.0
 ///
 @function _key-desc($first-pair, $second-pair, $center: never)
 	@return _key($second-pair, $first-pair, $center)
