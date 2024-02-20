@@ -65,7 +65,7 @@
 ///
 @function sort($list, $compare: compare.string(), $center: auto, $separator: auto)
 
-	@if not is-function.is-function($compare)
+	@if not is-function.is-function(meta.get-function($compare))
 		@error parameter-type.parameter-type('sort', 'compare', $compare, 'function')
 
 	@if is-separator.is-separator($separator)

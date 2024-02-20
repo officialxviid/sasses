@@ -30,7 +30,7 @@
 ///
 @function reference($function, $args...)
 
-	@if not is-function.is-function($function)
+	@if not is-function.is-function(meta.get-function($function))
 		@error parameter-type.parameter-type('reference', 'function', $function, 'function')
 
 	@if list.length($args) != 0 or list.length(meta.keywords($args)) != 0

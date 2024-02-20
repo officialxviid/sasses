@@ -28,7 +28,7 @@
 ///
 @function find($list, $predicate, $args...)
 
-	@if not is-function.is-function($predicate)
+	@if not is-function.is-function(meta.get-function($predicate))
 		@error parameter-type.parameter-type('find', 'predicate', $predicate, 'function')
 
 	$index: 1

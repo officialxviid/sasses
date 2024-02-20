@@ -34,7 +34,7 @@
 ///
 @function reduce($list, $transformer, $initial-value: null, $args...)
 
-	@if not is-function.is-function($transformer)
+	@if not is-function.is-function(meta.get-function($transformer))
 		@error parameter-type.parameter-type('reduce', 'transformer', $transformer, 'function')
 
 	@if $initial-value == null and list.length($list) == 0

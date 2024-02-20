@@ -46,7 +46,7 @@
 
 		@return if($is-bracketed, '[' + $value + ']', '(' + $value + ')')
 
-	@if is-function.is-function($value)
+	@if is-function.is-function(meta.get-function($value))
 		$value: meta.inspect($value)
 		$value: string.slice($value, string.index($value, '"') + 1)
 		$value: string.slice($value, 0, string.index($value, '"') - 1) + '()'
