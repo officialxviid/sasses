@@ -1,0 +1,92 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use 'sass:list'
+@use '../checker/is-map'
+@use '../exception/parameter-type'
+@use '../exception/parameter'
+
+
+///
+/// Returns previous map item or fallback value if map, key or previous item does not exist.
+///
+/// @param {Map} $map - Sass list map
+/// @param {String} $key - List map key
+/// @param {Boolean} $fallback (false) - Fallback value if map, key or previous item does not exist
+/// @param {String} $return (value) - Return 'value' or 'key' of previous list item
+/// @param {Boolean} $debug (false) - Debug option
+/// @return {*}
+///
+/// @throw `#{$map}` is not a map.
+/// @throw `#{$key}` invalid key in map.
+/// @throw `#{$return}` is not 'value' or 'key'.
+/// @throw
+///
+/// @access public
+/// @require is-map.is-map
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+/// @require map.has-key
+/// @require list.length
+///
+@function previous($map, $key, $return: value, $fallback: false)
+
+	// Check if map is valid
+	@if not is-map.is-map($map)
+		@error parameter-type.parameter-type('previous', 'map', $map, 'map')
+		@return $fallback
+
+	// Check if $return is value or key
+	@if $return != value and $return != key
+		@error parameter.parameter('Must be either "value" or "key"', 'previous', 'return')
+		@return $fallback
+
+	// Check if key exists in map
+	@if not map.has-key($map, $key)
+		@error parameter.parameter('Invalid key #{$key} in map', 'previous', 'key')
+		@return $fallback
+
+	// Init index counter variable
+	$i: 0
+
+	// Init key index
+	$key-index: false
+	$previous-index: false
+
+	// Traverse map for key
+	@each $map-key, $map-value in $map
+
+		// If map key found, set key index
+		@if $map-key == $key
+			$key-index: $i
+
+		// Update index
+		$i: $i + 1
+
+	// If the key-index exists, iterate through the map again
+	@if $key-index != false
+		$previous-index: $key-index - 1
+		$i: 1
+
+		// If the previous key is less than one, use the @warn
+		@if $previous-index < 1
+			@warn 'No previous item in map.'
+			@return $fallback
+
+		@else
+			// Traverse map for key
+			@each $map-key, $map-value in $map
+				@if $i == $previous-index
+					@if $return == key
+						@return $map-key
+					@else
+						@return $map-value
+
+				// Update index
+				$i: $i + 1
