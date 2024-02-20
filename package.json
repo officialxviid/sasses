@@ -1,6 +1,6 @@
 {
 	"name": "sasses",
-	"version": "2024.2.0",
+	"version": "2024.2.1",
 	"description": "Sass modules provide more advanced functions.",
 	"main": "_index.sass",
 	"scripts": {
