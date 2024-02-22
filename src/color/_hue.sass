@@ -48,6 +48,6 @@ $hue-names: (0: "red", 15: "vermillion", 30: "orange", 45: "gold", 60: "yellow",
 	$hue-unitless: unitless.unitless($hue)
 
 	@if not map.has-key($hue-names, $hue-unitless)
-		@error parameter.parameter('', 'hue-to-color-name', 'hue')
+		@error parameter.parameter('Key `#{$hue-unitless}` is not available', 'hue-to-color-name', 'hue')
 
 	@return map.get($hue-names, $hue-unitless)
