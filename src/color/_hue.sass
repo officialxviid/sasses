@@ -1,0 +1,48 @@
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use 'sass:map'
+@use '../math/unitless'
+@use '../checker/is-number'
+@use '../exception/parameter'
+@use '../exception/parameter-type'
+
+
+///
+/// Hue list
+///
+/// @type Map
+///
+/// @access public
+///
+/// @since 2024.2.2
+///
+$hue-names: (0: "red", 15: "vermillion", 30: "orange", 45: "gold", 60: "yellow", 75: "chartreuse", 90: "lime", 105: "kelly", 120: "green", 135: "emerald", 150: "turquoise", 165: "sea-foam", 180: "cyan", 195: "cerulean", 210: "azure", 225: "egyptian", 240: "blue", 255: "indigo", 270: "violet", 285: "purple", 300: "magenta", 315: "fuchsia", 330: "rose", 345: "crimson", 360: "red") !default
+
+
+///
+/// Get color name by hue
+///
+/// @param {Number} $hue
+/// @param {String}
+///
+/// @access public
+/// @require checker.is-number
+///
+/// @since 2024.2.2
+///
+@function hue-to-color-name($hue)
+	@if not is-number.is-number($hue)
+		@error parameter-type.parameter-type('hue-to-color-name', 'hue', $hue, 'number')
+
+	$hue-unitless: unitless.unitless($hue)
+
+	@if not map.has-key($hue-names, $hue-unitless)
+		@error parameter.parameter('', 'hue-to-color-name', 'hue')
+
+	@return map.get($hue-names, $hue-unitless)
