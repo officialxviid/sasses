@@ -10,8 +10,11 @@
 @forward 'src/color/contrast'
 @forward 'src/color/hue'
 @forward 'src/color/luminance'
+@forward 'src/color/adjust' as adjust-*
+@forward 'src/color/change' as change-*
+@forward 'src/color/scale' as scale-*
 
 ///
 /// @see @link https://sass-lang.com/documentation/modules/color/
 ///
-@forward 'sass:color'
+@forward 'sass:color' hide adjust-hue
