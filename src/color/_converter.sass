@@ -1,8 +1,1679 @@
-@forward 'converter/color'
-@forward 'converter/hex'
-@forward 'converter/hexa'
-@forward 'converter/rgb'
-@forward 'converter/rgba'
-@forward 'converter/hsl'
-@forward 'converter/hsla'
-@forward 'converter/hwb'
+//////////////////////////////////
+/// @package    sasses
+/// @group      api
+/// @author     XVIID Developer
+/// @copyright  XVIID
+/// @license    MIT
+//////////////////////////////////
+
+@use "sass:color"
+@use "sass:string"
+@use "sass:math"
+@use "../../math/unitless"
+@use "../../checker/is-number"
+@use "../../checker/is-color"
+@use "../../checker/is-bool"
+@use "../../checker/is-unitless"
+@use "../../checker/is-percentage"
+@use "../../checker/is-string"
+@use "../../exception/parameter"
+@use "../../exception/parameter-type"
+
+
+///
+/// Validate Hue
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-number.is-number
+/// @require is-unitless.is-unitless
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+/// @require math.unit
+/// @require unitless.unitless
+///
+/// @since 2024.2.3
+///
+@function _validate-hue($context, $name, $value)
+	@if not is-number.is-number($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'number')
+
+	@if not is-unitless.is-unitless($value) and math.unit($value) != deg
+		@return parameter.parameter('The hue unit should be `deg`', $context, $name)
+
+	$value: unitless.unitless($value)
+
+	@if $value > 360 or $value < 0
+		@return parameter.parameter('Must be between 0 and 360 (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Validate Percentage
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-percentage.is-percentage
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+/// @require unitless.unitless
+///
+/// @since 2024.2.3
+///
+@function _validate-percentage($context, $name, $value)
+	@if not is-percentage.is-percentage($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'percentage')
+
+	$value: unitless.unitless($value)
+
+	@if $value > 100 or $value < 0
+		@return parameter.parameter('Must be between 0% and 100% (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Validate alpha
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-unitless.is-unitless
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+///
+/// @since 2024.2.3
+///
+@function _validate-alpha($context, $name, $value)
+	@if not is-unitless.is-unitless($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'unitless')
+
+	@if $value > 1 or $value < 0
+		@return parameter.parameter('Must be between 0 and 1 (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Validate RGB
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-unitless.is-unitless
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+///
+/// @since 2024.2.3
+///
+@function _validate-rgb($context, $name, $value)
+	@if not is-unitless.is-unitless($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'unitless')
+
+	@if $value > 255 or $value < 0
+		@return parameter.parameter('Must be between 0 and 255 (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Convert color to hexadecimal (HEX)
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require string.slice
+/// @require color.ie-hex-str
+/// @require string.unquote
+///
+/// @since 2024.2.3
+///
+@function color2hex($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hex', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hex', 'format', $format, 'bool')
+
+	$hex: string.slice(color.ie-hex-str($color), 4)
+
+	@if $format
+		@return string.unquote("#" + $hex)
+
+	@return $hex
+
+
+///
+/// Convert color to hexadecimal alpha (HEXA)
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require string.slice
+/// @require color.ie-hex-str
+/// @require string.unquote
+///
+/// @since 2024.2.3
+///
+@function color2hexa($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hexa', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hexa', 'format', $format, 'bool')
+
+	$hex: string.slice(color.ie-hex-str($color), 2)
+
+	@if $format
+		@return string.unquote("#" + $hex)
+
+	@return $hex
+
+
+///
+/// Convert color to RGB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.red
+/// @require color.green
+/// @require color.blue
+///
+/// @since 2024.2.3
+///
+@function color2rgb($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2rgb', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2rgb', 'format', $format, 'bool')
+
+	@if $format
+		@return rgb(color.red($color), color.green($color), color.blue($color))
+
+	@return color.red($color), color.green($color), color.blue($color)
+
+
+///
+/// Convert color to RGBA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.red
+/// @require color.green
+/// @require color.blue
+/// @require color.alpha
+///
+/// @since 2024.2.3
+///
+@function color2rgba($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2rgba', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2rgba', 'format', $format, 'bool')
+
+	@if $format
+		@return rgba(color.red($color), color.green($color), color.blue($color), color.alpha($color))
+
+	@return color.red($color), color.green($color), color.blue($color), color.alpha($color)
+
+
+///
+/// Convert color to HSL
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.saturation
+/// @require color.lightness
+///
+/// @since 2024.2.3
+///
+@function color2hsl($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hsl', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hsl', 'format', $format, 'bool')
+
+	@if $format
+		@return hsl(color.hue($color), color.saturation($color), color.lightness($color))
+
+	@return color.hue($color), color.saturation($color), color.lightness($color)
+
+
+///
+/// Convert color to HSLA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.saturation
+/// @require color.lightness
+/// @require color.alpha
+///
+/// @since 2024.2.3
+///
+@function color2hsla($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hsla', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hsla', 'format', $format, 'bool')
+
+	@if $format
+		@return hsla(color.hue($color), color.saturation($color), color.lightness($color), color.alpha($color))
+
+	@return color.hue($color), color.saturation($color), color.lightness($color), color.alpha($color)
+
+
+///
+/// Convert color to HWB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.whiteness
+/// @require color.blackness
+///
+/// @since 2024.2.3
+///
+@function color2hwb($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hwb', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hwb', 'format', $format, 'bool')
+
+	@if $format
+		@return hwb(color.hue($color), color.whiteness($color), color.blackness($color))
+
+	@return color.hue($color), color.whiteness($color), color.blackness($color)
+
+
+///
+/// Convert hexadecimal (HEX) to hexadecimal alpha (HEXA)
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require color2hexa
+///
+/// @since 2024.2.3
+///
+@function hex2hexa($hex, $format: true)
+	@return color2hexa($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to RGB
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2rgb
+///
+/// @since 2024.2.3
+///
+@function hex2rgb($hex, $format: true)
+	@return color2rgb($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to RGBA
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function hex2rgba($hex, $format: true)
+	@return color2rgba($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to Hue Saturation Lightness (HSL)
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hsl
+///
+/// @since 2024.2.3
+///
+@function hex2hsl($hex, $format: true)
+	@return color2hsl($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hsla
+///
+/// @since 2024.2.3
+///
+@function hex2hsla($hex, $format: true)
+	@return color2hsla($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to Hue Whiteness blackness (HWB)
+///
+/// @param {Color} $hex - Hex color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hwb
+///
+/// @since 2024.2.3
+///
+@function hex2hwb($hex, $format: true)
+	@return color2hwb($hex, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to hexadecimal (HEX)
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require color2hex
+///
+/// @since 2024.2.3
+///
+@function hexa2hex($hexa, $format: true)
+	@return color2hex($hexa, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to RGB
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2rgb
+///
+/// @since 2024.2.3
+///
+@function hexa2rgb($hexa, $format: true)
+	@return color2rgb($hexa, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to RGBA
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function hexa2rgba($hexa, $format: true)
+	@return color2rgba($hexa, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to Hue Saturation Lightness (HSL)
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hsl
+///
+/// @since 2024.2.3
+///
+@function hexa2hsl($hexa, $format: true)
+	@return color2hsl($hexa, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hsla
+///
+/// @since 2024.2.3
+///
+@function hexa2hsla($hexa, $format: true)
+	@return color2hsla($hexa, $format)
+
+
+///
+/// Convert hexadecimal alpha (HEXA) to Hue Whiteness Blackness (HWB)
+///
+/// @param {Color} $hexa - Hex alpha color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color2hwb
+///
+/// @since 2024.2.3
+///
+@function hexa2hwb($hexa, $format: true)
+	@return color2hwb($hexa, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to hexadecimal (HEX)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hex
+///
+/// @since 2024.2.3
+///
+@function hsl2hex($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2hex', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2hex', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2hex', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2hex($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hexa
+///
+/// @since 2024.2.3
+///
+@function hsl2hexa($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2hexa', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2hexa', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2hexa', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2hexa($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to RGBA
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2rgb
+///
+/// @since 2024.2.3
+///
+@function hsl2rgb($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2rgb', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2rgb', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2rgb', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2rgb($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to RGBA
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function hsl2rgba($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2rgba', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2rgba', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2rgba', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2rgba($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hsla
+///
+/// @since 2024.2.3
+///
+@function hsl2hsla($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2hsla', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2hsla', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2hsla', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2hsla($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness (HSL) to Hue Whiteness Blackness (HWB)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hwb
+///
+/// @since 2024.2.3
+///
+@function hsl2hwb($hue, $saturation, $lightness, $format: true)
+	$validate-hue: _validate-hue('hsl2hwb', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsl2hwb', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsl2hwb', 'lightness', $lightness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2hwb($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to hexadecimal (HEX)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2hex
+///
+/// @since 2024.2.3
+///
+@function hsla2hex($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2hex', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2hex', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2hex', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2hex', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsl: hsl($hue, $saturation, $lightness)
+
+	@return color2hex($hsl, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2hexa
+///
+/// @since 2024.2.3
+///
+@function hsla2hexa($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2hexa', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2hexa', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2hexa', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2hexa', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsla: hsla($hue, $saturation, $lightness, $alpha)
+
+	@return color2hexa($hsla, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to RGB
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2rgb
+///
+/// @since 2024.2.3
+///
+@function hsla2rgb($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2rgb', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2rgb', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2rgb', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2rgb', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsla: hsla($hue, $saturation, $lightness, $alpha)
+
+	@return color2rgb($hsla, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to RGBA
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function hsla2rgba($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2rgba', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2rgba', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2rgba', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2rgba', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsla: hsla($hue, $saturation, $lightness, $alpha)
+
+	@return color2rgba($hsla, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to Hue Saturation Lightness (HSL)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2hsl
+///
+/// @since 2024.2.3
+///
+@function hsla2hsl($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2hsl', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2hsl', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2hsl', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2hsl', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsla: hsla($hue, $saturation, $lightness, $alpha)
+
+	@return color2hsl($hsla, $format)
+
+
+///
+/// Convert Hue Saturation Lightness Alpha (HSLA) to Hue Whiteness Blackness (HWB)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $saturation - Saturation value.
+/// @param {Number} $lightness - Lightness value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color2hwb
+///
+/// @since 2024.2.3
+///
+@function hsla2hwb($hue, $saturation, $lightness, $alpha, $format: true)
+	$validate-hue: _validate-hue('hsla2hwb', 'hue', $hue)
+	$validate-saturation: _validate-percentage('hsla2hwb', 'saturation', $saturation)
+	$validate-lightness: _validate-percentage('hsla2hwb', 'lightness', $lightness)
+	$validate-alpha: _validate-alpha('hsla2hwb', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-saturation)
+		@error $validate-saturation
+
+	@if is-string.is-string($validate-lightness)
+		@error $validate-lightness
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$hsla: hsla($hue, $saturation, $lightness, $alpha)
+
+	@return color2hwb($hsla, $format)
+
+
+///
+/// Convert Hue Whiteness blackness (HWB) to hexadecimal (HEX)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hex
+///
+/// @since 2024.2.3
+///
+@function hwb2hex($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hex', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hex', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hex', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2hex($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hexa
+///
+/// @since 2024.2.3
+///
+@function hwb2hexa($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hexa', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hexa', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hexa', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2hexa($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to RGB
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2rgb
+///
+/// @since 2024.2.3
+///
+@function hwb2rgb($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2rgb', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2rgb', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2rgb', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2rgb($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to RGBA
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function hwb2rgba($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2rgba', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2rgba', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2rgba', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2rgba($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to Hue Saturation Lightness (HSL)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hsl
+///
+/// @since 2024.2.3
+///
+@function hwb2hsl($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hsl', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hsl', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hsl', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2hsl($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-hue
+/// @require _validate-percentage
+/// @require is-string.is-string
+/// @require color2hsla
+///
+/// @since 2024.2.3
+///
+@function hwb2hsla($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hsla', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hsla', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hsla', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color2hsla($hwb, $format)
+
+
+///
+/// Convert RGB to hexadecimal (HEX)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2hex
+///
+/// @since 2024.2.3
+///
+@function rgb2hex($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2hex', 'red', $red)
+	$validate-green: _validate-rgb('rgb2hex', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2hex', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2hex($rgb, $format)
+
+
+///
+/// Convert RGB to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2hexa
+///
+/// @since 2024.2.3
+///
+@function rgb2hexa($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2hexa', 'red', $red)
+	$validate-green: _validate-rgb('rgb2hexa', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2hexa', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2hexa($rgb, $format)
+
+
+///
+/// Convert RGB to RGBA
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2rgba
+///
+/// @since 2024.2.3
+///
+@function rgb2rgba($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2rgba', 'red', $red)
+	$validate-green: _validate-rgb('rgb2rgba', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2rgba', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2rgba($rgb, $format)
+
+
+///
+/// Convert RGB to Hue Saturation Lightness (HSL)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2hsl
+///
+/// @since 2024.2.3
+///
+@function rgb2hsl($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2hsl', 'red', $red)
+	$validate-green: _validate-rgb('rgb2hsl', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2hsl', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2hsl($rgb, $format)
+
+
+///
+/// Convert RGB to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2hsla
+///
+/// @since 2024.2.3
+///
+@function rgb2hsla($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2hsla', 'red', $red)
+	$validate-green: _validate-rgb('rgb2hsla', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2hsla', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2hsla($rgb, $format)
+
+
+///
+/// Convert RGB to Hue Whiteness Blackness (HWB)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color2hwb
+///
+/// @since 2024.2.3
+///
+@function rgb2hwb($red, $green, $blue, $format: true)
+	$validate-red: _validate-rgb('rgb2hwb', 'red', $red)
+	$validate-green: _validate-rgb('rgb2hwb', 'green', $green)
+	$validate-blue: _validate-rgb('rgb2hwb', 'blue', $blue)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	$rgb: rgb($red, $green, $blue)
+
+	@return color2hwb($rgb, $format)
+
+
+///
+/// Convert RGBA to hexadecimal (HEX)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2hex
+///
+/// @since 2024.2.3
+///
+@function rgba2hex($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2hex', 'red', $red)
+	$validate-green: _validate-rgb('rgba2hex', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2hex', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2hex', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2hex($rgba, $format)
+
+
+///
+/// Convert RGBA to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2hexa
+///
+/// @since 2024.2.3
+///
+@function rgba2hexa($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2hexa', 'red', $red)
+	$validate-green: _validate-rgb('rgba2hexa', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2hexa', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2hexa', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2hexa($rgba, $format)
+
+
+///
+/// Convert RGBA to RGB
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2rgba
+///
+/// @since 2024.2.3
+///
+@function rgba2rgb($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2rgb', 'red', $red)
+	$validate-green: _validate-rgb('rgba2rgb', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2rgb', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2rgb', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2rgb($rgba, $format)
+
+
+///
+/// Convert RGBA to Hue Saturation Lightness (HSL)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2hsl
+///
+/// @since 2024.2.3
+///
+@function rgba2hsl($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2hsl', 'red', $red)
+	$validate-green: _validate-rgb('rgba2hsl', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2hsl', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2hsl', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2hsl($rgba, $format)
+
+
+///
+/// Convert RGBA to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2hsla
+///
+/// @since 2024.2.3
+///
+@function rgba2hsla($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2hsla', 'red', $red)
+	$validate-green: _validate-rgb('rgba2hsla', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2hsla', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2hsla', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2hsla($rgba, $format)
+
+
+///
+/// Convert RGBA to Hue Whiteness Blackness (HWB)
+///
+/// @param {Number} $red - Red value.
+/// @param {Number} $green - Green value.
+/// @param {Number} $blue - Blue value.
+/// @param {Number} $alpha - Alpha value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require _validate-alpha
+/// @require is-string.is-string
+/// @require color.color2hwb
+///
+/// @since 2024.2.3
+///
+@function rgba2hwb($red, $green, $blue, $alpha, $format: true)
+	$validate-red: _validate-rgb('rgba2hwb', 'red', $red)
+	$validate-green: _validate-rgb('rgba2hwb', 'green', $green)
+	$validate-blue: _validate-rgb('rgba2hwb', 'blue', $blue)
+	$validate-alpha: _validate-alpha('rgba2hwb', 'alpha', $alpha)
+
+	@if is-string.is-string($validate-red)
+		@error $validate-red
+
+	@if is-string.is-string($validate-green)
+		@error $validate-green
+
+	@if is-string.is-string($validate-blue)
+		@error $validate-blue
+
+	@if is-string.is-string($validate-alpha)
+		@error $validate-alpha
+
+	$rgba: rgba($red, $green, $blue, $alpha)
+
+	@return color2hwb($rgba, $format)
