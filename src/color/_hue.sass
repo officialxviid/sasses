@@ -22,32 +22,45 @@
 ///
 /// @since 2024.2.2
 ///
-$hue-names: (0: "red", 15: "vermillion", 30: "orange", 45: "gold", 60: "yellow", 75: "chartreuse", 90: "lime", 105: "kelly", 120: "green", 135: "emerald", 150: "turquoise", 165: "sea-foam", 180: "cyan", 195: "cerulean", 210: "azure", 225: "egyptian", 240: "blue", 255: "indigo", 270: "violet", 285: "purple", 300: "magenta", 315: "fuchsia", 330: "rose", 345: "crimson", 360: "red") !default
+$hues: (0: "red", 15: "vermillion", 30: "orange", 45: "gold", 60: "yellow", 75: "chartreuse", 90: "lime", 105: "kelly", 120: "green", 135: "emerald", 150: "turquoise", 165: "sea-foam", 180: "cyan", 195: "cerulean", 210: "azure", 225: "egyptian", 240: "blue", 255: "indigo", 270: "violet", 285: "purple", 300: "magenta", 315: "fuchsia", 330: "rose", 345: "crimson", 360: "red") !default
 
 
 ///
-/// Get color name by hue
+/// Get color name by hue degree
 ///
 /// @param {Number} $hue
 /// @param {String}
 ///
+/// @throw `#{$hue}` is not a number.
+/// @throw `#{$hue}` The hue unit should be `deg`.
+/// @throw `#{$hue-unitless}` Key is not available.
+///
 /// @access public
 /// @require is-number.is-number
+/// @require is-unitless.is-unitless
 /// @require parameter-type.parameter-type
-/// @require unitless.unitless
-/// @require map.has-key
 /// @require parameter.parameter
-/// @require map.get
+/// @require math.unit
+/// @require unitless.unitless
+/// @require next.next
+/// @require $hues
 ///
 /// @since 2024.2.2
 ///
-@function hue-to-color-name($hue)
+@function hue-to-name($hue)
 	@if not is-number.is-number($hue)
-		@error parameter-type.parameter-type('hue-to-color-name', 'hue', $hue, 'number')
+		@error parameter-type.parameter-type('hue-to-name', 'hue', $hue, 'number')
+
+	@if not is-unitless.is-unitless($hue) and math.unit($hue) != deg
+		@error parameter.parameter('The hue unit should be `deg`', 'hue-to-name', 'hue')
 
 	$hue-unitless: unitless.unitless($hue)
 
-	@if not map.has-key($hue-names, $hue-unitless)
-		@error parameter.parameter('Key `#{$hue-unitless}` is not available', 'hue-to-color-name', 'hue')
+	@each $degree, $name in $hues
+		$next: next.next($hues, $degree, key)
 
-	@return map.get($hue-names, $hue-unitless)
+		@if $next != false and is-number
+			@if $hue-unitless >= $degree and $hue-unitless < $next
+				@return $name
+
+	@error parameter.parameter('Key `#{$hue-unitless}` is not available', 'hue-to-name', 'hue')
