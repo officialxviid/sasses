@@ -1,0 +1,277 @@
+@use "sass:math"
+@use "../../math/unitless"
+@use "../../checker/is-number"
+@use "../../checker/is-unitless"
+@use "../../checker/is-percentage"
+@use "../../checker/is-string"
+@use "../../exception/parameter"
+@use "../../exception/parameter-type"
+@use "color"
+
+
+///
+/// Validate Hue
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-unitless.is-unitless
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+///
+/// @since 2024.2.3
+///
+@function _validate-hue($context, $name, $value)
+	@if not is-number.is-number($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'number')
+
+	@if not is-unitless.is-unitless($value) and math.unit($value) != deg
+		@return parameter.parameter('The hue unit should be `deg`', $context, $name)
+
+	$value: unitless.unitless($value)
+
+	@if $value > 360 or $value < 0
+		@return parameter.parameter('Must be between 0 and 360 (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Validate Percentage
+///
+/// @param {String} $context
+/// @param {String} $name
+/// @param {Number} $value
+/// @return {Bool | String}
+///
+/// @access private
+/// @require is-percentage.is-percentage
+/// @require parameter-type.parameter-type
+/// @require parameter.parameter
+/// @require unitless.unitless
+///
+/// @since 2024.2.3
+///
+@function _validate-percentage($context, $name, $value)
+	@if not is-percentage.is-percentage($value)
+		@return parameter-type.parameter-type($context, $name, $value, 'percentage')
+
+	$value: unitless.unitless($value)
+
+	@if $value > 100 or $value < 0
+		@return parameter.parameter('Must be between 0% and 100% (inclusive).', $context, $name)
+
+	@return true
+
+
+///
+/// Convert Hue Whiteness blackness (HWB) to hexadecimal (HEX)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2hex
+///
+/// @since 2024.2.3
+///
+@function hwb2hex($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hex', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hex', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hex', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2hex($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to hexadecimal alpha (HEXA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2hexa
+///
+/// @since 2024.2.3
+///
+@function hwb2hexa($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hexa', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hexa', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hexa', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2hexa($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to RGB
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2rgb
+///
+/// @since 2024.2.3
+///
+@function hwb2rgb($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2rgb', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2rgb', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2rgb', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2rgb($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to RGBA
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2rgba
+///
+/// @since 2024.2.3
+///
+@function hwb2rgba($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2rgba', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2rgba', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2rgba', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2rgba($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to Hue Saturation Lightness (HSL)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2hsl
+///
+/// @since 2024.2.3
+///
+@function hwb2hsl($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hsl', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hsl', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hsl', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2hsl($hwb, $format)
+
+
+///
+/// Convert Hue Whiteness Blackness (HWB) to Hue Saturation Lightness Alpha (HSLA)
+///
+/// @param {Number} $hue - Hue value.
+/// @param {Number} $whiteness - Whiteness value.
+/// @param {Number} $blackness - Blackness value.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require _validate-rgb
+/// @require is-string.is-string
+/// @require color.color2hsla
+///
+/// @since 2024.2.3
+///
+@function hwb2hsla($hue, $whiteness, $blackness, $format: true)
+	$validate-hue: _validate-hue('hwb2hsla', 'hue', $hue)
+	$validate-whiteness: _validate-percentage('hwb2hsla', 'whiteness', $whiteness)
+	$validate-blackness: _validate-percentage('hwb2hsla', 'blackness', $blackness)
+
+	@if is-string.is-string($validate-hue)
+		@error $validate-hue
+
+	@if is-string.is-string($validate-whiteness)
+		@error $validate-whiteness
+
+	@if is-string.is-string($validate-blackness)
+		@error $validate-blackness
+
+	$hwb: hwb($hue, $whiteness, $blackness)
+
+	@return color.color2hsla($hwb, $format)

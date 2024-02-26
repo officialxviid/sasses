@@ -1,0 +1,97 @@
+@use "color"
+
+
+///
+/// Convert hexadecimal (HEX) to hexadecimal alpha (HEXA)
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | String}
+///
+/// @access public
+/// @require color.color2hexa
+///
+/// @since 2024.2.3
+///
+@function hex2hexa($hex, $format: true)
+	@return color.color2hexa($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to RGB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color.color2rgb
+///
+/// @since 2024.2.3
+///
+@function hex2rgb($hex, $format: true)
+	@return color.color2rgb($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to RGBA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color.color2rgba
+///
+/// @since 2024.2.3
+///
+@function hex2rgba($hex, $format: true)
+	@return color.color2rgba($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to HSL
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color.color2hsl
+///
+/// @since 2024.2.3
+///
+@function hex2hsl($hex, $format: true)
+	@return color.color2hsl($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to HSLA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color.color2hsla
+///
+/// @since 2024.2.3
+///
+@function hex2hsla($hex, $format: true)
+	@return color.color2hsla($hex, $format)
+
+
+///
+/// Convert hexadecimal (HEX) to HWB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access public
+/// @require color.color2hwb
+///
+/// @since 2024.2.3
+///
+@function hex2hwb($hex, $format: true)
+	@return color.color2hwb($hex, $format)

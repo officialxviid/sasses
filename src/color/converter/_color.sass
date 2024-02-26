@@ -1,0 +1,222 @@
+@use "sass:color"
+@use "sass:string"
+@use "../../checker/is-color"
+@use "../../checker/is-bool"
+@use "../../exception/parameter"
+@use "../../exception/parameter-type"
+
+
+///
+/// Convert color to hexadecimal (HEX)
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require string.slice
+/// @require color.ie-hex-str
+/// @require string.unquote
+///
+/// @since 2024.2.3
+///
+@function color2hex($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hex', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hex', 'format', $format, 'bool')
+
+	$hex: string.slice(color.ie-hex-str($color), 4)
+
+	@if $format
+		@return string.unquote("#" + $hex)
+
+	@return $hex
+
+
+///
+/// Convert color to hexadecimal alpha (HEXA)
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require string.slice
+/// @require color.ie-hex-str
+/// @require string.unquote
+///
+/// @since 2024.2.3
+///
+@function color2hexa($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hexa', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hexa', 'format', $format, 'bool')
+
+	$hex: string.slice(color.ie-hex-str($color), 2)
+
+	@if $format
+		@return string.unquote("#" + $hex)
+
+	@return $hex
+
+
+///
+/// Convert color to RGB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.red
+/// @require color.green
+/// @require color.blue
+///
+/// @since 2024.2.3
+///
+@function color2rgb($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2rgb', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2rgb', 'format', $format, 'bool')
+
+	@if $format
+		@return rgb(color.red($color), color.green($color), color.blue($color))
+
+	@return color.red($color), color.green($color), color.blue($color)
+
+
+///
+/// Convert color to RGBA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.red
+/// @require color.green
+/// @require color.blue
+/// @require color.alpha
+///
+/// @since 2024.2.3
+///
+@function color2rgba($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2rgba', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2rgba', 'format', $format, 'bool')
+
+	@if $format
+		@return rgba(color.red($color), color.green($color), color.blue($color), color.alpha($color))
+
+	@return color.red($color), color.green($color), color.blue($color), color.alpha($color)
+
+
+///
+/// Convert color to HSL
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.saturation
+/// @require color.lightness
+///
+/// @since 2024.2.3
+///
+@function color2hsl($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hsl', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hsl', 'format', $format, 'bool')
+
+	@if $format
+		@return hsl(color.hue($color), color.saturation($color), color.lightness($color))
+
+	@return color.hue($color), color.saturation($color), color.lightness($color)
+
+
+///
+/// Convert color to HSLA
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.saturation
+/// @require color.lightness
+/// @require color.alpha
+///
+/// @since 2024.2.3
+///
+@function color2hsla($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hsla', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hsla', 'format', $format, 'bool')
+
+	@if $format
+		@return hsla(color.hue($color), color.saturation($color), color.lightness($color), color.alpha($color))
+
+	@return color.hue($color), color.saturation($color), color.lightness($color), color.alpha($color)
+
+
+///
+/// Convert color to HWB
+///
+/// @param {Color} $color - Base color.
+/// @param {Bool} $format - Formatting conversion results.
+/// @return {Color | List}
+///
+/// @access
+/// @require is-color.is-color
+/// @require is-bool.is-bool
+/// @require parameter-type.parameter-type
+/// @require color.hue
+/// @require color.whiteness
+/// @require color.blackness
+///
+/// @since 2024.2.3
+///
+@function color2hwb($color, $format: true)
+	@if not is-color.is-color($color)
+		@error parameter-type.parameter-type('color2hwb', 'color', $color, 'color')
+
+	@if not is-bool.is-bool($format)
+		@error parameter-type.parameter-type('color2hwb', 'format', $format, 'bool')
+
+	@if $format
+		@return hwb(color.hue($color), color.whiteness($color), color.blackness($color))
+
+	@return color.hue($color), color.whiteness($color), color.blackness($color)
