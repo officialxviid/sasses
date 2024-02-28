@@ -7,7 +7,10 @@
 //////////////////////////////////
 
 @use 'sass:map'
+@use 'sass:list'
 @use '../math/unitless'
+@use '../string/replace'
+@use '../list/find-nth'
 @use '../checker/is-number'
 @use '../exception/parameter'
 @use '../exception/parameter-type'
@@ -26,41 +29,88 @@ $hues: (0: "red", 15: "vermillion", 30: "orange", 45: "gold", 60: "yellow", 75: 
 
 
 ///
-/// Get color name by hue degree
+/// Hue names
 ///
-/// @param {Number} $hue
+/// @type List
+///
+/// @access public
+///
+/// @since 2024.2.3
+///
+$hue-names: map.values($hues)
+
+
+///
+/// Hue names
+///
+/// @type List
+///
+/// @access public
+///
+/// @since 2024.2.3
+///
+$hue-degrees: map.keys($hues)
+
+///
+/// Get hue name by degree
+///
+/// @param {Number} $hue-degree
 /// @param {String}
 ///
-/// @throw `#{$hue}` is not a number.
-/// @throw `#{$hue}` The hue unit should be `deg`.
-/// @throw `#{$hue-unitless}` Key is not available.
+/// @throw `#{$hue-degree}` is not a number.
+/// @throw `#{$hue-degree}` The hue unit should be `deg`.
 ///
 /// @access public
 /// @require is-number.is-number
-/// @require is-unitless.is-unitless
 /// @require parameter-type.parameter-type
-/// @require parameter.parameter
+/// @require is-unitless.is-unitless
 /// @require math.unit
+/// @require parameter.parameter
 /// @require unitless.unitless
-/// @require next.next
-/// @require $hues
+/// @require find-nth.find-nth
+/// @require list.nth
+/// @require $hue-degrees
+/// @require $hue-names
 ///
-/// @since 2024.2.2
+/// @since 2024.2.3
 ///
-@function hue-to-name($hue)
-	@if not is-number.is-number($hue)
-		@error parameter-type.parameter-type('hue-to-name', 'hue', $hue, 'number')
+@function hue-degree-to-name($hue-degree)
+	@if not is-number.is-number($hue-degree)
+		@error parameter-type.parameter-type('hue-degree-to-name', 'hue-degree', $hue-degree, 'number')
 
-	@if not is-unitless.is-unitless($hue) and math.unit($hue) != deg
-		@error parameter.parameter('The hue unit should be `deg`', 'hue-to-name', 'hue')
+	@if not is-unitless.is-unitless($hue-degree) and math.unit($hue-degree) != deg
+		@error parameter.parameter('The hue unit should be `deg`', 'hue-degree-to-name', 'hue-degree')
 
-	$hue-unitless: unitless.unitless($hue)
+	$hue-degree: unitless.unitless($hue-degree)
+	$hue-index: find-nth.find-nth($hue-degrees, $hue-degree)
 
-	@each $degree, $name in $hues
-		$next: next.next($hues, $degree, key)
+	@return list.nth($hue-names, $hue-index)
 
-		@if $next != false and is-number
-			@if $hue-unitless >= $degree and $hue-unitless < $next
-				@return $name
 
-	@error parameter.parameter('Key `#{$hue-unitless}` is not available', 'hue-to-name', 'hue')
+///
+/// Get hue degree by name
+///
+/// @param {String} $hue-name
+/// @param {Number}
+///
+/// @throw `#{$hue-name}` is not a string.
+///
+/// @access public
+/// @require is-string.is-string
+/// @require parameter-type.parameter-type
+/// @require replace.replace
+/// @require find-nth.find-nth
+/// @require list.nth
+/// @require $hue-names
+/// @require $hue-degrees
+///
+/// @since 2024.2.3
+///
+@function hue-name-to-degree($hue-name)
+	@if not is-string.is-string($hue-name)
+		@error parameter-type.parameter-type('hue-name-to-degree', 'hue-name', $hue-name, 'string')
+
+	$hue-name: replace.replace($hue-name, ' ', '-')
+	$hue-index: find-nth.find-nth($hue-names, $hue-name)
+
+	@return list.nth($hue-degrees, $hue-index)
