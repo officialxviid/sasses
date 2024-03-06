@@ -1,0 +1,28 @@
+{
+  "name": "sasses",
+  "version": "2024.3.0",
+  "description": "Sass modules provide more advanced functions",
+  "author": "XVIID <support@xviid.net>",
+  "homepage": "https://github.com/officialxviid/sasses#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/officialxviid/sasses.git"
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "module",
+    "list",
+    "map",
+    "meta",
+    "string",
+    "color",
+    "selector",
+    "math"
+  ],
+  "main": "./_index.sass",
+  "bugs": {
+    "url": "https://github.com/officialxviid/sasses/issues"
+  }
+}
