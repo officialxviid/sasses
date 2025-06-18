@@ -1,0 +1,99 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'sass:meta'
+@use 'sass:map'
+@use 'internal/invalid-type'
+@use 'variable'
+
+
+/// 
+/// Returns an error message stating a variable received the wrong type.
+/// 
+/// @param	{String}	$name		- The name of the variable which has received the wrong type.
+/// @param	{*}		$value		- The value which was received.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$types		- The types which are expected.
+/// @return	{String}	A string describing what types are acceptable for a variable and the value that is misconfigured.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	meta.keywords
+/// @require	map.has-key
+/// @require	map.get
+/// @require	variable.variable
+/// @require	invalid-type.invalid-type
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function variable-type($name, $value, $catch: false, $types...)
+	$keywords: meta.keywords($types)
+	$message: if(map.has-key($keywords, 'message'), map.get($keywords, 'message'), null)
+
+	@return variable.variable(invalid-type.invalid-type($types, $value, $message), $catch, $name)
+
+
+/// 
+/// Alias function name of throw.variable-type()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable-type
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function variable-type-exception($name, $value, $catch: false, $types...)
+	@return variable-type($name, $value, $catch, $types)
+
+
+/// 
+/// Use in place of variable type `@error` statements inside mixins or other control structures with CSS output (not functions).
+/// 
+/// @param	{String}	$message	- The message which describes the issue.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$names		- The names of the variables for which there is an issue.
+///
+/// @output	A variable type message detailing the source and error, when `$catch` is true.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	meta.keywords
+/// @require	map.has-key
+/// @require	map.get
+/// @require	invalid-type.invalid-type
+/// @require	variable.variable
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin variable-type($name, $value, $catch: false, $types...)
+	$keywords: meta.keywords($types)
+	$message: if(map.has-key($keywords, 'message'), map.get($keywords, 'message'), null)
+
+	@include variable.variable(invalid-type.invalid-type($types, $value, $message), $catch, $name)
+
+
+/// 
+/// Alias mixin name of throw.variable-type()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable-type
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin variable-type-exception($name, $value, $catch: false, $types...)
+	@include variable-type($name, $value, $catch, $types)
