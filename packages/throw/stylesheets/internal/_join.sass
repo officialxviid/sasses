@@ -1,0 +1,69 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'sass:list'
+@use 'delimiter'
+@use 'from'
+
+
+///
+/// Concatenates all of the items in an list to a string, separated by the list's separator or a specified glue string. If the list has only one item, then that item will be returned without using the glue.
+///
+/// @param	{List}		$list												- The list to join.
+/// @param	{String}	$glue [if(list.separator($list) == space, ' ', if(list.separator($list) == comma, ',', '/'))]	- The string to separate each pair of adjacent items of the list. The value is converted to a string if necessary.
+/// @return	{String}	A string with all list items joined.
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	from.join
+/// @require	delimiter.delimiter
+/// @require	_flat
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@function join($list, $glue: delimiter.delimiter($list))
+	@return from.join(_flat($list), $glue, 'list')
+
+
+///
+/// Recursively flattens a list.
+///
+/// @param	{List}	$list	- The list to be flattened.
+/// @return	{List}	
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	list.join
+/// @require	list.separator
+/// @require	list.length
+/// @require	list.append
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@function _flat($list)
+	$result: list.join((), (), list.separator($list))
+
+	@each $item in $list
+
+		@if list.length($item) > 1
+			$sub-list: _flat($item)
+
+			@each $sub-item in $sub-list
+				$result: list.append($result, $sub-item)
+
+		@else
+			$result: list.append($result, $item)
+
+	@return $result
