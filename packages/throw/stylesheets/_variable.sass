@@ -1,0 +1,79 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'internal/join'
+@use 'exception'
+
+/// 
+/// Returns an error message stating an issue with one or more variables.
+/// 
+/// @param	{String}	$message	- The message which describes the issue.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$names		- The names of the variables for which there is an issue.
+/// @return	{String}	A string describing the reason one or more variables are misconfigured.
+/// 
+@function variable($message, $catch: false, $names...)
+	$names: join.join($names, ', $')
+
+	@return exception.exception($message, $names, $catch)
+
+
+/// 
+/// Alias function name of throw.variable()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function variable-exception($message, $catch: false, $names...)
+    @return variable($message, $catch, $names)
+
+
+/// 
+/// Use in place of variable `@error` statements inside mixins or other control structures with CSS output (not functions).
+/// 
+/// @param	{String}	$message	- The message which describes the issue.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$names		- The names of the variables for which there is an issue.
+///
+/// @output	A variable message detailing the source and error, when `$catch` is true.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	join.join
+/// @require	exception.exception
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin variable($message, $catch: false, $names...)
+	$names: join.join($names, ', $')
+
+	@include exception.exception($message, $names, $catch)
+
+
+/// 
+/// Alias mixin name of throw.variable()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin variable-exception($message, $catch: false, $names...)
+	@include variable($message, $catch, $names)
