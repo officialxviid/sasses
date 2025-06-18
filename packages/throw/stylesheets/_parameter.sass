@@ -1,0 +1,83 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'variable'
+
+
+/// 
+/// Returns an error message stating an issue with one or more parameters.
+/// 
+/// @param	{String}	$message	- The message which describes the issue.
+/// @param	{*}		$context	- The name of the function or mixin issuing the error.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$names		- The names of the parameters for which there is an issue.
+/// @return	{String}	A string describing the reason one or more parameters are invalid.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable.variable
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function parameter($message, $context, $catch: false, $names...)
+	@return variable.variable('#{$message} for `#{$context}()`', $catch, $names)
+
+
+/// 
+/// Alias function name of throw.parameter()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	parameter
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function parameter-exception($message, $context, $catch: false, $names...)
+	@return parameter($message, $context, $catch, $names)
+
+
+/// 
+/// Use in place of parameter `@error` statements inside mixins or other control structures with CSS output (not functions).
+/// 
+/// @param	{String}	$message	- The message which describes the issue.
+/// @param	{*}		$context	- The name of the function or mixin issuing the error.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @param	{ArgList<*>}	$names		- The names of the parameters for which there is an issue.
+///
+/// @output	A parameter message detailing the source and error, when `$catch` is true.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	variable.variable
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin parameter($message, $context, $catch: false, $names...)
+	@include variable.variable('#{$message} for `#{$context}()`', $catch, $names)
+
+
+/// 
+/// Alias mixin name of throw.parameter()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	parameter
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin parameter-exception($message, $context, $catch: false, $names...)
+	@include parameter($message, $context, $catch, $names)
