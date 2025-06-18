@@ -1,0 +1,50 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'sass:list'
+
+
+///
+/// A message to CSS comments or command line terminal (via debug/warn).
+///
+/// @param	{String}	$message	- Message to output.
+/// @param	{String}	$output		- Type of output, either `comments`, `terminal`, `debug` or `warn`
+/// @param	{Number}	$padding	- Comment padding.
+///
+/// @output	A message to CSS comments or command line terminal (via debug/warn).
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	list.index
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@mixin message($message, $output: 'comments', $padding: 0)
+	$pad: ''
+
+	@if ($padding > 0) 
+		@for $i from 0 to $padding 
+			$pad: $pad + ' '
+
+	@each $line in $message 
+		@if list.index($output, 'comments') 
+			// sass-lint:disable-line no-empty-rulesets
+
+			/* #{$pad + $line} */ // sass-lint:disable-line no-css-comments
+
+		@if list.index($output, 'debug') or list.index($output, 'terminal')
+			@debug $line // sass-lint:disable-line no-debug
+
+		@if list.index($output, 'warn')
+			@warn $line
