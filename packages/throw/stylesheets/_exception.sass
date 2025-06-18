@@ -1,0 +1,119 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'sass:list'
+@use 'internal/message'
+
+
+/// 
+/// Format an error prefix, with source if available
+/// 
+/// @param	{String}	$source	- The source of the error, for additional context.
+/// @return	{String}	
+///
+/// @access	private
+/// @group	ThrowModule
+/// @since	1.0.0
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function _prefix($source)
+	@return if($source, 'ERROR [#{$source}]:', 'ERROR:')
+
+
+/// 
+/// Use in place of `@error` statements inside functions.
+/// When the `$catch` parameter (or global `$catch-errors` setting) is set, the function will return errors without stopping compilation. 
+/// This can be used to test errors as return values with True, or to "catch" errors and handle them in different ways.
+/// 
+/// @param	{String}	$message	- The error message to report.
+/// @param	{String}	$source [null]	- The source of the error, for additional context.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+/// @return	{String}	A message detailing the source and error, when `$catch` is true.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	_prefix
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function exception($message, $source: null, $catch: false)
+	@if $catch
+
+		@if ($catch == 'warn')
+			@warn $message
+
+		@return '#{_prefix($source)} #{$message}'
+
+	@error $message
+
+
+/// 
+/// Alias function name of throw.exception()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	exception
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function throw-exception($message, $source: null, $catch: false)
+	@return exception($message, $source, $catch)
+
+
+/// 
+/// Use in place of `@error` statements inside mixins or other control structures with CSS output (not functions).
+/// When the `$catch` parameter (or global `$catch-errors` setting) is set, the function will output errors as comments without stopping compilation.
+/// This can be used to test errors as return values with True, or to "catch" errors and handle them in different ways.
+/// 
+/// @param	{String}	$message	- The error message to report.
+/// @param	{String}	$source [null]	- The source of the error, for additional context.
+/// @param	{Bool | 'warn'}	$catch [false]	- Optionally catch errors and output them as CSS comments without stopping compilation.
+///
+/// @output	A message detailing the source and error, when `$catch` is true.
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	messages.message
+/// @require	_prefix
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin exception($message, $source: null, $catch: false)
+	@if $catch
+
+		@if ($catch == 'warn')
+			@warn $message
+
+		@include messages.message(_prefix($source), 'comments')
+		@include messages.message($message, 'comments', $padding: 2)
+
+	@else
+		@error $message
+
+
+/// 
+/// Alias mixin name of throw.exception()
+///
+/// @access	public
+/// @group	API
+/// @since	1.0.0
+/// @require	exception
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@mixin throw-exception($message, $source: null, $catch: false)
+	@include exception($message, $source, $catch)
