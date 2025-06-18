@@ -1,0 +1,122 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'sass:list'
+@use 'sass:meta'
+@use 'sass:string'
+@use 'delimiter'
+
+
+///
+/// Creates a string from the provided value.
+///
+/// @param	{*}		$value	- The value from which to generate a string.
+/// @return	{String}	The string representation of the given value.
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	meta.type-of
+/// @require	meta.inspect
+/// @require	string.slice
+/// @require	string.index
+/// @require	list.is-bracketed
+/// @require	to-string
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+/// 
+@function from($value)
+	$type: meta.type-of($value)
+
+	@if $type == 'string'
+		@return $value
+
+	@if $type == 'map'
+		@return '{' + to-string($value, $type) + '}'
+
+	@if $type == 'list' or $type == 'arglist'
+		$is-bracketed: list.is-bracketed($value)
+		$value: to-string($value, $type)
+
+		@return if($is-bracketed, '[' + $value + ']', '(' + $value + ')')
+
+	@if $type == 'function'
+		$value: meta.inspect($value)
+		$value: string.slice($value, string.index($value, '"') + 1)
+		$value: string.slice($value, 0, string.index($value, '"') - 1) + '()'
+
+	@return '#{$value}'
+
+
+///
+/// Returns a string representing the specified list or map and its items.
+///
+/// @param	{List}				$value	- The value from which to generate a string.
+/// @param	{'list' | 'map' | 'arglist'}	$type	- The type value from which to generate a string.
+/// @return	{String}			A string representing the given list.
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	join
+/// @require	delimiter.delimiter
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@function to-string($value, $type)
+
+	@if $type == 'map'
+		@return join($value, '; ', $type)
+
+	@return join($value, delimiter.delimiter($value), $type)
+
+
+///
+/// Concatenates all of the items in an iterable value to a string, separated by the specified glue string. If the iterable has only one item, then that item will be returned without using the glue.
+///
+/// @param	{List | Map | ArgList}		$value - The iterable to join.
+/// @param	{String}			$glue - The string to separate each pair of adjacent items of the iterable value. The value is converted to a string if necessary.
+/// @param	{'list' | 'map' | 'arglist'}	$type - The type used to determine expected format.
+/// @return	{String}
+///
+/// @access	internal
+/// @group	ThrowModule
+/// @since	1.0.0
+/// @require	from
+/// @require	list.length
+/// @require	meta.keywords
+/// 
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@function join($value, $glue, $type)
+	$length: list.length($value)
+	$glue: from($glue)
+	$result: ''
+	$index: 1
+
+	@each $item in $value
+
+		@if $type == 'map'
+			$item: join($item, ': ', 'list')
+
+		$result: $result + from($item)
+
+		@if $index < $length
+			$result: $result + $glue
+
+		$index: $index + 1
+
+	@if $type == 'arglist'
+		$result: $result + $glue + join(meta.keywords($value), ', ', 'map')
+
+	@return $result
