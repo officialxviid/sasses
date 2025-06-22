@@ -1,0 +1,17 @@
+{
+  "name": "@sasses/throw",
+  "description": "Provides Sass mixins and functions to standardize exception messages.",
+  "version": "1.0.0",
+  "main": "./_index.sass",
+  "keywords": [
+    "sass",
+    "scss",
+    "module",
+    "message",
+    "throw",
+    "exception"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
