@@ -20,7 +20,7 @@
 	"main": "./_index.sass",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/officialxviid/sasses.git"
+		"url": "git+https://github.com/officialxviid/sasses.git"
 	},
 	"engines": {
 		"node": ">=18"
