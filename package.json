@@ -1,7 +1,7 @@
 {
 	"name": "sasses",
 	"title": "Sass Modules (Sasses)",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Sass modules (Sasses) provide more advanced variables, mixins and functions for Sass.",
 	"keywords": [
 		"sass",

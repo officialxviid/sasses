@@ -1,7 +1,7 @@
 {
 	"name": "officialxviid/sasses",
 	"title": "Sass Modules (Sasses)",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"prefer-stable": true,
 	"minimum-stability": "dev",
 	"description": "Sass modules (Sasses) provide more advanced variables, mixins and functions for Sass.",
