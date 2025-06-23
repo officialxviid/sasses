@@ -1,0 +1,34 @@
+////
+///	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+///	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+///	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+///
+///	       (c) Copyright 2025 XVIID (https://xviid.net/)
+///
+///	For the full copyright and license information, please view
+///	the LICENSE file that was distributed with this source code.
+////
+
+@charset 'UTF-8'
+
+@use 'internal/constant'
+
+
+///
+/// Convert to bool
+///
+/// @param	{*} $value - value to cast
+/// @return	{Boolean}
+///
+/// @access	public
+/// @group	API
+/// @require	constant.$FALSEY_VALUES
+///
+/// @author	XVIID Sass Dev <sassdev@xviid.net>
+///
+@function to-bool($value)
+
+	@if index(constant.$FALSEY_VALUES, $value)
+		@return false
+
+	@return true
