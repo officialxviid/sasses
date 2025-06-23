@@ -1,0 +1,25 @@
+#
+#	            █▀    ▄▀█    █▀    █▀    █▀▀    █▀
+#	            ▄█    █▀█    ▄█    ▄█    ██▄    ▄█
+#	            𝑃𝑟𝑜𝑣𝑖𝑑𝑒𝑠 𝑚𝑜𝑟𝑒 𝑎𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑆𝑎𝑠𝑠 𝑚𝑜𝑑𝑢𝑙𝑒𝑠
+#
+#	       (c) Copyright 2025 XVIID (https://xviid.net/)
+#
+#	For the full copyright and license information, please view
+#	the LICENSE file that was distributed with this source code.
+#
+
+# editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+indent_size = 2
+indent_style = tab
+tab_width = 2
+trim_trailing_whitespace = true
+end_of_line = lf
+insert_final_newline = true
+
+[*.{md,mdx}]
+indent_style = space
