@@ -1,17 +1,25 @@
 {
-  "name": "@sasses/throw",
-  "description": "Provides Sass mixins and functions to standardize exception messages.",
-  "version": "1.0.0",
-  "main": "./_index.sass",
-  "keywords": [
-    "sass",
-    "scss",
-    "module",
-    "message",
-    "throw",
-    "exception"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@sasses/throw",
+	"description": "Provides Sass mixins and functions to standardize exception messages.",
+	"version": "1.0.0",
+	"main": "./_index.sass",
+	"keywords": [
+		"sass",
+		"scss",
+		"module",
+		"message",
+		"throw",
+		"exception"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"bugs": {
+		"url": "https://github.com/officialxviid/sasses/issues"
+	},
+	"author": {
+		"name": "XVIID Sass Dev",
+		"email": "sassdev@xviid.net",
+		"url": "https://xviid.net/teams/sassdev"
+	}
 }
