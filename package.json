@@ -1,0 +1,58 @@
+{
+	"name": "sasses",
+	"title": "Sass Modules (Sasses)",
+	"version": "1.0.0",
+	"description": "Sass modules (Sasses) provide more advanced variables, mixins and functions for Sass.",
+	"keywords": [
+		"sass",
+		"scss",
+		"dart-sass",
+		"stylesheets",
+		"module",
+		"package",
+		"throw",
+		"exception",
+		"message"
+	],
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/officialxviid/sasses/wiki",
+	"main": "./_index.sass",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/officialxviid/sasses.git"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"workspaces": [
+		"packages/*",
+		"stylesheets/*"
+	],
+	"files": [
+		"/stylesheets/**/*.s{a,c}ss",
+		"/*.s{a,c}ss",
+		"CHANGELOG.md",
+		"CONTRIBUTING.md",
+		"SECURITY.md",
+		"CODE_OF_CONDUCT.md",
+		"LICENSE.txt",
+		"README.md"
+	],
+	"exports": {
+		"sass": "./_index.sass"
+	},
+	"bugs": {
+		"url": "https://github.com/officialxviid/sasses/issues"
+	},
+	"author": {
+		"name": "XVIID Sass Dev",
+		"email": "sassdev@xviid.net",
+		"url": "https://xviid.net/teams/sassdev"
+	},
+	"devDependencies": {
+		"npm-run-all": "^4.1.5",
+		"sass": "^1.89.2",
+		"sass-embedded": "^1.89.2",
+		"sass-true": "^8.1.0"
+	}
+}
